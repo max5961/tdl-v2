@@ -1,0 +1,86 @@
+.header {
+    width: 100%;
+    height: 60px;
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    gap: 5px;
+    border-bottom: 2px solid #b8b8b8;
+}
+    .header .title-container {
+        height: 100%;
+        padding: 0 50px 0 25px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #626262;
+        position: relative;
+        overflow: hidden;
+        color: rgb(247 247 247);
+    }
+
+    .header .title-container img {
+        width: 60px;
+        height: 65px;
+    }
+
+    .title-container .border-top {
+        position: absolute;
+        left: 81px;
+        bottom: 43px;
+        width: 203px;
+        height: 5px;
+        background-color: #75a375;
+        border-radius: 20px;
+    }
+    .pointer-top,
+    .pointer-bottom {
+        position: absolute;
+        right: -30px;
+        width: 50px;
+        height: 50px;
+        background-color: #e9e9e9;
+        transform: rotate(45deg);
+    }
+    .pointer-top,
+    .pointer-back-top {
+        top: 35px;
+    }
+    .pointer-bottom,
+    .pointer-back-bottom {
+        top: -25px;
+    }
+
+    .new-project-container .pointer-back-top,
+    .new-project-container .pointer-back-bottom {
+        position: absolute;
+        left: -20px;
+        width: 50px;
+        height: 50px;
+        background-color:inherit;
+        transform: rotate(45deg);
+    }
+    
+
+    .new-project-container {
+        height: 100%;
+        padding: 0 50px 0 25px;
+        background-color: #75a375;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+        z-index: 1;
+        transition: all 75ms ease-in-out;
+        color: rgb(58, 58, 58);
+    }
+    .new-project-container:hover {
+        background-color: #5e835e;
+        color: rgb(245, 245, 245);
+        padding-right: 90px;
+    }
+    .new-project-container:active {
+        background-color: #4d694d;
+    }
