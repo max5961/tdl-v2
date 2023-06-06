@@ -1,0 +1,97 @@
+@import url(./root.css);
+
+.sidebar-container {
+    min-height: 1000px;
+    height: auto;
+    width: 225px;
+    flex-shrink: 0;
+    background-color: var(--dark1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    color: #fafafa;
+    font-weight: 700;
+    overflow: hidden;
+    transition: width 100ms ease-in-out;
+}
+.sidebar-container.hidden {
+    width: 0;
+}
+
+.top-sidebar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #383838;
+    width: 100%;
+    height: 60px;
+}
+    .top-sidebar .container {
+        width: 90%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+    }
+    .top-sidebar img {
+        padding: 5px;
+        border-radius: 50%;
+    }
+    .top-sidebar .container :nth-child(1) {
+        transition: background-color 130ms ease-in-out;
+    }
+    .top-sidebar .container :nth-child(1):hover {
+        background-color: var(--gray2);
+    }
+    .top-sidebar .container :nth-child(1):active {
+        background-color: var(--gray3);
+    }
+
+.sidebar-container img,
+.sidebar-minimized img {
+    width: 40px;
+    height: 40px;
+}
+ul.sidebar-content img {
+    width: 28px;
+    height: 28px;
+}
+.sidebar-container img.logo {
+    width: 55px;
+    height: 55px;
+}
+ul.sidebar-content .tasks-scheduled-today img,
+ul.sidebar-content .all-projects img {
+    width: 27px;
+    height: 27px;
+}
+    .sidebar-content {
+        width: 90%;
+    }
+    .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .sidebar-content button {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        height: 42px;
+        border-radius: 10px;
+        padding-left: 20px;
+        padding-right: 20px;
+        transition: background-color 130ms ease-in-out;
+    }
+    .sidebar-content button div {
+        flex-grow: 1;
+        text-align: left;
+    }
+    .sidebar-content button:hover {
+        background-color: var(--dark2);
+    }
+    .sidebar-content button:active {
+        background-color: var(--dark3);
+    }
