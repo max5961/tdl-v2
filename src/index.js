@@ -9,3 +9,7 @@ document.querySelector('.maximize-sidebar').onclick = () => {
     document.querySelector('.sidebar-container').classList.remove('hidden');
     document.querySelector('.sidebar-minimized').classList.remove('visible');
 }
+
+document.querySelector('.new-project-container').onclick = () => {
+    
+}
