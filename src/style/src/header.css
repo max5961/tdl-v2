@@ -7,7 +7,7 @@
     align-items: center;
     overflow: hidden;
     gap: 5px;
-    border-bottom: 2px solid #b8b8b8;
+    border-bottom: 2px solid #e0e0e0;
 }
     .header .title-container {
         height: 100%;
@@ -15,10 +15,11 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        background-color: #626262;
+        background-color: #424242;
         position: relative;
         overflow: hidden;
         color: rgb(247 247 247);
+        font-size: .95rem;
     }
 
     .header .title-container img {
@@ -30,7 +31,7 @@
         position: absolute;
         left: 81px;
         bottom: 43px;
-        width: 203px;
+        width: 196px;
         height: 5px;
         background-color: #75a375;
         border-radius: 20px;

@@ -1,4 +1,4 @@
-import './styles/index.css';
+import './style/index.css';
 
 document.querySelector('.minimize-sidebar').onclick = () => {
     document.querySelector('.sidebar-container').classList.add('hidden');
