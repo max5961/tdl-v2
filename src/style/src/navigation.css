@@ -45,7 +45,7 @@ nav.mobile button:active {
 
 /* .sidebar.maximized */
 .sidebar.maximized {
-    min-height: 1000px;
+    min-height: 100vh;
     height: auto;
     width: 225px;
     flex-shrink: 0;
@@ -102,7 +102,7 @@ nav.mobile button:active {
 
 /* .sidebar.minimized */
 .sidebar.minimized {
-    min-height: 1000px;
+    min-height: 100vh;
     height: auto;
     width: 0;
     flex-shrink: 0;
@@ -159,7 +159,6 @@ nav.mobile {
     bottom: 0;
     background-color: var(--dark1);
     color: var(--light-gray1);
-    font-size: .9rem;
     text-align: center;
 }
 nav.mobile img {
@@ -190,6 +189,7 @@ nav.mobile ul.mobile-nav-content button {
     gap: 2px;
     height: 100%;
     width: 100%;
+    font-size: .65rem;
     transition: background-color 120ms ease-in-out;
 }
 nav.mobile ul.mobile-nav-content button.chosen-tab {
@@ -197,17 +197,4 @@ nav.mobile ul.mobile-nav-content button.chosen-tab {
 }
 nav.mobile ul.mobile-nav-content button.new-project {
     gap: 7px;
-}
-
-
-/* grid areas */
-.sidebar {
-    grid-area: sidebar;
-}
-header {
-    grid-area: header;
-}
-
-#main-content-container {
-    grid-area: content;
 }

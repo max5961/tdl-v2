@@ -73,7 +73,6 @@ header .new-project-container {
     justify-content: center;
     align-items: center;
     position: relative;
-    z-index: 1;
     transition: all 75ms ease-in-out;
     color: rgb(58, 58, 58);
 }
