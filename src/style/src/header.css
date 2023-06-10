@@ -54,8 +54,8 @@ header .box-back-bottom {
     top: -25px;
 }
 
-header .new-project-container .box-back-top,
-header .new-project-container .box-back-bottom {
+header .box-back-top,
+header .box-back-bottom {
     position: absolute;
     left: -20px;
     width: 50px;

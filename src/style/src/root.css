@@ -24,6 +24,12 @@ li {
     position: relative;
 }
 
+#main-content-container {
+    width: 100%;
+    height: 100%;
+    background-color: mistyrose;
+}
+
 :root {
     --dark1: #333333;
     --dark2: #4b4b4b;
