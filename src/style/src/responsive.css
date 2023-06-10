@@ -1,12 +1,12 @@
 @media screen and (max-width: 790px) {
-    .header .title-container h2 {
+    header .logo h2 {
         font-size: .8rem;
     }
-    .header .title-container img {
+    header .logo img {
         width: 45px;
         height: 50px;
     }
-    .header .title-container .border-top {
+    header .logo .border-top {
         left: 66px;
         bottom: 39px;
         width: 110px;
@@ -15,15 +15,15 @@
 }
 
 @media screen and (max-width: 680px) {
-    .header .title-container h2 {
+    header .logo h2 {
         font-size: .7rem;
         margin-left: 2px;
     }
-    .header .title-container .border-top {
+    header .logo .border-top {
         visibility: hidden;
     }
 
-    .header .new-project-container h3{
+    header .new-project-container h3{
         white-space: nowrap;
     }
 }

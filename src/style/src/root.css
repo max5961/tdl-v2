@@ -13,6 +13,10 @@ button {
     border: none;
 }
 
+li {
+    list-style-type: none;
+}
+
 #content {
     width: auto;
     height: auto;
