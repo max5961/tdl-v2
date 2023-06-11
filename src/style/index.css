@@ -1,5 +1,7 @@
 @import url('./src/root.css');
 @import url('./src/navigation.css');
 @import url('./src/header.css');
-@import url('./src/responsive.css');
 @import url('./src/new-project.css');
+@import url('./src/projects-view.css');
+
+@import url('./src/responsive.css');

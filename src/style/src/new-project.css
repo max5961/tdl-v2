@@ -20,12 +20,12 @@
     padding: 80px;
     border-radius: 10px;
     position: relative;
-    transition: all 120ms ease-in-out;
+    transition: height, width 120ms ease-in-out;
     overflow: hidden;
 }
 .new-project-modal form.visible {
-    height: 200px;
-    max-width: 500px;
+    height: auto;
+    max-width: 600px;
 }
 .new-project-modal .button-container {
     display: flex;

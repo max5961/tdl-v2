@@ -36,7 +36,7 @@ input {
     width: 100%;
     height: auto;
     flex-grow: 1;
-    background-color: mistyrose;
+    background-color: rgb(247, 247, 247);
 }
 
 .header-content-mobile-nav-container {

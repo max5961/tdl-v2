@@ -1,0 +1,118 @@
+.projects-view {
+    height: 100%;
+    width: 100%;
+    max-width: 1000px;
+    background-color:rgb(255, 255, 255);
+    border-right: 1px solid rgb(236, 236, 236);
+    padding: 25px;
+}
+
+.projects-view subheader {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 5px;
+}
+.projects-view subheader .left-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    gap: 10px;
+    position: relative;
+}
+.projects-view .projects-count {
+    position: absolute;
+    bottom: 5px;
+    right: -32px;
+}
+.projects-view img {
+    width: 45px;
+    height: 45px;
+    padding: 8px;
+}
+.projects-view subheader button {
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 120ms ease-in-out;
+}
+.projects-view subheader button:hover,
+.projects-view .project-container button.adjust-height:hover {
+    background-color: #ececec;
+}
+.projects-view subheader button:active,
+.projects-view .project-container button.adjust-height:active  {
+    background-color: #dadada;
+}
+
+.projects-view .project-container img,
+.projects-view .project-container button.adjust-height {
+    width: 35px;
+    height: 35px;
+    padding: 5px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.projects-view .project-container {
+    width: 100%;
+    height: 65px;
+    overflow: hidden;
+    border-bottom: 1px solid lightgrey;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+}
+.projects-view .project-container.maximized {
+    height: auto;
+    padding-bottom: 15px;
+}
+.projects-view img.adjust-height {
+    transition: transform 90ms ease-in-out;
+}
+.projects-view img.adjust-height.rotated {
+    transform: rotate(90deg)
+} 
+.projects-view .top-content {
+    width: 100%;
+    height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 10px;
+    flex-shrink: 0;
+}
+.projects-view .bottom-content {
+    padding-left: 45px;
+    display: flex;
+    flex-direction: column;
+}
+.projects-view .bottom-content p.description-content {
+    margin-bottom: 10px;
+}
+
+.projects-view .tasks-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.projects-view .link-to-project {
+    transition: background-color 120ms ease-in-out;
+}
+.projects-view .link-to-project:hover {
+    background-color: #0099ff25;
+}
+.projects-view .link-to-project:active {
+    background-color: #0084db25;
+}
+
+
+
+

@@ -101,7 +101,19 @@
     #main-content-container {
         margin-top: 60px;
         margin-bottom: 80px;
-        padding: 10px;
         overflow: auto;
+    }
+
+    .new-project-modal form {
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 90vw;
+    }
+    .new-project-modal button.cancel,
+    .new-project-modal button[type=submit] {
+        width: 115px;
+    }
+    .projects-view .projects-container {
+        justify-content: center;
     }
 }

@@ -1,3 +1,17 @@
+// insert as first child of #content
+<div class="new-project-modal">
+    <form action="">
+        <label for="project-name">Project Name:</label>
+        <input type="text" id="project-name" required autofocus>
+        <label for="desc">Description:</label>
+        <textarea id="project-description"></textarea>
+        <div class="button-container">
+            <button class="cancel">Cancel</button>
+            <button type="submit">Create Project</button>
+        </div>
+    </form>
+</div>
+
 <div class="sidebar maximized">
     <div class="top">
         <button id="minimize-sidebar">
@@ -66,58 +80,60 @@
     </ul>
 </div>
 
-<header>
-    <div class="logo">
-        <img src="../src/view/icons/logo1.png" alt="to-do-list logo">
-        <h2>Project Manager</h2>
-        <div class="border-top"></div>
-        <div class="box-front-top"></div>
-        <div class="box-front-bottom"></div>
+<div class="header-content-mobile-nav-container">
+    <header>
+        <div class="logo">
+            <img src="../src/view/icons/logo1.png" alt="to-do-list logo">
+            <h2>Project Manager</h2>
+            <div class="border-top"></div>
+            <div class="box-front-top"></div>
+            <div class="box-front-bottom"></div>
+        </div>
+        <button class="new-project-container">
+            <div class="box-back-top"></div>
+            <div class="box-back-bottom"></div>
+            <h3 class="new-project">New Project</h3>
+            <div class="box-front-top"></div>
+            <div class="box-front-bottom"></div>
+        </button>
+    </header>
+
+    <div id="main-content-container">
+        hello world
     </div>
-    <button class="new-project-container">
-        <div class="box-back-top"></div>
-        <div class="box-back-bottom"></div>
-        <h3 class="new-project">New Project</h3>
-        <div class="box-front-top"></div>
-        <div class="box-front-bottom"></div>
-    </button>
-</header>
 
-<div id="main-content-container">
-    hello world
+    <nav class="mobile">
+        <ul class="mobile-nav-content">
+            <li>
+                <button class="scheduled-today">
+                    <img src="../src/view/icons/scheduled-today.png" alt="" class="scheduled-today">
+                    <p>Today</p>
+                </button>
+            </li>
+            <li>
+                <button class="scheduled">
+                    <img src="../src/view/icons/scheduled.png" alt="" class="scheduled">
+                    <p>Scheduled</p>
+                </button>
+            </li>
+            <li>
+                <button class="new-project">
+                    <img src="../src/view/icons/add.png" alt="">
+                    <p>New</p>
+                </button>
+            </li>
+            <li>
+                <button class="projects">
+                    <img src="../src/view/icons/project.png" alt="" class="all-projects">
+                    <p>Projects</p>
+                </button>
+            </li>
+            <li>
+                <button class="tasks chosen-tab">
+                    <img src="../src/view/icons/tasks.png" alt="" class="all-tasks">
+                    <p>Tasks</p>
+                </button>
+            </li>
+        </ul>
+    </nav>
 </div>
-
-<nav class="mobile">
-    <ul class="mobile-nav-content">
-        <li>
-            <button class="scheduled-today">
-                <img src="../src/view/icons/scheduled-today.png" alt="" class="scheduled-today">
-                <p>Today</p>
-            </button>
-        </li>
-        <li>
-            <button class="scheduled">
-                <img src="../src/view/icons/scheduled.png" alt="" class="scheduled">
-                <p>Scheduled</p>
-            </button>
-        </li>
-        <li>
-            <button class="new-project">
-                <img src="../src/view/icons/add.png" alt="">
-                <p>New</p>
-            </button>
-        </li>
-        <li>
-            <button class="projects">
-                <img src="../src/view/icons/project.png" alt="" class="all-projects">
-                <p>Projects</p>
-            </button>
-        </li>
-        <li>
-            <button class="tasks chosen-tab">
-                <img src="../src/view/icons/tasks.png" alt="" class="all-tasks">
-                <p>Tasks</p>
-            </button>
-        </li>
-    </ul>
-</nav>
