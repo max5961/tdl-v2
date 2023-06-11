@@ -208,7 +208,15 @@
     color: rgb(121, 121, 121);
 }
 
-
+.tasks-view .content-container .left-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+.tasks-view .content-container .left-container p.parent-project-name {
+    font-size: 15px;
+}
 
 
 

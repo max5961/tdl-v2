@@ -99,7 +99,8 @@
     </header>
 
     <div id="main-content-container">
-        // projects view
+
+// projects view
         <div class="projects-view">
             <section>
                 <div class="left-container">
@@ -131,6 +132,77 @@
             </div>
 
     </div>
+
+// single project view
+        <div class="projects-view single-project">
+            <section>
+                <button><h1>Projects</h1></button><span class="divider">></span><span class="name">Project 1</span></h1>
+            </section>
+
+            <div class="project-description">
+                <h2>Description</h2>
+                <p class="description-content">
+                    Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ipsa dolorum fuga at velit. Animi illo laboriosam natus perspiciatis ab necessitatibus odit? Maiores non, itaque aliquam totam molestiae deleniti. Unde!
+                </p>
+            </div>
+
+            <h2 class="tasks">Tasks</h2>
+
+            <form class="add-task-container">
+                <button><img src="../src/view/icons/add.png" alt=""></button>
+                <input type="text" placeholder="task name">
+            </form>
+
+            <div class="project-container tasks-container">
+                <div class="adjust-height-container">
+                    <button class="adjust-height"><img class="adjust-height" src="../src/view/icons/right-carrot.svg" alt=""></button>
+                </div>
+                <div class="content-container">
+                    <div class="top-content">
+                        <h3>Task 1</h3>
+                        <div class="right-container">
+                            <div class="date">6/12/2023</div>
+                            <div class="priority-circle">!</div>
+                            <button class="edit-task"><img src="../src/view/icons/edit.svg" alt=""></button>
+                        </div>
+                    </div>
+                    <div class="bottom-content">
+                        <h4 class="notes">Notes</h4>
+                        <p class="notes-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+// tasks view.  Can use this as a template for different task views by changing the textContent of the H1.
+<div class="projects-view single-project all-tasks">
+    <section>
+        <h1>Scheduled Today</h1>
+    </section>
+
+    <div class="project-container tasks-container tasks-view">
+        <div class="adjust-height-container">
+            <button class="adjust-height"><img class="adjust-height" src="../src/view/icons/right-carrot.svg" alt=""></button>
+        </div>
+        <div class="content-container">
+            <div class="top-content">
+                <div class="left-container">
+                    <h3>Task 1</h3>
+                    <p class="parent-project-name">(Project 1)</p>
+                </div>
+                <div class="right-container">
+                    <div class="date">6/12/2023</div>
+                    <div class="priority-circle">!</div>
+                    <button class="edit-task"><img src="../src/view/icons/edit.svg" alt=""></button>
+                </div>
+            </div>
+            <div class="bottom-content">
+                <h4 class="notes">Notes</h4>
+                <p class="notes-content">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?</p>
+            </div>
+        </div>
+    </div>
+</div>
 
     <nav class="mobile">
         <ul class="mobile-nav-content">
