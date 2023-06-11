@@ -15,11 +15,14 @@ header .logo {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #424242;
+    background-color: #cbcbcb;
     position: relative;
     overflow: hidden;
     color: rgb(247 247 247);
     font-size: .95rem;
+}
+header .logo h2 {
+    color: rgb(60, 60, 60);
 }
 
 header .logo img {

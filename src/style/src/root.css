@@ -23,6 +23,12 @@ textarea {
 
 input {
     outline: none;
+    
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    background-color: inherit;
+    height: 35px;
 }
 
 #content {
