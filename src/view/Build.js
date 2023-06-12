@@ -17,7 +17,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'minimize-navigation',
-                            'event-listeners':{'click':Event.minimizenavigation},
+                            'event-listeners':{'click':Event.minimizeNavigation},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -170,7 +170,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'maximize-navigation',
-                            'event-listeners':{'click':Event.maximizenavigation},
+                            'event-listeners':{'click':Event.maximizeNavigation},
                             'children':[
                                 new Element({
                                     'tagname':'img',

@@ -77,13 +77,13 @@ export class Event {
     }
 
     // click
-    static maximizenavigation() {
+    static maximizeNavigation() {
         document.querySelector('.navigation.maximized').classList.remove('hidden');
         document.querySelector('.navigation.minimized').classList.remove('visible');
     }
 
     // click
-    static minimizenavigation() {
+    static minimizeNavigation() {
         document.querySelector('.navigation.maximized').classList.add('hidden');
         document.querySelector('.navigation.minimized').classList.add('visible');
     }
