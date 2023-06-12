@@ -3,37 +3,37 @@ import { Event } from '../controller/Event.js';
 import { Controller } from '../controller/controller.js';
 
 export class Build {
-    static sidebarMaximized() {
+    static navigationMaximized() {
         return new Element({
             'tagname':'div',
-            'class':'sidebar maximized',
+            'class':'navigation maximized',
             'children':[
 
-                // top sidebar
+                // top navigation
                 new Element({
                     'tagname':'div',
                     'class':'top',
                     'children':[
                         new Element({
                             'tagname':'button',
-                            'id':'minimize-sidebar',
-                            'event-listeners':{'click':Event.minimizeSidebar},
+                            'id':'minimize-navigation',
+                            'event-listeners':{'click':Event.minimizenavigation},
                             'children':[
                                 new Element({
                                     'tagname':'img',
                                     'class':'minimize',
                                     'src':'../src/view/icons/minimize2.svg',
-                                    'alt':'minimize-sidebar',
+                                    'alt':'minimize-navigation',
                                 }).build(),
                             ]
                         }).build(),
                     ]
                 }).build(),
 
-                // sidebar content
+                // navigation content
                 new Element({
                     'tagname':'ul',
-                    'class':'sidebar-content',
+                    'class':'navigation-content',
                     'children':[
                         // scheduled-today
                         new Element({
@@ -157,20 +157,20 @@ export class Build {
         }).build();
     }
 
-    static sidebarMinimized() {
+    static navigationMinimized() {
         return new Element({
             'tagname':'div',
-            'class':'sidebar minimized',
+            'class':'navigation minimized',
             'children':[
-                // top sidebar 
+                // top navigation 
                 new Element({
                     'tagname':'div',
                     'class':'top',
                     'children':[
                         new Element({
                             'tagname':'button',
-                            'id':'maximize-sidebar',
-                            'event-listeners':{'click':Event.maximizeSidebar},
+                            'id':'maximize-navigation',
+                            'event-listeners':{'click':Event.maximizenavigation},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -183,10 +183,10 @@ export class Build {
                     ]
                 }).build(),
 
-                // sidebar content
+                // navigation content
                 new Element({
                     'tagname':'ul',
-                    'class':'sidebar-content',
+                    'class':'navigation-content',
                     'children':[
                         // scheduled today
                         new Element({
@@ -351,12 +351,12 @@ export class Build {
 
     static mobileNav() {
         return new Element({
-            'tagname':'nav',
-            'class':'mobile',
+            'tagname':'div',
+            'class':'navigation mobile',
             'children':[
                 new Element({
                     'tagname':'ul',
-                    'class':'mobile-nav-content',
+                    'class':'navigation-content',
                     'children':[
                         // scheduled-today
                         new Element({

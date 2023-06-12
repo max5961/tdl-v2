@@ -1,50 +1,53 @@
-.sidebar .top img,
-.sidebar .top button {
+.navigation .top img,
+.navigation .top button {
     width: 40px;
     height: 40px;
     padding: 5px;
     border-radius: 50%;
 }
-.sidebar .top button {
+.navigation .top button {
     display: flex;
     justify-content: center;
     align-items: center;
     border-radius: 50%;
     transition: background-color 130ms ease-in-out;
 }
-.sidebar .top button:hover {
+.navigation .top button:hover {
     background-color: var(--gray2);
 }
-.sidebar .top button:active {
+.navigation .top button:active {
     background-color: var(--gray3);
 }
-.sidebar .top {
+.navigation .top {
     height: 60px;
     width: 100%;
 }
-.sidebar .sidebar-content img {
+.navigation .navigation-content img {
     width: 28px;
     height: 28px;
 }
-.sidebar ul.sidebar-content button.projects img {
+.navigation .navigation-content button.projects img {
     width: 26px;
     height: 26px;
 }
-.sidebar .sidebar-content button,
-nav.mobile button {
-    transition: background-color 130ms ease-in-out;
+.navigation .navigation-content button {
+    transition: background-color 100ms ease-in-out;
 }
-.sidebar .sidebar-content button:hover,
-nav.mobile button:hover {
+.navigation .navigation-content button:hover {
     background-color: var(--dark2);
 }
-.sidebar .sidebar-content button:active,
-nav.mobile button:active {
+.navigation .navigation-content button:active {
     background-color: var(--dark3);
 }
+.navigation .navigation-content button.chosen-tab {
+    background-color: var(--dark2);
+}
+.navigation.mobile .navigation-content button.chosen-tab {
+    background-color: #121212;
+}
 
-/* .sidebar.maximized */
-.sidebar.maximized {
+/* .navigation.maximized */
+.navigation.maximized {
     min-height: 100vh;
     height: auto;
     width: 225px;
@@ -59,28 +62,28 @@ nav.mobile button:active {
     overflow: hidden;
     transition: width 100ms ease-in-out;
 }
-.sidebar.maximized.hidden {
+.navigation.maximized.hidden {
     width: 0;
 }
-.sidebar.maximized .top {
+.navigation.maximized .top {
     display: flex;
     justify-content: flex-end;
     align-items: center;
     background-color: #383838;
     padding-right: 9%;
 }
-.sidebar.maximized .top img.minimize {
+.navigation.maximized .top img.minimize {
     padding: 5px;
     border-radius: 50%;
     transition: background-color 130ms ease-in-out;
 }
-.sidebar.maximized ul.sidebar-content {
+.navigation.maximized .navigation-content {
     width: 90%;
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
-.sidebar.maximized .sidebar-content button {
+.navigation.maximized .navigation-content button {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -92,16 +95,16 @@ nav.mobile button:active {
     padding-left: 20px;
     padding-right: 20px;
 }
-.sidebar.maximized .sidebar-content .title {
+.navigation.maximized .navigation-content .title {
     flex-grow: 1;
     text-align: left;
 }
-.sidebar.maximized .sidebar-content .count {
+.navigation.maximized .navigation-content .count {
     color: rgb(180, 255, 145);
 }
 
-/* .sidebar.minimized */
-.sidebar.minimized {
+/* .navigation.minimized */
+.navigation.minimized {
     min-height: 100vh;
     height: auto;
     width: 0;
@@ -116,28 +119,26 @@ nav.mobile button:active {
     overflow: hidden;
     transition: width 100ms ease-in-out;
 }
-
-.sidebar.minimized.visible {
+.navigation.minimized.visible {
     width: 65px;
 }
-
-.sidebar.minimized ul.sidebar-content {
+.navigation.minimized .navigation-content {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 100%;
 }
-.sidebar.minimized .top {
+.navigation.minimized .top {
     display: flex;
     align-items: center;
     justify-content: center;
 }
-.sidebar.minimized ul.sidebar-content {
+.navigation.minimized .navigation-content {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
-.sidebar.minimized ul.sidebar-content button {
+.navigation.minimized .navigation-content button {
     width: 50px;
     height: 50px;
     border-radius: 50px;
@@ -146,8 +147,8 @@ nav.mobile button:active {
     align-items: center;
 }
 
-/* nav.mobile */
-nav.mobile {
+/* .navigation.mobile */
+.navigation.mobile {
     /* height and width change on media query */
     height: 0;
     width: 0;
@@ -161,15 +162,7 @@ nav.mobile {
     color: var(--light-gray1);
     text-align: center;
 }
-nav.mobile img {
-    width: 28px;
-    height: 28px;
-}
-nav.mobile button.projects img {
-    width: 26px;
-    height: 26px;
-}
-nav.mobile ul.mobile-nav-content {
+.navigation.mobile .navigation-content {
     width: 100%;
     height: 100%;
     display: flex;
@@ -177,11 +170,11 @@ nav.mobile ul.mobile-nav-content {
     justify-content: space-between;
     align-items: center;
 }
-nav.mobile ul.mobile-nav-content li {
+.navigation.mobile .navigation-content li {
     width: 20%;
     height: 100%;
 }
-nav.mobile ul.mobile-nav-content button {
+.navigation.mobile .navigation-content button {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -190,18 +183,18 @@ nav.mobile ul.mobile-nav-content button {
     height: 100%;
     width: 100%;
     font-size: .65rem;
-    transition: background-color 120ms ease-in-out;
 }
-nav.mobile ul.mobile-nav-content button.chosen-tab,
-.sidebar button.chosen-tab {
-    background-color: var(--dark2)
-}
-nav.mobile ul.mobile-nav-content button.new-project {
+.navigation.mobile .navigation-content button.new-project {
     gap: 7px;
 }
-nav.mobile ul.mobile-nav-content button.new-project img {
+.navigation.mobile .navigation-content button.new-project img {
     transition: transform 100ms ease-in-out;
 }
-nav.mobile ul.mobile-nav-content button.new-project img.active {
+.navigation.mobile .navigation-content button.new-project img.active {
     transform: translateY(-5px);
-}   
+}
+/* prevents the new project button from hover/active psuedoelements from having an effect */
+.navigation.mobile .navigation-content button.new-project:hover,
+.navigation.mobile .navigation-content button.new-project:active {
+    background-color: #333333;
+}

@@ -77,15 +77,15 @@ export class Event {
     }
 
     // click
-    static maximizeSidebar() {
-        document.querySelector('.sidebar.maximized').classList.remove('hidden');
-        document.querySelector('.sidebar.minimized').classList.remove('visible');
+    static maximizenavigation() {
+        document.querySelector('.navigation.maximized').classList.remove('hidden');
+        document.querySelector('.navigation.minimized').classList.remove('visible');
     }
 
     // click
-    static minimizeSidebar() {
-        document.querySelector('.sidebar.maximized').classList.add('hidden');
-        document.querySelector('.sidebar.minimized').classList.add('visible');
+    static minimizenavigation() {
+        document.querySelector('.navigation.maximized').classList.add('hidden');
+        document.querySelector('.navigation.minimized').classList.add('visible');
     }
 
     // click '.project-container button.adjust-height'

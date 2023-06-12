@@ -4,8 +4,8 @@ export class Move {
     static insertDefaultLoaded() {
         const content = document.getElementById('content');
         
-        content.appendChild(Build.sidebarMaximized());
-        content.appendChild(Build.sidebarMinimized());
+        content.appendChild(Build.navigationMaximized());
+        content.appendChild(Build.navigationMinimized());
         content.appendChild(Build.rightSideFlexContainer());
 
         const rightSideFlexContainer = document.querySelector('.right-side-flex-container');
