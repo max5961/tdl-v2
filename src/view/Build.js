@@ -1,4 +1,5 @@
 import { Element } from './Element.js';
+import { Event } from '../controller/Event.js';
 
 export class Build {
     static sidebarMaximized() {
@@ -15,6 +16,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'minimize-sidebar',
+                            'event-listeners':{'click':Event.minimizeSidebar},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -163,6 +165,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'maximize-sidebar',
+                            'event-listeners':{'click':Event.maximizeSidebar},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -178,6 +181,7 @@ export class Build {
                 // sidebar content
                 new Element({
                     'tagname':'ul',
+                    'class':'sidebar-content',
                     'children':[
                         // scheduled today
                         new Element({
@@ -300,6 +304,7 @@ export class Build {
                 new Element({
                     'tagname':'button',
                     'class':'new-project-button-header',
+                    'event-listeners':{'click':Event.newProject},
                     'children':[
                         new Element({
                             'tagname':'div',
@@ -328,10 +333,10 @@ export class Build {
         }).build();
     }
 
-    static mainContentContainer() {
+    static viewContent() {
         return new Element({
             'tagname':'div',
-            'class':'view-content',
+            'id':'view-content',
         }).build();
     }
 
@@ -459,19 +464,391 @@ export class Build {
         }).build();
     }
 
-    static DefaultLoaded() {
-        const content = document.getElementById('content');
-        
-        content.appendChild(Build.sidebarMaximized());
-        content.appendChild(Build.sidebarMinimized());
-        content.appendChild(Build.rightSideFlexContainer());
+    static noProjectsMessage() {
+        return new Element({
+            'tagname':'p',
+            'class':'no-projects-message',
+            'text-content':'No projects added yet',
+        }).build();
+    }
 
-        const rightSideFlexContainer = document.querySelector('.right-side-flex-container');
+    static projectsView() {
+        return new Element({
+            'tagname':'div',
+            'class':'projects-view',
+            'children':[
+                // top section
+                new Element({
+                    'tagname':'section',
+                    'children':[
+                        // left container
+                        new Element({
+                            'tagname':'div',
+                            'class':'left-container',
+                            'children':[
+                                new Element({
+                                    'tagname':'h1',
+                                    'text-content':'Projects',
+                                }).build(),
+                            ]
+                        }).build(),
+                        // right container
+                        new Element({
+                            'tagname':'div',
+                            'class':'right-container',
+                            'children':[
+                                new Element({
+                                    'tagname':'button',
+                                    'children':[
+                                        new Element({
+                                            'tagname':'img',
+                                            'src':'../src/view/icons/add.svg',
+                                            'alt':'add'
+                                        }).build(),
+                                    ]
+                                }).build(),
+                                new Element({
+                                    'tagname':'button',
+                                    'children':[
+                                        new Element({
+                                            'tagname':'img',
+                                            'src':'../src/view/icons/delete.svg',
+                                            'alt':'delete'
+                                        }).build(),
+                                    ]
+                                }).build(),
+                            ]
+                        }).build()
+                    ]
+                }).build(),
+            ]
+        }).build();
+    }
 
-        rightSideFlexContainer.appendChild(Build.header());
-        rightSideFlexContainer.appendChild(Build.mainContentContainer());
-        rightSideFlexContainer.appendChild(Build.mobileNav());
+    static singleProjectView() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'projects-view single-project',
+            'children': [
+                new Element({
+                    'tagname': 'section',
+                    'children': [
+                        new Element({
+                            'tagname': 'button',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h1',
+                                    'text-content': 'Projects'
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'span',
+                            'class': 'divider',
+                            'text-content': '>'
+                        }).build(),
+                        new Element({
+                            'tagname': 'span',
+                            'class': 'name',
+                            'text-content': 'Project 1'
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'div',
+                    'class': 'project-description',
+                    'children': [
+                        new Element({
+                            'tagname': 'h2',
+                            'text-content': 'Description'
+                        }).build(),
+                        new Element({
+                            'tagname': 'p',
+                            'class': 'description-content',
+                            'text-content': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ipsa dolorum fuga at velit. Animi illo laboriosam natus perspiciatis ab necessitatibus odit? Maiores non, itaque aliquam totam molestiae deleniti. Unde!'
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'h2',
+                    'class': 'tasks',
+                    'text-content': 'Tasks'
+                }).build(),
+                new Element({
+                    'tagname': 'form',
+                    'class': 'add-task-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'button',
+                            'children': [
+                                new Element({
+                                    'tagname': 'img',
+                                    'src': '../src/view/icons/add.png',
+                                    'alt': ''
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'input',
+                            'type': 'text',
+                            'placeholder': 'task name'
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'div',
+                    'class': 'project-container tasks-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'adjust-height-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'button',
+                                    'class': 'adjust-height',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'img',
+                                            'class': 'adjust-height',
+                                            'src': '../src/view/icons/right-carrot.svg',
+                                            'alt': ''
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'content-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'top-content',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'h3',
+                                            'text-content': 'Task 1'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'right-container',
+                                            'children': [
+                                                new Element({
+                                                    'tagname': 'div',
+                                                    'class': 'date',
+                                                    'text-content': '6/12/2023'
+                                                }).build(),
+                                                new Element({
+                                                    'tagname': 'div',
+                                                    'class': 'priority-circle',
+                                                    'text-content': '!'
+                                                }).build(),
+                                                new Element({
+                                                    'tagname': 'button',
+                                                    'class': 'edit-task',
+                                                    'children': [
+                                                        new Element({
+                                                            'tagname': 'img',
+                                                            'src': '../src/view/icons/edit.svg',
+                                                            'alt': ''
+                                                        }).build()
+                                                    ]
+                                                }).build()
+                                            ]
+                                        }).build()
+                                    ]
+                                }).build(),
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'bottom-content',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'h4',
+                                            'class': 'notes',
+                                            'text-content': 'Notes'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'p',
+                                            'class': 'notes-content',
+                                            'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
 
-        const viewContent = document.getElementById('view-content');
+    static newProjectModal() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'new-project-modal',
+            'event-listeners':{'click':Event.exitNewProjectModal},
+            'children': [
+                new Element({
+                    'tagname': 'form',
+                    'action': '',
+                    'children': [
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'project-name',
+                            'text-content': 'Project Name:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'input',
+                            'type': 'text',
+                            'id': 'project-name',
+                            'required': true,
+                            'event-listeners':{'input':Event.validateNewProjectInput}
+                        }).build(),
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'desc',
+                            'text-content': 'Description:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'textarea',
+                            'id': 'project-description'
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'button-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'button',
+                                    'class': 'cancel',
+                                    'text-content': 'Cancel',
+                                    'event-listeners':{'click':Event.preventDefault},
+                                    'event-listeners':{'click':Event.exitNewProjectModal}
+                                }).build(),
+                                new Element({
+                                    'tagname': 'button',
+                                    'type': 'submit',
+                                    'text-content': 'Create Project',
+                                    'event-listeners':{'click':Event.preventDefault},
+                                    // need an event listeners that retrieves informations THEN Event.exitNewProjectModal
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
+
+    // should take a parameter that specifies which task view.  Depending on which task view is specified, parent element class should change
+    static tasksView() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'projects-view single-project all-tasks',
+            'children': [
+                new Element({
+                    'tagname': 'section',
+                    'children': [
+                        new Element({
+                            'tagname': 'h1',
+                            'text-content': 'Scheduled Today'
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'div',
+                    'class': 'project-container tasks-container tasks-view',
+                    'children': [
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'adjust-height-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'button',
+                                    'class': 'adjust-height',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'img',
+                                            'class': 'adjust-height',
+                                            'src': '../src/view/icons/right-carrot.svg',
+                                            'alt': ''
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'content-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'top-content',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'left-container',
+                                            'children': [
+                                                new Element({
+                                                    'tagname': 'h3',
+                                                    'text-content': 'Task 1'
+                                                }).build(),
+                                                new Element({
+                                                    'tagname': 'p',
+                                                    'class': 'parent-project-name',
+                                                    'text-content': '(Project 1)'
+                                                }).build()
+                                            ]
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'right-container',
+                                            'children': [
+                                                new Element({
+                                                    'tagname': 'div',
+                                                    'class': 'date',
+                                                    'text-content': '6/12/2023'
+                                                }).build(),
+                                                new Element({
+                                                    'tagname': 'div',
+                                                    'class': 'priority-circle',
+                                                    'text-content': '!'
+                                                }).build(),
+                                                new Element({
+                                                    'tagname': 'button',
+                                                    'class': 'edit-task',
+                                                    'children': [
+                                                        new Element({
+                                                            'tagname': 'img',
+                                                            'src': '../src/view/icons/edit.svg',
+                                                            'alt': ''
+                                                        }).build()
+                                                    ]
+                                                }).build()
+                                            ]
+                                        }).build()
+                                    ]
+                                }).build(),
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'bottom-content',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'h4',
+                                            'class': 'notes',
+                                            'text-content': 'Notes'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'p',
+                                            'class': 'notes-content',
+                                            'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
     }
 }
