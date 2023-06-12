@@ -23,7 +23,7 @@
         visibility: hidden;
     }
 
-    header .new-project-container h3{
+    header .new-project-button-header h3{
         white-space: nowrap;
     }
 }
@@ -55,7 +55,7 @@
         height: 0;
         width: 0;
     }
-    header .new-project-container {
+    header .new-project-button-header {
         width: 0;
         height: 0;
         padding: 0;
@@ -97,7 +97,7 @@
         border-radius: 20px;
     }
 
-    #main-content-container {
+    #view-content {
         margin-top: 60px;
         margin-bottom: 80px;
         overflow: auto;

@@ -14,7 +14,15 @@ export class Element {
         
         for(const property in this.config){
             if(property === 'class'){
-                element.classList.add(this.config['class']);
+                const classNames = this.config['class'].split(' ');
+
+                if (classNames.length === 1) {
+                    element.classList.add(this.config['class']);
+                } else {
+                    for (const className of classNames) {
+                        element.classList.add(className);
+                    }
+                }
             }
             else if(property === 'id'){
                 element.setAttribute('id', this.config['id']);

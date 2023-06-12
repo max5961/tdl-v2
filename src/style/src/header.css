@@ -68,7 +68,7 @@ header .box-back-bottom {
 }
 
 
-header .new-project-container {
+header .new-project-button-header {
     height: 100%;
     padding: 0 50px 0 25px;
     background-color: #75a375;
@@ -79,11 +79,11 @@ header .new-project-container {
     transition: all 75ms ease-in-out;
     color: rgb(58, 58, 58);
 }
-header .new-project-container:hover {
+header .new-project-button-header:hover {
     background-color: #5e835e;
     color: rgb(245, 245, 245);
     padding-right: 90px;
 }
-header .new-project-container:active {
+header .new-project-button-header:active {
     background-color: #4d694d;
 }

@@ -1,4 +1,5 @@
 import './style/index.css';
+import { Build } from './view/Build.js'
 
 // document.querySelector('#minimize-sidebar').onclick = () => {
 //     document.querySelector('.sidebar.maximized').classList.add('hidden');
@@ -44,15 +45,16 @@ import './style/index.css';
 //     }
 // }
 
-// document.querySelector('button.new-project-container').onclick = () => {
+// document.querySelector('button.new-project-button-header').onclick = () => {
 //     console.log('test');
 // }
 
-document.querySelector('.project-container button.adjust-height').onclick = () => {
-    const projectContainer = document.querySelector('.project-container');
-    const img = document.querySelector('.project-container img.adjust-height')
+// document.querySelector('.project-container button.adjust-height').onclick = () => {
+//     const projectContainer = document.querySelector('.project-container');
+//     const img = document.querySelector('.project-container img.adjust-height')
 
-    projectContainer.classList.toggle('maximized');
-    img.classList.toggle('rotated');
+//     projectContainer.classList.toggle('maximized');
+//     img.classList.toggle('rotated');
+// }
 
-}
+Build.DefaultLoaded();

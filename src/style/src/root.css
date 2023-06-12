@@ -38,14 +38,14 @@ input {
     position: relative;
 }
 
-#main-content-container {
+#view-content {
     width: 100%;
     height: auto;
     flex-grow: 1;
     background-color: rgb(247, 247, 247);
 }
 
-.header-content-mobile-nav-container {
+.right-side-flex-container {
     width: 100%;
     height: auto;
     display: flex;
