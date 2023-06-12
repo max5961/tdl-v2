@@ -14,6 +14,32 @@ export class Event {
         document.querySelector('.new-project-modal input#project-name').focus();
     }
 
+    static hoverNewProject(e) {
+        // need to add 2 event listeners to the element for this to work properly
+        // 1 event needs to be 'mouseenter' and 1 event needs to be 'mouseleave'
+        function getImgNode(node) {
+            if (node.nodeName === 'IMG') {
+                return node;
+            }
+
+            if (node.childNodes.length === 0) {
+                return -1;
+            }
+
+            for (let i = 0; i < node.childNodes.length; i++) {
+                return getImgNode(node.childNodes[i]);
+            }
+        }
+
+        const image = getImgNode(e.target);
+
+        if (e.type === 'mouseenter') {
+            image.classList.add('active');
+        } else if (e.type === 'mouseleave') {
+            image.classList.remove('active');
+        }
+    }
+
     // click
     static exitNewProjectModal(e) {
         const form = document.querySelector('.new-project-modal form');

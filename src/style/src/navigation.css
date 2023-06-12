@@ -192,9 +192,16 @@ nav.mobile ul.mobile-nav-content button {
     font-size: .65rem;
     transition: background-color 120ms ease-in-out;
 }
-nav.mobile ul.mobile-nav-content button.chosen-tab {
+nav.mobile ul.mobile-nav-content button.chosen-tab,
+.sidebar button.chosen-tab {
     background-color: var(--dark2)
 }
 nav.mobile ul.mobile-nav-content button.new-project {
     gap: 7px;
 }
+nav.mobile ul.mobile-nav-content button.new-project img {
+    transition: transform 100ms ease-in-out;
+}
+nav.mobile ul.mobile-nav-content button.new-project img.active {
+    transform: translateY(-5px);
+}   

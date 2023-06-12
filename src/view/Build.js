@@ -42,6 +42,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -70,6 +71,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -98,6 +100,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -126,6 +129,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -191,6 +195,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -209,6 +214,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -227,6 +233,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -245,6 +252,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -403,6 +411,11 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'new-project',
+                                    'event-listeners':{
+                                        'mouseenter':Event.hoverNewProject,
+                                        'mouseleave':Event.hoverNewProject,
+                                        'click':Event.newProject,
+                                    },
                                     'children':[
                                         new Element({
                                             'tagname':'img',

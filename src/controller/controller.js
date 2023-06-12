@@ -47,7 +47,7 @@ export class Move {
 
 export class Controller {
     static resetChosenTab(e) {
-        
+
         const nodeLists = [
             document.querySelectorAll('button.scheduled-today'),
             document.querySelectorAll('button.scheduled'),
@@ -55,12 +55,26 @@ export class Controller {
             document.querySelectorAll('button.projects'),
         ]
 
+        // get the button element's class in case e.target is a childNode
+        let node = e.target;
+        while (node.nodeName !== 'BUTTON') {
+            node = node.parentNode;
+        }
+
+        function getClass(node) {
+            return node.classList['value'].split(' ').filter(string => ['scheduled-today','scheduled','tasks','projects'].includes(string))[0];
+        }
+
+        const targetedClass = getClass(node);
+
         for (const nodeList of nodeLists) {
             for (let i = 0; i < nodeList.length; i++) {
                 nodeList[i].classList.remove('chosen-tab');
+
+                if (getClass(nodeList[i]) === targetedClass) {
+                    nodeList[i].classList.add('chosen-tab');
+                }
             }
         }
-        
-        e.target.classList.add('chosen-tab');
     }
 }
