@@ -112,7 +112,7 @@
     .new-project-modal button[type=submit] {
         width: 115px;
     }
-    .projects-view .projects-container {
+    .content-view .projects-container {
         justify-content: center;
     }
 }

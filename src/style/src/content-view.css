@@ -1,4 +1,4 @@
-.projects-view {
+.content-view {
     height: 100%;
     width: 100%;
     max-width: 1000px;
@@ -7,7 +7,7 @@
     padding: 25px;
 }
 
-.projects-view section {
+.content-view section {
     width: 100%;
     height: auto;
     display: flex;
@@ -18,43 +18,45 @@
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
-.projects-view section .left-container {
+.content-view section .left-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 10px;
     position: relative;
 }
-.projects-view .right-container {
+.content-view .right-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 110px;
     height: 100%;
 }
-.projects-view img {
+.content-view img {
     width: 45px;
     height: 45px;
     padding: 8px;
 }
-.projects-view section button {
+.content-view section button {
     border-radius: 50%;
     display: flex;
     justify-content: center;
     align-items: center;
     transition: background-color 120ms ease-in-out;
 }
-.projects-view section button:hover,
-.projects-view .project-container button.adjust-height:hover {
+
+/* revisit this */
+.content-view section button:hover,
+.content-view .project-container button.adjust-height:hover {
     background-color: #ececec;
 }
-.projects-view section button:active,
-.projects-view .project-container button.adjust-height:active  {
+.content-view section button:active,
+.content-view .project-container button.adjust-height:active  {
     background-color: #dadada;
 }
 
-.projects-view .project-container img,
-.projects-view .project-container button.adjust-height {
+.content-view .project-container img,
+.content-view .project-container button.adjust-height {
     width: 35px;
     height: 35px;
     padding: 5px;
@@ -63,7 +65,7 @@
     justify-content: center;
     align-items: center;
 }
-.projects-view .project-container {
+.content-view .project-container {
     width: 100%;
     height: 65px;
     overflow: hidden;
@@ -72,30 +74,30 @@
     display: flex;
     flex-direction: row;
 }
-.projects-view .project-container.maximized {
+.content-view .project-container.maximized {
     height: auto;
 }
-.projects-view img.adjust-height {
+.content-view img.adjust-height {
     transition: transform 90ms ease-in-out;
 }
-.projects-view img.adjust-height.rotated {
+.content-view img.adjust-height.rotated {
     transform: rotate(90deg)
 }
-.projects-view .adjust-height-container {
+.content-view .adjust-height-container {
     width: 50px;
     height: 55px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
-.projects-view .content-container {
+.content-view .content-container {
     display: flex;
     flex-direction: column;
     padding: 0 10px 20px 10px;
     margin-bottom: 10px;
     border-radius: 10px;
 }
-.projects-view .top-content {
+.content-view .top-content {
     width: 100%;
     height: 55px;
     margin-bottom: 10px;
@@ -105,27 +107,27 @@
     gap: 10px;
     flex-shrink: 0;
 }
-.projects-view .bottom-content {
+.content-view .bottom-content {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-.projects-view .bottom-content p.description-content {
+.content-view .bottom-content p.description-content {
     margin-bottom: 10px;
 }
-.projects-view .tasks-count-container {
+.content-view .tasks-count-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.projects-view .content-container.all-projects-view {
+.content-view .content-container.all-content-view {
     transition: background-color 120ms ease-in-out;
 }
-.projects-view .content-container.all-projects-view:hover {
+.content-view .content-container.all-content-view:hover {
     background-color: #0099ff25;
 }
-.projects-view .content-container.all-projects-view:active {
+.content-view .content-container.all-content-view:active {
     background-color: #0070bb25;
 }
 

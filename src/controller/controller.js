@@ -14,13 +14,9 @@ export class Move {
         rightSideFlexContainer.appendChild(Build.viewContent());
         rightSideFlexContainer.appendChild(Build.mobileNav());
 
-        Move.insertViewContent(Build.projectsView());
-
-        // if (projectsCount === 0)
-        Move.insertProjectContent(Build.noProjectsMessage());
-
-        // else
-        // projects.forEach(project => Move.insertProjectContent(project));
+        Move.insertViewContent(Build.tasksView());
+        Move.removeListContent();
+        Move.insertListContent(Build.tasksViewItem());
     }
 
     static removeContent() {
@@ -32,16 +28,22 @@ export class Move {
         }
     }
 
-    static insertViewContent(element) {
-        document.getElementById('view-content').appendChild(element);
+    static insertViewContent(node) {
+        Move.removeContent();
+        document.getElementById('view-content').appendChild(node);
     }
 
-    static removeProjects() {
-        document.querySelectorAll('.projects-view .project-container').forEach(projectContainer => projectContainer.remove());
+    static insertProjectContent(node) {
+        document.querySelector('.content-view').appendChild(node);
     }
 
-    static insertProjectContent(element) {
-        document.querySelector('.projects-view').appendChild(element);
+    static removeListContent() {
+        const nodes = document.querySelectorAll('.content-view .project-container');
+    }
+
+    static insertListContent(node) {
+        const listContainer = document.querySelector('#view-content');
+        listContainer.appendChild(node);
     }
 }
 
@@ -55,26 +57,27 @@ export class Controller {
             document.querySelectorAll('button.projects'),
         ]
 
-        // get the button element's class in case e.target is a childNode
-        let node = e.target;
-        while (node.nodeName !== 'BUTTON') {
-            node = node.parentNode;
-        }
-
-        function getClass(node) {
-            return node.classList['value'].split(' ').filter(string => ['scheduled-today','scheduled','tasks','projects'].includes(string))[0];
-        }
-
-        const targetedClass = getClass(node);
+        const targetedClass = Controller.getClass(e.target);
 
         for (const nodeList of nodeLists) {
             for (let i = 0; i < nodeList.length; i++) {
                 nodeList[i].classList.remove('chosen-tab');
 
-                if (getClass(nodeList[i]) === targetedClass) {
+                if (Controller.getClass(nodeList[i]) === targetedClass) {
                     nodeList[i].classList.add('chosen-tab');
                 }
             }
         }
     }
+
+    static getClass(node) {
+        // get the parent element in case click inside of child node
+        while (node.nodeName !== 'BUTTON') {
+            node = node.parentNode;
+        }
+
+        return node.classList['value'].split(' ').filter(string => ['scheduled-today','scheduled','tasks','projects'].includes(string))[0];
+    }
+
+    
 }

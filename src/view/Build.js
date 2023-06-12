@@ -482,6 +482,62 @@ export class Build {
         }).build();
     }
 
+    static newProjectModal() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'new-project-modal',
+            'event-listeners':{'click':Event.exitNewProjectModal},
+            'children': [
+                new Element({
+                    'tagname': 'form',
+                    'event-listeners':{'submit':Event.preventDefault},
+                    'children': [
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'project-name',
+                            'text-content': 'Project Name:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'input',
+                            'type': 'text',
+                            'id': 'project-name',
+                            'required': true,
+                            'event-listeners':{'input':Event.validateNewProjectInput}
+                        }).build(),
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'desc',
+                            'text-content': 'Description:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'textarea',
+                            'id': 'project-description'
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'button-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'button',
+                                    'type':'button',
+                                    'class': 'cancel',
+                                    'text-content': 'Cancel',
+                                    'event-listeners':{'click':Event.exitNewProjectModal}
+                                }).build(),
+                                new Element({
+                                    'tagname': 'button',
+                                    'type': 'submit',
+                                    'text-content': 'Create Project',
+                                    'event-listeners':{'click':Event.addProject},
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
+
     static noProjectsMessage() {
         return new Element({
             'tagname':'p',
@@ -493,7 +549,7 @@ export class Build {
     static projectsView() {
         return new Element({
             'tagname':'div',
-            'class':'projects-view',
+            'class':'content-view',
             'children':[
                 // top section
                 new Element({
@@ -546,7 +602,7 @@ export class Build {
     static singleProjectView() {
         return new Element({
             'tagname': 'div',
-            'class': 'projects-view single-project',
+            'class': 'content-view single-project',
             'children': [
                 new Element({
                     'tagname': 'section',
@@ -624,6 +680,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'class': 'adjust-height',
+                                    'event-listeners':{'click':Event.toggleViewContent},
                                     'children': [
                                         new Element({
                                             'tagname': 'img',
@@ -700,67 +757,11 @@ export class Build {
         }).build();
     }
 
-    static newProjectModal() {
-        return new Element({
-            'tagname': 'div',
-            'class': 'new-project-modal',
-            'event-listeners':{'click':Event.exitNewProjectModal},
-            'children': [
-                new Element({
-                    'tagname': 'form',
-                    'event-listeners':{'submit':Event.preventDefault},
-                    'children': [
-                        new Element({
-                            'tagname': 'label',
-                            'for': 'project-name',
-                            'text-content': 'Project Name:'
-                        }).build(),
-                        new Element({
-                            'tagname': 'input',
-                            'type': 'text',
-                            'id': 'project-name',
-                            'required': true,
-                            'event-listeners':{'input':Event.validateNewProjectInput}
-                        }).build(),
-                        new Element({
-                            'tagname': 'label',
-                            'for': 'desc',
-                            'text-content': 'Description:'
-                        }).build(),
-                        new Element({
-                            'tagname': 'textarea',
-                            'id': 'project-description'
-                        }).build(),
-                        new Element({
-                            'tagname': 'div',
-                            'class': 'button-container',
-                            'children': [
-                                new Element({
-                                    'tagname': 'button',
-                                    'type':'button',
-                                    'class': 'cancel',
-                                    'text-content': 'Cancel',
-                                    'event-listeners':{'click':Event.exitNewProjectModal}
-                                }).build(),
-                                new Element({
-                                    'tagname': 'button',
-                                    'type': 'submit',
-                                    'text-content': 'Create Project',
-                                    'event-listeners':{'click':Event.addProject},
-                                }).build()
-                            ]
-                        }).build()
-                    ]
-                }).build()
-            ]
-        }).build();
-    }
-
     // should take a parameter that specifies which task view.  Depending on which task view is specified, parent element class should change
     static tasksView() {
         return new Element({
             'tagname': 'div',
-            'class': 'projects-view single-project all-tasks',
+            'class': 'content-view single-project all-tasks',
             'children': [
                 new Element({
                     'tagname': 'section',
@@ -771,6 +772,8 @@ export class Build {
                         }).build()
                     ]
                 }).build(),
+
+                // tasks list
                 new Element({
                     'tagname': 'div',
                     'class': 'project-container tasks-container tasks-view',
@@ -782,6 +785,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'class': 'adjust-height',
+                                    'event-listeners':{'click':Event.toggleViewContent},
                                     'children': [
                                         new Element({
                                             'tagname': 'img',
@@ -860,6 +864,104 @@ export class Build {
                                             'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
                                         }).build()
                                     ]
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
+
+    static tasksViewItem() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'project-container tasks-container tasks-view',
+            'children': [
+                new Element({
+                    'tagname': 'div',
+                    'class': 'adjust-height-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'button',
+                            'class': 'adjust-height',
+                            'event-listeners':{'click':Event.toggleViewContent},
+                            'children': [
+                                new Element({
+                                    'tagname': 'img',
+                                    'class': 'adjust-height',
+                                    'src': '../src/view/icons/right-carrot.svg',
+                                    'alt': ''
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'div',
+                    'class': 'content-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'top-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'left-container',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'h3',
+                                            'text-content': 'Task 1'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'p',
+                                            'class': 'parent-project-name',
+                                            'text-content': '(Project 1)'
+                                        }).build()
+                                    ]
+                                }).build(),
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'right-container',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'date',
+                                            'text-content': '6/12/2023'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'priority-circle',
+                                            'text-content': '!'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'button',
+                                            'class': 'edit-task',
+                                            'children': [
+                                                new Element({
+                                                    'tagname': 'img',
+                                                    'src': '../src/view/icons/edit.svg',
+                                                    'alt': ''
+                                                }).build()
+                                            ]
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'bottom-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h4',
+                                    'class': 'notes',
+                                    'text-content': 'Notes'
+                                }).build(),
+                                new Element({
+                                    'tagname': 'p',
+                                    'class': 'notes-content',
+                                    'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
                                 }).build()
                             ]
                         }).build()

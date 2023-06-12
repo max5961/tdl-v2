@@ -114,5 +114,18 @@ export class Event {
 
     static clickTab(e) {
         Controller.resetChosenTab(e);
+        const targetedClass = Controller.getClass(e.target);
+        console.log(targetedClass);
+        //Controller.loadContentView(targetedClass);
+    }
+
+    // this needs to use unique IDs to target the container
+    // currently not doing so for the purposes of cleaning up the style sheet
+    static toggleViewContent() {
+        const container = document.querySelector('.content-view .project-container');
+        container.classList.toggle('maximized');
+
+        const image = document.querySelector('.content-view img.adjust-height');
+        image.classList.toggle('rotated');
     }
 }
