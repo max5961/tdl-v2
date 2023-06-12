@@ -44,3 +44,23 @@ export class Move {
         document.querySelector('.projects-view').appendChild(element);
     }
 }
+
+export class Controller {
+    static resetChosenTab(e) {
+        
+        const nodeLists = [
+            document.querySelectorAll('button.scheduled-today'),
+            document.querySelectorAll('button.scheduled'),
+            document.querySelectorAll('button.tasks'),
+            document.querySelectorAll('button.projects'),
+        ]
+
+        for (const nodeList of nodeLists) {
+            for (let i = 0; i < nodeList.length; i++) {
+                nodeList[i].classList.remove('chosen-tab');
+            }
+        }
+        
+        e.target.classList.add('chosen-tab');
+    }
+}

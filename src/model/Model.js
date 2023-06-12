@@ -6,9 +6,16 @@ export class Collection {
     addProject(name, desc) {
         const project = new Project(name, desc);
         project.setProjectID(this);
+        this.projects.push(project);
     }
 
-    
+    getProjectIDs() {
+        return this.projects.map(project => project._id);
+    }
+
+    getProjectNames() {
+        return this.projects.map(project => project.name);
+    }
 }
 
 export class Project {
@@ -21,13 +28,13 @@ export class Project {
 
     setProjectID(collectionObject) {
         function createID() {
-            return `p${Math.floor(Math.random() * 9998) + 1}`;
+            return `p${Math.floor(Math.random() * 8999) + 1000}`;
         }
 
-        const projectIDs = collectionObject.projects.map(Project => Project._id);
+        const projectIDs = collectionObject.getProjectIDs();
         let id = createID();
 
-        while (projectsIDs.includes(id)) {
+        while (projectIDs.includes(id)) {
             id = createID();
         }
 

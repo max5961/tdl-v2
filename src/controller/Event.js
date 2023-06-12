@@ -1,5 +1,7 @@
+import { collection } from '../index.js';
 import { Build } from '../view/Build.js';
-import { Move } from './Move.js';
+import { Move } from './controller.js';
+import { Controller } from './controller.js';
 
 export class Event {
     static preventDefault(e) {
@@ -18,7 +20,7 @@ export class Event {
         const modal = document.querySelector('.new-project-modal');
         const cancel = document.querySelector('button.cancel');
     
-        if (e.target === form) {
+        if (e.target === form ) {
             return;
         }
     
@@ -30,7 +32,7 @@ export class Event {
     // input
     static validateNewProjectInput(e) {
         const createButton = document.querySelector('.new-project-modal button[type=submit]');
-        const names = []; // change to --> const names = collection.getProjectNames();
+        const names = collection.getProjectNames();
         let current = e.target.value.trimEnd();
     
         if (e.target.value.length > 0) {
@@ -67,5 +69,24 @@ export class Event {
     
         projectContainer.classList.toggle('maximized');
         img.classList.toggle('rotated');
+    }
+
+    static addProject(e) {
+        const name = document.querySelector('input#project-name').value;
+        const desc = document.querySelector('textarea#project-description').value;
+        const modal = document.querySelector('.new-project-modal');
+
+        if (name.length > 0) {
+            if (document.querySelector('input#project-name.valid')) {
+                collection.addProject(name, desc);
+                modal.remove();
+            } else {
+                window.alert('That name is already chosen!');
+            }
+        }
+    }
+
+    static clickTab(e) {
+        Controller.resetChosenTab(e);
     }
 }

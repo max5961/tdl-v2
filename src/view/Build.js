@@ -1,5 +1,6 @@
 import { Element } from './Element.js';
 import { Event } from '../controller/Event.js';
+import { Controller } from '../controller/controller.js';
 
 export class Build {
     static sidebarMaximized() {
@@ -356,6 +357,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -378,6 +380,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -399,7 +402,7 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'button',
-                                    'class':'scheduled',
+                                    'class':'new-project',
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -421,6 +424,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -443,6 +447,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
+                                    'event-listeners':{'click':Event.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -690,7 +695,7 @@ export class Build {
             'children': [
                 new Element({
                     'tagname': 'form',
-                    'action': '',
+                    'event-listeners':{'submit':Event.preventDefault},
                     'children': [
                         new Element({
                             'tagname': 'label',
@@ -719,17 +724,16 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'button',
+                                    'type':'button',
                                     'class': 'cancel',
                                     'text-content': 'Cancel',
-                                    'event-listeners':{'click':Event.preventDefault},
                                     'event-listeners':{'click':Event.exitNewProjectModal}
                                 }).build(),
                                 new Element({
                                     'tagname': 'button',
                                     'type': 'submit',
                                     'text-content': 'Create Project',
-                                    'event-listeners':{'click':Event.preventDefault},
-                                    // need an event listeners that retrieves informations THEN Event.exitNewProjectModal
+                                    'event-listeners':{'click':Event.addProject},
                                 }).build()
                             ]
                         }).build()
