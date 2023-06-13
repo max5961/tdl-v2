@@ -1,4 +1,4 @@
-.content-view {
+.display {
     height: 100%;
     width: 100%;
     max-width: 1000px;
@@ -7,7 +7,7 @@
     padding: 25px;
 }
 
-.content-view section {
+.display section {
     width: 100%;
     height: auto;
     display: flex;
@@ -18,26 +18,26 @@
     padding-bottom: 5px;
     margin-bottom: 10px;
 }
-.content-view section .left-container {
+.display section .left-container {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
     gap: 10px;
     position: relative;
 }
-.content-view .right-container {
+.display .right-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     width: 110px;
     height: 100%;
 }
-.content-view img {
+.display img {
     width: 45px;
     height: 45px;
     padding: 8px;
 }
-.content-view section button {
+.display section button {
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -46,17 +46,17 @@
 }
 
 /* revisit this */
-.content-view section button:hover,
-.content-view .project-container button.adjust-height:hover {
+.display section button:hover,
+.display .project-container button.adjust-height:hover {
     background-color: #ececec;
 }
-.content-view section button:active,
-.content-view .project-container button.adjust-height:active  {
+.display section button:active,
+.display .project-container button.adjust-height:active  {
     background-color: #dadada;
 }
 
-.content-view .project-container img,
-.content-view .project-container button.adjust-height {
+.display .project-container img,
+.display .project-container button.adjust-height {
     width: 35px;
     height: 35px;
     padding: 5px;
@@ -65,7 +65,7 @@
     justify-content: center;
     align-items: center;
 }
-.content-view .project-container {
+.display .project-container {
     width: 100%;
     height: 65px;
     overflow: hidden;
@@ -74,30 +74,30 @@
     display: flex;
     flex-direction: row;
 }
-.content-view .project-container.maximized {
+.display .project-container.maximized {
     height: auto;
 }
-.content-view img.adjust-height {
+.display img.adjust-height {
     transition: transform 90ms ease-in-out;
 }
-.content-view img.adjust-height.rotated {
+.display img.adjust-height.rotated {
     transform: rotate(90deg)
 }
-.content-view .adjust-height-container {
+.display .adjust-height-container {
     width: 50px;
     height: 55px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
 }
-.content-view .content-container {
+.display .content-container {
     display: flex;
     flex-direction: column;
     padding: 0 10px 20px 10px;
     margin-bottom: 10px;
     border-radius: 10px;
 }
-.content-view .top-content {
+.display .top-content {
     width: 100%;
     height: 55px;
     margin-bottom: 10px;
@@ -107,27 +107,27 @@
     gap: 10px;
     flex-shrink: 0;
 }
-.content-view .bottom-content {
+.display .bottom-content {
     display: flex;
     flex-direction: column;
     text-align: left;
 }
-.content-view .bottom-content p.description-content {
+.display .bottom-content p.description-content {
     margin-bottom: 10px;
 }
-.content-view .tasks-count-container {
+.display .tasks-count-container {
     display: flex;
     align-items: center;
     gap: 10px;
 }
 
-.content-view .content-container.all-content-view {
+.display .content-container.all-display {
     transition: background-color 120ms ease-in-out;
 }
-.content-view .content-container.all-content-view:hover {
+.display .content-container.all-display:hover {
     background-color: #0099ff25;
 }
-.content-view .content-container.all-content-view:active {
+.display .content-container.all-display:active {
     background-color: #0070bb25;
 }
 

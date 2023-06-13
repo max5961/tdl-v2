@@ -97,7 +97,7 @@
         border-radius: 20px;
     }
 
-    #view-content {
+    #main-content {
         margin-top: 60px;
         margin-bottom: 80px;
         overflow: auto;
@@ -112,7 +112,7 @@
     .new-project-modal button[type=submit] {
         width: 115px;
     }
-    .content-view .projects-container {
+    .display .projects-container {
         justify-content: center;
     }
 }

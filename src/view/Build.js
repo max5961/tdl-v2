@@ -1,6 +1,8 @@
 import { Element } from './Element.js';
-import { Event } from '../controller/Event.js';
-import { Controller } from '../controller/controller.js';
+import { preventDefault } from '../controller/controller.js';
+import { NewProject } from '../controller/controller.js';
+import { Navigation } from '../controller/controller.js';
+
 
 export class Build {
     static navigationMaximized() {
@@ -17,7 +19,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'minimize-navigation',
-                            'event-listeners':{'click':Event.minimizeNavigation},
+                            'event-listeners':{'click':Navigation.minimizeSidebar},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -42,7 +44,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -71,7 +73,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -100,7 +102,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -129,7 +131,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -170,7 +172,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'id':'maximize-navigation',
-                            'event-listeners':{'click':Event.maximizeNavigation},
+                            'event-listeners':{'click':Navigation.maximizeSidebar},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -195,7 +197,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -214,7 +216,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -233,7 +235,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -252,7 +254,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -313,7 +315,7 @@ export class Build {
                 new Element({
                     'tagname':'button',
                     'class':'new-project-button-header',
-                    'event-listeners':{'click':Event.newProject},
+                    'event-listeners':{'click':NewProject.createModal},
                     'children':[
                         new Element({
                             'tagname':'div',
@@ -365,7 +367,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled-today',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -388,7 +390,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'scheduled',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -412,9 +414,9 @@ export class Build {
                                     'tagname':'button',
                                     'class':'new-project',
                                     'event-listeners':{
-                                        'mouseenter':Event.hoverNewProject,
-                                        'mouseleave':Event.hoverNewProject,
-                                        'click':Event.newProject,
+                                        'mouseenter':NewProject.hoverButton,
+                                        'mouseleave':NewProject.hoverButton,
+                                        'click':NewProject.createModal,
                                     },
                                     'children':[
                                         new Element({
@@ -437,7 +439,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'tasks',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -460,7 +462,7 @@ export class Build {
                                 new Element({
                                     'tagname':'button',
                                     'class':'projects',
-                                    'event-listeners':{'click':Event.clickTab},
+                                    'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -486,11 +488,11 @@ export class Build {
         return new Element({
             'tagname': 'div',
             'class': 'new-project-modal',
-            'event-listeners':{'click':Event.exitNewProjectModal},
+            'event-listeners':{'click':NewProject.removeModal},
             'children': [
                 new Element({
                     'tagname': 'form',
-                    'event-listeners':{'submit':Event.preventDefault},
+                    'event-listeners':{'submit':preventDefault},
                     'children': [
                         new Element({
                             'tagname': 'label',
@@ -502,7 +504,7 @@ export class Build {
                             'type': 'text',
                             'id': 'project-name',
                             'required': true,
-                            'event-listeners':{'input':Event.validateNewProjectInput}
+                            'event-listeners':{'input':NewProject.validateInput}
                         }).build(),
                         new Element({
                             'tagname': 'label',
@@ -522,13 +524,13 @@ export class Build {
                                     'type':'button',
                                     'class': 'cancel',
                                     'text-content': 'Cancel',
-                                    'event-listeners':{'click':Event.exitNewProjectModal}
+                                    'event-listeners':{'click':NewProject.removeModal}
                                 }).build(),
                                 new Element({
                                     'tagname': 'button',
                                     'type': 'submit',
                                     'text-content': 'Create Project',
-                                    'event-listeners':{'click':Event.addProject},
+                                    'event-listeners':{'click':NewProject.pushToCollection},
                                 }).build()
                             ]
                         }).build()
@@ -549,7 +551,7 @@ export class Build {
     static projectsView() {
         return new Element({
             'tagname':'div',
-            'class':'content-view',
+            'class':'display',
             'children':[
                 // top section
                 new Element({
@@ -602,7 +604,7 @@ export class Build {
     static singleProjectView() {
         return new Element({
             'tagname': 'div',
-            'class': 'content-view single-project',
+            'class': 'display single-project',
             'children': [
                 new Element({
                     'tagname': 'section',
@@ -680,7 +682,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'class': 'adjust-height',
-                                    'event-listeners':{'click':Event.toggleViewContent},
+                                    'event-listeners':{'click':Navigation.toggleExpandable},
                                     'children': [
                                         new Element({
                                             'tagname': 'img',
@@ -761,7 +763,7 @@ export class Build {
     static tasksView() {
         return new Element({
             'tagname': 'div',
-            'class': 'content-view single-project all-tasks',
+            'class': 'display single-project all-tasks',
             'children': [
                 new Element({
                     'tagname': 'section',
@@ -785,7 +787,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'class': 'adjust-height',
-                                    'event-listeners':{'click':Event.toggleViewContent},
+                                    'event-listeners':{'click':Navigation.toggleExpandable},
                                     'children': [
                                         new Element({
                                             'tagname': 'img',
@@ -885,7 +887,7 @@ export class Build {
                         new Element({
                             'tagname': 'button',
                             'class': 'adjust-height',
-                            'event-listeners':{'click':Event.toggleViewContent},
+                            'event-listeners':{'click':Navigation.toggleExpandable},
                             'children': [
                                 new Element({
                                     'tagname': 'img',
