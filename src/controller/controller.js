@@ -15,39 +15,40 @@ export function insertDefaultLoaded() {
     const rightSideFlexContainer = document.querySelector('.right-side-flex-container');
 
     rightSideFlexContainer.appendChild(Build.header());
-    rightSideFlexContainer.appendChild(Build.viewContent());
+    rightSideFlexContainer.appendChild(Build.mainContentContainer());
     rightSideFlexContainer.appendChild(Build.mobileNav());
 
-    Move.insertViewContent(Build.singleProjectView());
+    Move.insertMainContent(Build.singleProjectView());
+    Move.insertNestedContent(Build.taskItem());
 }
 
 // elements that are removed or inserted into often
 export class Move {
-    static removeContent() {
+    static removeMainContent() {
 
-        const viewContent = document.getElementById('view-content');
+        const mainContent= document.getElementById('main-content');
 
-        while (viewContent.firstChild) {
-            viewContent.removeChild(viewContent.firstChild);
+        while (mainContent.firstChild) {
+            mainContent.removeChild(mainContent.firstChild);
         }
     }
 
-    static insertViewContent(node) {
-        Move.removeContent();
-        document.getElementById('view-content').appendChild(node);
+    static insertMainContent(node) {
+        Move.removeMainContent();
+        document.getElementById('main-content').appendChild(node);
     }
 
-    static insertProjectContent(node) {
-        document.querySelector('.display').appendChild(node);
+    static removeNestedContent() {
+        const nestedContainer = document.querySelector('ul.nested-container');
+        
+        while (nestedContainer.firstChild) {
+            nestedContainer.removeChild(nestedContainer.firstChild)
+        }
     }
 
-    static removeListContent() {
-        const nodes = document.querySelectorAll('.display .project-container');
-    }
-
-    static insertListContent(node) {
-        const listContainer = document.querySelector('#main-content');
-        listContainer.appendChild(node);
+    static insertNestedContent(node) {
+        const nestedContainer = document.querySelector('ul.nested-container');
+        nestedContainer.appendChild(node);
     }
 }
 
@@ -182,13 +183,26 @@ export class Navigation {
         const targetedClass = Navigation.getClassName(e.target);
     }
 
-    // this needs to use unique IDs to target the container
-    // currently not doing so for the purposes of cleaning up the style sheet
-    static toggleExpandable() {
-        const container = document.querySelector('.display .project-container');
-        container.classList.toggle('maximized');
+    static toggleExpandable(e) {
+        // bubble up the DOM tree until .item is found;
+        let node = e.target;
+        while (!node.classList['value'].split(' ').includes('item')) {
+            node = node.parentNode;
+        }
+        node.classList.toggle('expanded');
 
-        const image = document.querySelector('.display img.adjust-height');
-        image.classList.toggle('rotated');
+        // target the project button which is set to a pixel height
+        // it is set to a pixel height so that the button shape doesn't flow below the given area 
+        let projectButton = node;
+        node.childNodes[1].classList.toggle('expanded');
+
+        // bubble down the DOM tree until img.adjust-height is found
+        let imageNode = e.target;
+        while (imageNode.nodeName !== 'IMG') {
+            imageNode = imageNode.childNodes[0];
+        }
+        imageNode.classList.toggle('rotated');
+
+        
     }
 }
