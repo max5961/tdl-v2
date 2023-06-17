@@ -66,6 +66,7 @@
     align-items: flex-start;
     gap: 5px;
     border-bottom: 1px solid lightgray;
+    margin-bottom: 10px;
 }
 .item.expanded {
     height: auto;
@@ -194,7 +195,7 @@
 .single-project .description-content {
     color: rgb(121, 121, 121);
 }
-.single-project form.add-task-container {
+.single-project .add-task-container {
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -205,10 +206,20 @@
     flex-grow: 1;
     max-width: 550px;
 }
+.single-project .add-task-container button {
+    border-radius: 10px;
+    padding: 5px 10px 5px 0;
+}
 
 /* edit task */
 .edit-task header {
     margin-bottom: 25px;
+}
+.edit-task button.back-button {
+    border-radius: 10px;
+    padding: 10px;
+    padding-right: 20px;
+    padding-left: 0;
 }
 .edit-task header button.delete-task {
     border-radius: 10px;

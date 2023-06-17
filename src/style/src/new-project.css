@@ -1,4 +1,4 @@
-.new-project-modal {
+.add-new-modal {
     height: 100vh;
     width: 100vw;
     z-index: 1;
@@ -9,7 +9,7 @@
     justify-content: center;
     align-items: center;
 }
-.new-project-modal form {
+.add-new-modal form {
     background-color: #f3f3f3;
     color: var(--dark1);
     font-weight: 900;
@@ -22,49 +22,44 @@
     border-radius: 10px;
     border: 1px solid gray;
     position: relative;
-    transition: height, width 120ms ease-in-out;
     overflow: hidden;
 }
-/* .new-project-modal form.visible {
-    height: auto;
-    max-width: 600px;
-} */
-.new-project-modal .button-container {
+.add-new-modal .button-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
     height: auto;
     margin-top: 10px;
 }
-.new-project-modal button[type=submit] {
+.add-new-modal button[type=submit] {
     background-color: #949494;
     color: #ffffff;
     transition: background-color 400ms ease-in-out;
 }
-.new-project-modal button[type=submit].not-empty {
+.add-new-modal button[type=submit].not-empty {
     background-color: #41b936;
     transition: background-color 120ms ease-in-out;
 }
-.new-project-modal button[type=submit].not-empty:hover {
+.add-new-modal button[type=submit].not-empty:hover {
     background-color: #34882c;
 }
-.new-project-modal button[type=submit].not-empty:active {
+.add-new-modal button[type=submit].not-empty:active {
     background-color: #2b7025;
 }
-.new-project-modal button.cancel {
+.add-new-modal button.cancel {
     background-color: #dd4e3e;
     color: #ffffff;
 }
-.new-project-modal button.cancel,
-.new-project-modal button[type=submit] {
+.add-new-modal button.cancel,
+.add-new-modal button[type=submit] {
     padding: 10px;
     border-radius: 5px;
     width: 150px;
     height: 40px;
 }
 
-.new-project-modal textarea,
-.new-project-modal input {
+.add-new-modal textarea,
+.add-new-modal input {
     border-radius: 5px;
     padding-left: 10px;
     padding-right: 10px;
@@ -73,14 +68,19 @@
     margin-top: 5px;
 }
 
-.new-project-modal input {
+.add-new-modal input {
     height: 35px;
     border: 2px solid #dd4e3e;
 }
-.new-project-modal input.valid {
+.add-new-modal input.valid {
     border: 2px solid #46c726;
 }
-.new-project-modal textarea {
+.add-new-modal textarea {
     height: 60px;
     padding: 10px;
+}
+
+/* new task */
+.add-new-modal.add-new-task {
+    
 }

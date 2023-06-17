@@ -1,5 +1,5 @@
-import { collection } from '../index.js';
-import { Build } from '../view/Build.js';
+import { collection } from './index.js';
+import { Build } from './view/Build.js';
 
 export function preventDefault(e) {
     e.preventDefault();
@@ -18,9 +18,14 @@ export function insertDefaultLoaded() {
     rightSideFlexContainer.appendChild(Build.mainContentContainer());
     rightSideFlexContainer.appendChild(Build.mobileNav());
 
-    Move.insertMainContent(Build.editTaskView());
+    Move.insertMainContent(Build.singleProjectView());
+}
 
-    
+export const userSettings = {
+    currentProject: null,
+    currentTask: null,
+    currentTab: null,
+    previousTabs: [],
 }
 
 // elements that are removed or inserted into often
@@ -53,17 +58,23 @@ export class Move {
     }
 }
 
-export class NewProject {
+export class AddNew {
     // e.type === 'click'
-    static createModal() {
+    static createNewProjectModal() {
         document.querySelector('#content').appendChild(Build.newProjectModal());
 
-        document.querySelector('.new-project-modal input#project-name').focus();
+        document.querySelector('.add-new-modal input#project-name').focus();
+    }
+
+    static createNewTaskModal() {
+        document.querySelector('#content').appendChild(Build.newTaskModal());
+
+        document.querySelector('.add-new-modal input#task-name').focus();
     }
 
     static removeModal(e) {
-        const form = document.querySelector('.new-project-modal form');
-        const modal = document.querySelector('.new-project-modal');
+        const form = document.querySelector('.add-new-modal form');
+        const modal = document.querySelector('.add-new-modal');
         const cancel = document.querySelector('button.cancel');
     
         if (e.target === form ) {
@@ -77,7 +88,7 @@ export class NewProject {
     // e.type === 'mouseenter
     // e.type === 'mouseleave'
     // need both of these events for this callback method to work properly
-    static hoverButton(e) {
+    static hoverMobileAddButton(e) {
         function getImgNode(node) {
             if (node.nodeName === 'IMG') {
                 return node;
@@ -101,7 +112,7 @@ export class NewProject {
         }
     }
 
-    static validateInput(e) {
+    static validateProjectInput(e) {
         const createButton = document.querySelector('.new-project-modal button[type=submit]');
         const names = collection.getProjectNames();
         let current = e.target.value.trimEnd();
@@ -122,7 +133,7 @@ export class NewProject {
     }
 
     // e.type === 'click'  Pressing enter will trigger the click event for the submit button in the new project modal
-    static pushToCollection(e) {
+    static pushProjectToCollection(e) {
         const name = document.querySelector('input#project-name').value.trimEnd();
         const desc = document.querySelector('textarea#project-description').value;
         const modal = document.querySelector('.new-project-modal');
@@ -136,6 +147,15 @@ export class NewProject {
             }
         }
     }
+
+    static validateTaskInput(e) {
+        
+    }
+
+    static pushTaskToCollection(e) {
+
+    }
+
 }
 
 export class Navigation {

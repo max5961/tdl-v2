@@ -1,7 +1,7 @@
 import { Element } from './Element.js';
-import { preventDefault } from '../controller/controller.js';
-import { NewProject } from '../controller/controller.js';
-import { Navigation } from '../controller/controller.js';
+import { preventDefault } from '../controller.js';
+import { AddNew } from '../controller.js';
+import { Navigation } from '../controller.js';
 
 
 export class Build {
@@ -316,7 +316,7 @@ export class Build {
                 new Element({
                     'tagname':'button',
                     'class':'new-project-button-header',
-                    'event-listeners':{'click':NewProject.createModal},
+                    'event-listeners':{'click':AddNew.createNewProjectModal},
                     'children':[
                         new Element({
                             'tagname':'div',
@@ -415,9 +415,9 @@ export class Build {
                                     'tagname':'button',
                                     'class':'new-project',
                                     'event-listeners':{
-                                        'mouseenter':NewProject.hoverButton,
-                                        'mouseleave':NewProject.hoverButton,
-                                        'click':NewProject.createModal,
+                                        'mouseenter':AddNew.hoverMobileAddButton,
+                                        'mouseleave':AddNew.hoverMobileAddButton,
+                                        'click':AddNew.createNewProjectModal,
                                     },
                                     'children':[
                                         new Element({
@@ -489,7 +489,7 @@ export class Build {
         return new Element({
             'tagname': 'div',
             'class': 'add-new-modal new-project-modal',
-            'event-listeners':{'click':NewProject.removeModal},
+            'event-listeners':{'click':AddNew.removeModal},
             'children': [
                 new Element({
                     'tagname': 'form',
@@ -505,7 +505,7 @@ export class Build {
                             'type': 'text',
                             'id': 'project-name',
                             'required': true,
-                            'event-listeners':{'input':NewProject.validateInput}
+                            'event-listeners':{'input':AddNew.validateProjectInput}
                         }).build(),
                         new Element({
                             'tagname': 'label',
@@ -525,13 +525,69 @@ export class Build {
                                     'type':'button',
                                     'class': 'cancel',
                                     'text-content': 'Cancel',
-                                    'event-listeners':{'click':NewProject.removeModal}
+                                    'event-listeners':{'click':AddNew.removeModal}
                                 }).build(),
                                 new Element({
                                     'tagname': 'button',
                                     'type': 'submit',
                                     'text-content': 'Create Project',
-                                    'event-listeners':{'click':NewProject.pushToCollection},
+                                    'event-listeners':{'click':AddNew.pushProjectToCollection},
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
+
+    static newTaskModal() {
+        return new Element({
+            'tagname': 'div',
+            'class': 'add-new-modal new-task-modal',
+            'event-listeners':{'click':AddNew.removeModal},
+            'children': [
+                new Element({
+                    'tagname': 'form',
+                    'event-listeners':{'submit':preventDefault},
+                    'children': [
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'task-name',
+                            'text-content': 'Task Name:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'input',
+                            'type': 'text',
+                            'id': 'task-name',
+                            'required': true,
+                            'event-listeners':{'input':AddNew.validateTaskInput}
+                        }).build(),
+                        new Element({
+                            'tagname': 'label',
+                            'for': 'desc',
+                            'text-content': 'Notes:'
+                        }).build(),
+                        new Element({
+                            'tagname': 'textarea',
+                            'id': 'project-description'
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'button-container',
+                            'children': [
+                                new Element({
+                                    'tagname': 'button',
+                                    'type':'button',
+                                    'class': 'cancel',
+                                    'text-content': 'Cancel',
+                                    'event-listeners':{'click':AddNew.removeModal}
+                                }).build(),
+                                new Element({
+                                    'tagname': 'button',
+                                    'type': 'submit',
+                                    'text-content': 'Create Project',
+                                    'event-listeners':{'click':AddNew.pushTaskToCollection},
                                 }).build()
                             ]
                         }).build()
@@ -748,24 +804,23 @@ export class Build {
                     'text-content': 'Tasks'
                 }).build(),
                 new Element({
-                    'tagname': 'form',
+                    'tagname': 'div',
                     'class': 'add-task-container',
                     'children': [
                         new Element({
                             'tagname': 'button',
+                            'event-listeners':{'click':AddNew.createNewTaskModal},
                             'children': [
                                 new Element({
                                     'tagname': 'img',
                                     'src': '../src/view/icons/add.png',
                                     'alt': ''
                                 }).build(),
+                                new Element({
+                                    'tagname':'span',
+                                    'text-content':'New Task'
+                                }).build(),
                             ]
-                        }).build(),
-                        new Element({
-                            'tagname':'input',
-                            'type':'text',
-                            'class':'task-name',
-                            'placeholder':'Task Name',
                         }).build(),
                     ]
                 }).build(),
@@ -899,15 +954,28 @@ export class Build {
                     'tagname': 'header',
                     'children': [
                         new Element({
-                            'tagname': 'button',
-                            'class':'delete-task',
-                            'text-content': 'DELETE TASK'
+                            'tagname':'button',
+                            'class':'back-button',
+                            'children':[
+                                new Element({
+                                    'tagname':'img',
+                                    'src':'../src/view/icons/left-carrot.svg'
+                                }).build(),
+                                new Element({
+                                    'tagname':'span',
+                                    'text-content':'BACK TO PROJECT 1',
+                                }).build(),
+                            ]
                         }).build(),
-
                         new Element({
                             'tagname':'div',
                             'class':'buttons-container',
                             'children':[
+                                new Element({
+                                    'tagname': 'button',
+                                    'class':'delete-task',
+                                    'text-content': 'DELETE TASK'
+                                }).build(),
                                 new Element({
                                     'tagname':'button',
                                     'class':'undo-changes',
