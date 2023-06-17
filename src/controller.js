@@ -21,7 +21,7 @@ export function insertDefaultLoaded() {
     Move.insertMainContent(Build.singleProjectView());
 }
 
-export const userSettings = {
+const userSettings = {
     currentProject: null,
     currentTask: null,
     currentTab: null,

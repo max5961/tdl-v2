@@ -1,3 +1,5 @@
+import { collection } from './index.js';
+
 export class Collection {
     constructor(){
         this.projects = [];
@@ -7,10 +9,32 @@ export class Collection {
         const project = new Project(name, desc);
         project.setProjectID(this);
         this.projects.push(project);
+
+        Storage.updateLocalStorage(collection);
     }
 
-    getProjectIDs() {
-        return this.projects.map(project => project._id);
+
+    removeProject(id) {
+        for (let i = 0; i < this.projects.length; i++) {
+            if (this.projects[i]._id === id) {
+                this.projects.splice(i,1);
+            }
+        }
+
+        Storage.updateLocalStorage(collection);
+    }
+
+    removeTask(id) {
+        const projectID = this.getParentProjectID(id);
+        const parentProject = this.getProject(projectID);
+
+        for (let i = 0; i < parentProject.tasks.length; i++) {
+            if (parentProject.tasks[i]._id === id) {
+                parentProject.tasks.splice(i,1);
+            }
+        }
+
+        Storage.updateLocalStorage(collection);
     }
 
     getProjectNames() {
@@ -25,23 +49,23 @@ export class Collection {
         }
     }
 
-    removeProject(id) {
-        for (let i = 0; i < this.projects.length; i++) {
-            if (this.projects[i]._id === id) {
-                this.projects.splice(i,1);
+    getTask(id) {
+        const parentID = this.getParentProjectID(id);
+        const parentProject = this.getProject(parentID);
+
+        for (const task of parentProject.tasks) {
+            if (task._id === id) {
+                return task;
             }
         }
     }
 
-    removeTask(id) {
-        const projectID = id.substring(0,5);
-        const parentProject = this.getProject(projectID);
+    getParentProjectID(id) {
+        return id.substring(0,5);
+    }
 
-        for (let i = 0; i < parentProject.tasks.length; i++) {
-            if (parentProject.tasks[i]._id === id) {
-                parentProject.tasks.splice(i,1);
-            }
-        }
+    getProjectIDs() {
+        return this.projects.map(project => project._id);
     }
 }
 
@@ -72,6 +96,8 @@ export class Project {
         const task = new Task(name, desc);
         this.tasks.push(task);
         task.setTaskID(this);
+
+        Storage.updateLocalStorage(collection);
     }
 
     getTaskIDs() {
@@ -105,5 +131,47 @@ export class Task {
         }
 
         this._id = id;
+    }
+}
+
+export class Storage {
+    static updateLocalStorage(collectionObject) {
+        const projects = collectionObject.projects.map(({tasks, ...rest}) => rest)
+
+        const tasks = [];
+        collectionObject.projects.forEach(project => {
+            project.tasks.forEach(task => tasks.push(task));
+        })
+
+        localStorage.setItem('projects', JSON.stringify(projects));
+        localStorage.setItem('tasks', JSON.stringify(tasks));
+    }
+
+    static retrieveFromLocalStorage(collectionObject) {
+        const projects = JSON.parse(localStorage.getItem('projects'));
+        const tasks = JSON.parse(localStorage.getItem('tasks'));
+
+        for (const project of projects) {
+            Object.setPrototypeOf(project, Project.prototype);
+
+            project.tasks = [];
+            collectionObject.projects.push(project);
+        }
+
+        for (const task of tasks) {
+            Object.setPrototypeOf(task, Task.prototype);
+
+            const parentProjectID = task._id.substring(0,5);
+            const project = collectionObject.getProject(parentProjectID);
+            project.tasks.push(task);
+        }
+    }
+
+    static checkStatus() {
+        if (!localStorage.getItem('projects')) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
