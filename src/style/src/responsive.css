@@ -1,3 +1,14 @@
+@media screen and (max-width: 1000px) {
+    .edit-task .bottom-content-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        width: 100%;
+    }
+    .edit-task .edit-priority-container {
+        width: 100%;
+    }
+}
 @media screen and (max-width: 790px) {
     header .logo h2 {
         font-size: .8rem;
@@ -26,6 +37,24 @@
     header .new-project-button-header h3{
         white-space: nowrap;
     }
+    .edit-task .edit-priority-container ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+    .edit-task .bottom-content-container {
+        display: flex;
+        flex-direction: row;
+    }
+    .edit-task input[type="date"] {
+        height: 100%;
+    }
+    .edit-task .edit-date-container img {
+        position: absolute;
+        top: 80px;
+        right: 20px;
+        padding: 0;
+    }
 }
 
 @media screen and (max-width: 600px) {
@@ -36,7 +65,7 @@
         width: 0;
         overflow: hidden;
     }
-    header {
+    header.main-header {
         position: fixed;
         top: 0;
         gap: 0;

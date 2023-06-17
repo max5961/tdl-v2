@@ -282,6 +282,7 @@ export class Build {
     static header() {
         return new Element({
             'tagname':'header',
+            'class':'main-header',
             'children':[
                 // logo
                 new Element({
@@ -892,15 +893,180 @@ export class Build {
     static editTaskView() {
         return new Element({
             'tagname': 'div',
-            'class': 'display',
+            'class': 'display edit-task',
             'children': [
                 new Element({
                     'tagname': 'header',
                     'children': [
                         new Element({
-                            'tagname': 'h1',
-                            'text-content': 'Scheduled Today'
-                        }).build()
+                            'tagname': 'button',
+                            'class':'delete-task',
+                            'text-content': 'DELETE TASK'
+                        }).build(),
+
+                        new Element({
+                            'tagname':'div',
+                            'class':'buttons-container',
+                            'children':[
+                                new Element({
+                                    'tagname':'button',
+                                    'class':'undo-changes',
+                                    'text-content':'UNDO CHANGES'
+                                }).build(),
+                                new Element({
+                                    'tagname':'button',
+                                    'class':'save-changes',
+                                    'text-content':'SAVE'
+                                }).build(),
+                            ]
+                        }).build(),
+                    ]
+                }).build(),
+                new Element({
+                    'tagname':'ul',
+                    'class':'nested-container',
+                    'children':[
+                        new Element({
+                            'tagname':'div',
+                            'class':'edit-input container',
+                            'children':[
+                                new Element({
+                                    'tagname':'label',
+                                    'class':'absolute-position',
+                                    'text-content':'Task Name (required)',
+                                }).build(),
+                                new Element({
+                                    'tagname':'input',
+                                    'type':'text',
+                                    'class':'edit-input edit-task-name',
+                                }).build(),
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname':'div',
+                            'class':'edit-input container',
+                            'children':[
+                                new Element({
+                                    'tagname':'label',
+                                    'class':'absolute-position',
+                                    'text-content':'Notes',
+                                }).build(),
+                                new Element({
+                                    'tagname':'textarea',
+                                    'class':'edit-input edit-task-notes',
+                                }).build(),
+                            ]
+                        }).build(),
+                        
+                        new Element({
+                            'tagname':'div',
+                            'class':'bottom-content-container',
+                            'children':[
+        
+                                new Element({
+                                    'tagname':'div',
+                                    'class':'edit-priority-container',
+                                    'children':[
+                                        new Element({
+                                            'tagname':'label',
+                                            'class':'absolute-position',
+                                            'text-content':'Priority',
+                                        }).build(),
+        
+                                        new Element({
+                                            'tagname':'ul',
+                                            'children':[
+                                                new Element({
+                                                    'tagname':'li',
+                                                    'children':[
+                                                        new Element({
+                                                            'tagname':'input',
+                                                            'type':'radio',
+                                                            'name':'priority',
+                                                            'value':'unset',
+                                                            'checked':'true',
+                                                        }).build(),
+                                                        new Element({
+                                                            'tagname':'label',
+                                                            'for':'unset',
+                                                            'text-content':'Unset',
+                                                        }).build(),
+                                                    ]
+                                                }).build(),
+                                                new Element({
+                                                    'tagname':'li',
+                                                    'children':[
+                                                        new Element({
+                                                            'tagname':'input',
+                                                            'type':'radio',
+                                                            'name':'priority',
+                                                            'value':'low',
+                                                        }).build(),
+                                                        new Element({
+                                                            'tagname':'label',
+                                                            'for':'low',
+                                                            'text-content':'Low',
+                                                        }).build(),
+                                                    ]
+                                                }).build(),
+                                                new Element({
+                                                    'tagname':'li',
+                                                    'children':[
+                                                        new Element({
+                                                            'tagname':'input',
+                                                            'type':'radio',
+                                                            'name':'priority',
+                                                            'value':'medium',
+                                                        }).build(),
+                                                        new Element({
+                                                            'tagname':'label',
+                                                            'for':'medium',
+                                                            'text-content':'Medium',
+                                                        }).build(),
+                                                    ]
+                                                }).build(),
+                                                new Element({
+                                                    'tagname':'li',
+                                                    'children':[
+                                                        new Element({
+                                                            'tagname':'input',
+                                                            'type':'radio',
+                                                            'name':'priority',
+                                                            'value':'high',
+                                                        }).build(),
+                                                        new Element({
+                                                            'tagname':'label',
+                                                            'for':'high',
+                                                            'text-content':'High',
+                                                        }).build(),
+                                                    ]
+                                                }).build(),
+                                            ]
+                                        }).build(),
+                                    ]
+                                }).build(),
+
+                                new Element({
+                                    'tagname':'div',
+                                    'class':'edit-date-container',
+                                    'children':[
+                                        new Element({
+                                            'tagname':'label',
+                                            'class':'absolute-position',
+                                            'text-content':'Due Date',
+                                        }).build(),
+                                        new Element({
+                                            'tagname':'input',
+                                            'type':'date',
+                                        }).build(),
+                                        new Element({
+                                            'tagname':'img',
+                                            'src':'../src/view/icons/calendar.svg',
+                                        }).build()
+                                    ]
+                                }).build(),
+                            ]
+                        }).build(),
                     ]
                 }).build(),
             ]

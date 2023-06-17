@@ -25,10 +25,10 @@
     transition: height, width 120ms ease-in-out;
     overflow: hidden;
 }
-.new-project-modal form.visible {
+/* .new-project-modal form.visible {
     height: auto;
     max-width: 600px;
-}
+} */
 .new-project-modal .button-container {
     display: flex;
     justify-content: space-between;

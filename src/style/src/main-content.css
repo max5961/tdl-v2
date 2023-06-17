@@ -206,5 +206,169 @@
     max-width: 550px;
 }
 
+/* edit task */
+.edit-task header {
+    margin-bottom: 25px;
+}
+.edit-task header button.delete-task {
+    border-radius: 10px;
+    padding: 10px;
+}
+.edit-task header .buttons-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+}
+.edit-task header .buttons-container button.save-changes {
+    border-radius: 10px;
+    background-color: #41b936;
+    color: white;
+    font-weight: 900;
+    padding: 10px 20px 10px 20px;
+    transition: background-color 120ms ease-in-out,
+}
+.edit-task header .buttons-container button.save-changes:hover {
+    background-color:#32a028;
+}
+.edit-task header .buttons-container button.save-changes:active {
+    background-color:#26811e;
+}
+.edit-task header .buttons-container button.undo-changes {
+    border-radius: 10px;
+    padding: 10px;
+    color:blue;
+    font-weight: 900;
+}
+.edit-task .nested-container {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+.edit-task .edit-input {
+    display: flex;
+    width: 100%;
+    position: relative;
+}
+.edit-task .edit-input input.edit-task-name {
+    height: 90px;
+    font-size: 20px;
+    padding: 20px;
+}
+.edit-task .edit-input textarea.edit-task-notes {
+    height: 200px;
+    width: 200px;
+    font-size: 20px;
+    padding: 20px;
+    padding-top: 40px;
+    flex-grow: 1;
+}
+.edit-task label.absolute-position {
+    position: absolute;
+    top: 8px;
+    left: 20px;
+    font-size: 15px;
+    color: blue;
+    z-index: 1;
+}
+.edit-task .bottom-content-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 15px;
+}
+.edit-task input[type="date"] {
+    width: 100%;
+}
+.edit-task .edit-priority-container {
+    flex-grow: 3;
+    position: relative;
+    padding: 20px;
+    padding-top: 40px;
+}
+.edit-task .edit-priority-container ul {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+.edit-task .edit-priority-container li {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.edit-task input[type="radio"] {
+    height: 25px;
+    width: 25px;
+    transition: transform 120ms ease-in-out;
+}
+.edit-task input[type="radio"]:checked {
+    transform: scale(1.2);
+}
+.edit-task input[type="radio"][value="unset"] {
+    accent-color: gray;
+}
+.edit-task input[type="radio"][value="low"] {
+    accent-color: green;
+}
+.edit-task input[type="radio"][value="medium"] {
+    accent-color: rgb(145, 145, 0);
+}
+.edit-task input[type="radio"][value="high"] {
+    accent-color: red;
+}
+.edit-task label[for="unset"] {
+    color: gray;
+    font-weight: 900;
+}
+.edit-task label[for="low"] {
+    color: green;
+    font-weight: 900;
+}
+.edit-task label[for="medium"] {
+    color: rgb(160, 160, 0);
+    font-weight: 900;
+}
+.edit-task label[for="high"] {
+    color: red;
+    font-weight: 900;
+}
 
+.edit-task .edit-date-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    gap: 10px;
+    position: relative;
+    flex-grow: 1;
+}
+.edit-task .edit-date-container img {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    padding: 0;
+}
+.edit-task input[type="date"] {
+    height: 90px;
+    padding-left: 20px;
+    padding-top: 6px;
+    display: flex;
+    align-items: center;
+    font-weight: 700;
+    font-size: 20px;
+}
+.edit-task input[type="date"]::-webkit-calendar-picker-indicator {
+    height: 100%;
+    width: 65px;
+    z-index: 1;
+    background: transparent;
+}
+
+
+.edit-task input,
+.edit-task textarea,
+.edit-task .edit-priority-container {
+    border: 1px solid black;
+    border-radius: 10px;
+}
 

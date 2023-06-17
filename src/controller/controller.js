@@ -18,8 +18,9 @@ export function insertDefaultLoaded() {
     rightSideFlexContainer.appendChild(Build.mainContentContainer());
     rightSideFlexContainer.appendChild(Build.mobileNav());
 
-    Move.insertMainContent(Build.singleProjectView());
-    Move.insertNestedContent(Build.taskItem());
+    Move.insertMainContent(Build.editTaskView());
+
+    
 }
 
 // elements that are removed or inserted into often

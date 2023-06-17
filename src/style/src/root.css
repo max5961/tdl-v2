@@ -31,6 +31,10 @@ input {
     height: 35px;
 }
 
+textarea {
+    outline: none;
+}
+
 #content {
     width: auto;
     height: auto;
