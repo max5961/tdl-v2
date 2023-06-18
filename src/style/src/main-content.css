@@ -6,6 +6,7 @@
     background-color:rgb(255, 255, 255);
     border-right: 1px solid rgb(236, 236, 236);
     padding: 25px;
+    transition: background-color 120ms ease-in-out;
 }
 .display header {
     width: 100%;
@@ -56,6 +57,27 @@
     color: rgb(53, 53, 53);
     font-size: 1.2rem;
 }
+.display input.checkbox-delete {
+    position: absolute;
+    top: 15px;
+    left: 48px;
+    height: 27px;
+    width: 27px;
+    accent-color: #730085;
+}
+.display .confirm-delete-container {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+    color: rgb(0, 0, 0);
+    transition: height 120ms ease-in-out;
+}
+.display .confirm-delete-container.visible {
+    height: 65px;
+}
+.display.edit-mode {
+    background-color: #efefff;
+}
 
 /* task item */
 .item {
@@ -67,12 +89,18 @@
     gap: 5px;
     border-bottom: 1px solid lightgray;
     margin-bottom: 10px;
+    position: relative;
+    transition: gap 50ms ease-in-out;
+}
+.item.delete-view {
+    gap: 40px;
 }
 .item.expanded {
     height: auto;
 }
 .item .item-container {
     margin-bottom: 20px;
+    width: 100%;
 }
 .item .adjust-height-container {
     width: 50px;
@@ -115,6 +143,7 @@
     display: flex;
     flex-direction: column;
     text-align: left;
+    width: 100%;
 }
 .item .priority-circle {
     height: 30px;
@@ -158,6 +187,16 @@
 }
 
 /* single project */
+.single-project .back-button-container {
+    display: flex;
+    justify-content: flex-start;
+}
+.single-project .back-button {
+    border-radius: 10px;
+    padding: 10px;
+    background-color: #b9deff;
+    margin-bottom: 20px;
+}
 .single-project header {
     display: flex;
     flex-direction: row;
@@ -173,18 +212,25 @@
 .single-project header :nth-child(4) {
     border-radius: 50%;
 }
+.single-project header h1 {
+    position: absolute;
+    top: 3px;
+    left: 0;
+}
 .single-project header span.divider {
     margin: 0 10px 0 10px;
     font-size: 1.6em;
     position: absolute;
-    left: 110px;
-    bottom: 10px;
+    left: 93px;
+    bottom: -10px;
 }
 .single-project header span.name {
-    color: var(--gray2);
     position: absolute;
     left: 145px;
-    bottom: 15px;
+    bottom: 3px;
+    color: black;
+    font-weight: 900;
+    font-size: 19px;
 }
 .single-project .project-description-container {
     margin: 20px 0 20px 0;

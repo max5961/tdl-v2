@@ -35,6 +35,11 @@ export class Element {
                     element.addEventListener(property, this.config['event-listeners'][property]);
                 }
             }
+            else if(property === 'duplicate-event-listeners'){
+                for(const property in this.config['duplicate-event-listeners']){
+                    element.addEventListener(property, this.config['duplicate-event-listeners'][property]);
+                }
+            }
             else if(property === 'src'){
                 element.src = this.config['src'];
             }

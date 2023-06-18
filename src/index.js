@@ -12,4 +12,3 @@ export const collection = new Collection();
 if (Storage.checkStatus()) {
     Storage.retrieveFromLocalStorage(collection);
 }
-

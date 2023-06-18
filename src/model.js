@@ -168,10 +168,26 @@ export class Storage {
     }
 
     static checkStatus() {
-        if (!localStorage.getItem('projects')) {
-            return false;
-        } else {
+        if (localStorage.getItem('projects')) {
             return true;
+        } else {
+            return false;
         }
+    }
+
+    static updateUserSettings(userSettings) {
+        localStorage.setItem('UserSettings', JSON.stringify(userSettings));
+    }
+
+    static retrieveUserSettings(userSettings) {
+        const stored = JSON.parse(localStorage.getItem('userSettings'));
+
+        Object.assign(userSettings, stored);
+    }
+
+    static checkUserSettings() {
+        const storedUserSettings = localStorage.getItem('userSettings');
+        
+        return storedUserSettings !== null;
     }
 }

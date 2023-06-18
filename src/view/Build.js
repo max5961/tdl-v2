@@ -2,7 +2,9 @@ import { Element } from './Element.js';
 import { preventDefault } from '../controller.js';
 import { AddNew } from '../controller.js';
 import { Navigation } from '../controller.js';
-
+import { Edit } from '../controller.js';
+import { Project } from '../controller.js';
+import { Load } from '../controller.js';
 
 export class Build {
     static navigationMaximized() {
@@ -531,7 +533,7 @@ export class Build {
                                     'tagname': 'button',
                                     'type': 'submit',
                                     'text-content': 'Create Project',
-                                    'event-listeners':{'click':AddNew.pushProjectToCollection},
+                                    'event-listeners':{'click':AddNew.submitProject},
                                 }).build()
                             ]
                         }).build()
@@ -634,6 +636,7 @@ export class Build {
                                 }).build(),
                                 new Element({
                                     'tagname':'button',
+                                    'event-listeners':{'click':Edit.toggleQueueMode},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -663,10 +666,11 @@ export class Build {
         }).build();
     }
 
-    static projectItem() {
+    static projectItem(project) {
         return new Element({
             'tagname': 'div',
             'class': 'item project',
+            'item-id':`${project._id}`,
             'children': [
                 new Element({
                     'tagname': 'div',
@@ -690,6 +694,8 @@ export class Build {
                 new Element({
                     'tagname': 'button',
                     'class': 'item-container',
+                    'item-id':`${project._id}`,
+                    'event-listeners':{'click':Project.exploreProject},
                     'children': [
                         new Element({
                             'tagname': 'div',
@@ -697,12 +703,12 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'h2',
-                                    'text-content': 'Project 1'
+                                    'text-content': `${project.name}`
                                 }).build(),
                                 new Element({
                                     'tagname':'p',
                                     'class':'instructions',
-                                    'text-content':'click to view project',
+                                    'text-content':'click to view project and add tasks',
                                 }).build(),
                             ]
                         }).build(),
@@ -718,7 +724,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'p',
                                     'class': 'description-content',
-                                    'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
+                                    'text-content': `${project.desc}`
                                 }).build(),
                                 new Element({
                                     'tagname': 'div',
@@ -732,7 +738,7 @@ export class Build {
                                         new Element({
                                             'tagname': 'p',
                                             'class': 'tasks-count',
-                                            'text-content': '10'
+                                            'text-content': `${project.tasks.length}`
                                         }).build()
                                     ]
                                 }).build()
@@ -744,11 +750,23 @@ export class Build {
         }).build();
     }
 
-    static singleProjectView() {
+    static singleProjectView(project) {
         return new Element({
             'tagname': 'div',
             'class': 'display single-project',
             'children': [
+                new Element({
+                    'tagname':'div',
+                    'class':'back-button-container',
+                    'children':[
+                        new Element({
+                            'tagname':'button',
+                            'class':'back-button',
+                            'event-listeners':{'click':Load.projectsPage},
+                            'text-content':'BACK TO PROJECTS',
+                        }).build(),
+                    ]
+                }).build(),
                 new Element({
                     'tagname': 'header',
                     'children': [
@@ -764,12 +782,17 @@ export class Build {
                         new Element({
                             'tagname': 'span',
                             'class': 'divider',
-                            'text-content': '>'
+                            'children':[
+                                new Element({
+                                    'tagname':'img',
+                                    'src':'../src/view/icons/subdirectory.svg',
+                                }).build(),
+                            ]
                         }).build(),
                         new Element({
                             'tagname': 'span',
                             'class': 'name',
-                            'text-content': 'Project 1'
+                            'text-content': `${project.name}`
                         }).build(),
                         new Element({
                             'tagname': 'button',
@@ -789,12 +812,12 @@ export class Build {
                     'children': [
                         new Element({
                             'tagname': 'h2',
-                            'text-content': 'Description'
+                            'text-content': 'Description',
                         }).build(),
                         new Element({
                             'tagname': 'p',
                             'class': 'description-content',
-                            'text-content': 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Aut ipsa dolorum fuga at velit. Animi illo laboriosam natus perspiciatis ab necessitatibus odit? Maiores non, itaque aliquam totam molestiae deleniti. Unde!'
+                            'text-content': `${project.desc}`,
                         }).build()
                     ]
                 }).build(),
@@ -1136,6 +1159,33 @@ export class Build {
                             ]
                         }).build(),
                     ]
+                }).build(),
+            ]
+        }).build();
+    }
+
+    static deleteCheckbox(id) {
+        return new Element({
+            'tagname':'input',
+            'class':'checkbox-delete',
+            'item-id':`${id}`,
+            'type':'checkbox',
+            'event-listeners':{'input':Edit.controlQueueDropDown}
+        }).build();
+    }
+
+    static queueDropDown() {
+        return new Element({
+            'tagname':'div',
+            'class':'confirm-delete-container',
+            'children':[
+                new Element({
+                    'tagname':'p',
+                    'text-content':'1 selected',
+                }).build(),
+                new Element({
+                    'tagname':'button',
+                    'text-content':'Delete',
                 }).build(),
             ]
         }).build();
