@@ -2,8 +2,7 @@ import { Element } from './Element.js';
 import { preventDefault } from '../controller.js';
 import { AddNew } from '../controller.js';
 import { Navigation } from '../controller.js';
-import { Edit } from '../controller.js';
-import { Project } from '../controller.js';
+import { Queue } from '../controller.js';
 import { Load } from '../controller.js';
 import { EditTask } from '../controller.js';
 
@@ -637,7 +636,7 @@ export class Build {
                                 }).build(),
                                 new Element({
                                     'tagname':'button',
-                                    'event-listeners':{'click':Edit.toggleQueueMode},
+                                    'event-listeners':{'click':Queue.toggleQueueMode},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -696,7 +695,7 @@ export class Build {
                     'tagname': 'button',
                     'class': 'item-container',
                     'item-id':`${project._id}`,
-                    'event-listeners':{'click':Project.exploreProject},
+                    'event-listeners':{'click':Load.singleProjectPage},
                     'children': [
                         new Element({
                             'tagname': 'div',
@@ -1180,7 +1179,7 @@ export class Build {
             'class':'checkbox-delete',
             'item-id':`${id}`,
             'type':'checkbox',
-            'event-listeners':{'input':Edit.controlQueueDropDown}
+            'event-listeners':{'input':Queue.controlQueueDropDown}
         }).build();
     }
 

@@ -62,6 +62,99 @@ export class Move {
     }
 }
 
+export class Load {
+    static previousPage(e) {
+        if (userSettings.singleProject === true) {
+            Load.singleProjectPage(e);
+            return;
+        } else if (userSettings.currentTab === 'projects') {
+            Load.projectsPage();
+            return;
+        } 
+    }
+
+    static projectsPage() {
+        userSettings.currentTab = 'projects';
+        userSettings.currentProject = null;
+        userSettings.singleProject = false;
+
+        Move.removeMainContent();
+        Move.insertMainContent(Build.projectsView());
+        Load.reloadProjects();
+    }
+
+    // should be singleProjectPage()
+    static singleProjectPage(e) {
+        userSettings.singleProject = true;
+        userSettings.currentTask = null;
+        userSettings.queueMode = false;
+        userSettings.itemQueue = [];
+        
+        if (userSettings.currentProject === null) {
+            let node = e.target;
+            while (!node.getAttribute('item-id')) {
+                node = node.parentNode;
+            }
+    
+            const projectID = node.getAttribute('item-id');
+    
+            // this is necessary for task input validation and where to put newly created tasks
+            userSettings.currentProject = projectID;
+        }
+
+        // load the project
+        const project = collection.getProject(userSettings.currentProject);
+        Move.insertMainContent(Build.singleProjectView(project));
+        Load.reloadProjectTasks();
+    }
+
+    // inserts all projects into the nested container
+    // should be reloadProjectItems()
+    static reloadProjects() {
+        Move.removeNestedContent();
+
+        const projects = collection.projects;
+        for (const project of projects) {
+            const node = Build.projectItem(project);
+            Move.insertNestedContent(node);
+        }
+    }
+
+    // reloadProjectTaskItems()
+    static reloadProjectTasks() {
+        Move.removeNestedContent();
+        
+        const project = collection.getProject(userSettings.currentProject);
+        for (const task of project.tasks) {
+            const node = Build.taskItem(task);
+            Move.insertNestedContent(node);
+        }
+    }
+
+    static editTaskPage(e) {
+        let node = e.target;
+        while (!node.getAttribute('item-id')) {
+            node = node.parentNode;
+        }
+        const taskID = node.getAttribute('item-id');
+        const task = collection.getTask(taskID);
+
+        // this is necessary for submitting the final edit form;
+        userSettings.currentTask = taskID;
+
+        const editTaskPage = Build.editTaskPage(task);
+        Move.removeMainContent();
+        Move.insertMainContent(editTaskPage);
+        
+        const radios = document.querySelectorAll('input[type="radio"]');
+        for (const radio of radios) {
+            if (radio.getAttribute('value') === task.priority) {
+                radio.checked = true;
+            }
+        }
+    }
+}
+
 export class AddNew {
     static createNewProjectModal() {
         document.querySelector('#content').appendChild(Build.newProjectModal());
@@ -164,18 +257,18 @@ export class AddNew {
         // instead of reloading all the projects at once, only append the latest added project, so that if a tab is expanded, it stays expanded
         const addedProject = collection.projects[collection.projects.length -1];
         if (userSettings.currentTab === 'projects') {
-            if (!document.querySelector('.display.edit-mode')) {
+            if (!document.querySelector('.display.queue-mode')) {
                 const node = Build.projectItem(addedProject);
                 Move.insertNestedContent(node);
             }
         }
 
-        // if in edit-mode, exit edit mode when submitting a new project
+        // if in queue-mode, exit edit mode when submitting a new project
         if (userSettings.currentTab === 'projects') {
-            if (document.querySelector('.display.edit-mode')) {
+            if (document.querySelector('.display.queue-mode')) {
 
                 // this methods exits queueMode as well as removing the nested content and reloading it
-                Edit.exitQueueMode();
+                Queue.exitQueueMode();
             }
         }
 
@@ -199,15 +292,15 @@ export class AddNew {
         }
 
         if (userSettings.singleProject === true) {
-            if (!document.querySelector('.display.edit-mode')) {
+            if (!document.querySelector('.display.queue-mode')) {
                 const addedTask = project.tasks[project.tasks.length -1];
                 const node = Build.taskItem(addedTask);
                 Move.insertNestedContent(node);
             }
         }
         
-        if (document.querySelector('.display.edit-mode')) {
-            Edit.exitQueueMode();
+        if (document.querySelector('.display.queue-mode')) {
+            Queue.exitQueueMode();
         }
 
         // update the tasks count in the sidebar
@@ -289,7 +382,7 @@ export class Navigation {
     static clickTab(e) {
         Navigation.resetChosenTab(e);
         
-        // resetting userSettings properties to prevent bugs that would occur if the user is in edit mode and clicks a tab, thus exiting edit-mode but keeping the selected items in the itemQueue
+        // resetting userSettings properties to prevent bugs that would occur if the user is in edit mode and clicks a tab, thus exiting queue-mode but keeping the selected items in the itemQueue
         // resetting userSettings.currentTask to be safe, even though this value should be updated on every button that does something to a task
         userSettings.itemQueue = [];
         userSettings.queueMode = false;
@@ -337,87 +430,7 @@ export class Navigation {
     }
 }
 
-export class Load {
-    static previousPage() {
-        if (userSettings.singleProject === true) {
-            Load.singleProject();
-            return;
-        } else if (userSettings.currentTab === 'projects') {
-            Load.projectsPage();
-            return;
-        } 
-    }
-
-    static projectsPage() {
-        userSettings.currentTab = 'projects';
-        userSettings.currentProject = null;
-        userSettings.singleProject = false;
-
-        Move.removeMainContent();
-        Move.insertMainContent(Build.projectsView());
-        Load.reloadProjects();
-    }
-
-    // should be singleProjectPage()
-    static singleProject() {
-        userSettings.currentTask = null;
-
-        const project = collection.getProject(userSettings.currentProject);
-        Move.removeMainContent();
-        const singleProjectPage = Build.singleProjectView(project);
-        Move.insertMainContent(singleProjectPage);
-        Load.reloadProjectTasks();
-    }
-
-    // inserts all projects into the nested container
-    // should be reloadProjectItems()
-    static reloadProjects() {
-        Move.removeNestedContent();
-
-        const projects = collection.projects;
-        for (const project of projects) {
-            const node = Build.projectItem(project);
-            Move.insertNestedContent(node);
-        }
-    }
-
-    // reloadProjectTaskItems()
-    static reloadProjectTasks() {
-        Move.removeNestedContent();
-        
-        const project = collection.getProject(userSettings.currentProject);
-        for (const task of project.tasks) {
-            const node = Build.taskItem(task);
-            Move.insertNestedContent(node);
-        }
-    }
-
-    static editTaskPage(e) {
-        let node = e.target;
-        while (!node.getAttribute('item-id')) {
-            node = node.parentNode;
-        }
-        const taskID = node.getAttribute('item-id');
-        const task = collection.getTask(taskID);
-
-        // this is necessary for submitting the final edit form;
-        userSettings.currentTask = taskID;
-
-        const editTaskPage = Build.editTaskPage(task);
-        Move.removeMainContent();
-        Move.insertMainContent(editTaskPage);
-        
-        const radios = document.querySelectorAll('input[type="radio"]');
-        for (const radio of radios) {
-            if (radio.getAttribute('value') === task.priority) {
-                radio.checked = true;
-            }
-        }
-    }
-}
-
-// class name should be Queue
-export class Edit {
+export class Queue {
     static enterQueueMode() {
         userSettings.queueMode = true;
         userSettings.itemQueue = [];
@@ -444,7 +457,7 @@ export class Edit {
         document.querySelector('header .left-container').insertAdjacentElement('afterend', message);
 
         // change the background-color
-        document.querySelector('.display').classList.add('edit-mode');
+        document.querySelector('.display').classList.add('queue-mode');
     }
 
     static exitQueueMode() {
@@ -452,7 +465,7 @@ export class Edit {
         userSettings.itemQueue = [];
 
         // reset background-color;
-        document.querySelector('.display').classList.remove('edit-mode');
+        document.querySelector('.display').classList.remove('queue-mode');
 
         // remove queue message from header
         if (document.querySelector('.delete-queue-message')) {
@@ -474,14 +487,14 @@ export class Edit {
 
     static toggleQueueMode() {
         if (userSettings.queueMode === false) {
-            Edit.enterQueueMode();
+            Queue.enterQueueMode();
         } 
         
         else if (userSettings.queueMode === true) {
-            Edit.exitQueueMode();
+            Queue.exitQueueMode();
         }
     }
-    // this controls the queue drop down in edit-mode and listens for an input event on each checkbox
+    // this controls the queue drop down in queue-mode and listens for an input event on each checkbox
     static controlQueueDropDown(e) {
         const dropDown = document.querySelector('.confirm-delete-container');
         const count = document.querySelector('.confirm-delete-container p');
@@ -502,28 +515,6 @@ export class Edit {
         } else {
             dropDown.classList.remove('visible');
         }
-    }
-}
-
-export class Project {
-    static exploreProject(e) {
-        userSettings.singleProject = true;
-        userSettings.currentTask = null;
-        userSettings.queueMode = false;
-        userSettings.itemQueue = [];
-        
-        let node = e.target;
-        while (!node.getAttribute('item-id')) {
-            node = node.parentNode;
-        }
-
-        const projectID = node.getAttribute('item-id');
-        const project = collection.getProject(projectID);
-
-        // this is necessary for task input validation and where to put newly created tasks
-        userSettings.currentProject = projectID;
-        
-        Load.singleProject();
     }
 }
 

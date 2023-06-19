@@ -75,7 +75,7 @@
 .display .confirm-delete-container.visible {
     height: 65px;
 }
-.display.edit-mode {
+.display.queue-mode {
     background-color: #efefff;
 }
 
