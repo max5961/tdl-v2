@@ -507,7 +507,7 @@ export class Build {
                             'type': 'text',
                             'id': 'project-name',
                             'required': true,
-                            'event-listeners':{'input':AddNew.validateProjectInput}
+                            'event-listeners':{'input':AddNew.validateInput}
                         }).build(),
                         new Element({
                             'tagname': 'label',
@@ -563,7 +563,7 @@ export class Build {
                             'type': 'text',
                             'id': 'task-name',
                             'required': true,
-                            'event-listeners':{'input':AddNew.validateTaskInput}
+                            'event-listeners':{'input':AddNew.validateInput}
                         }).build(),
                         new Element({
                             'tagname': 'label',
@@ -588,8 +588,8 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'type': 'submit',
-                                    'text-content': 'Create Project',
-                                    'event-listeners':{'click':AddNew.pushTaskToCollection},
+                                    'text-content': 'Create Task',
+                                    'event-listeners':{'click':AddNew.submitTask},
                                 }).build()
                             ]
                         }).build()
@@ -822,11 +822,6 @@ export class Build {
                     ]
                 }).build(),
                 new Element({
-                    'tagname': 'h2',
-                    'class': 'tasks',
-                    'text-content': 'Tasks'
-                }).build(),
-                new Element({
                     'tagname': 'div',
                     'class': 'add-task-container',
                     'children': [
@@ -847,6 +842,11 @@ export class Build {
                         }).build(),
                     ]
                 }).build(),
+                new Element({
+                    'tagname': 'h2',
+                    'class': 'tasks',
+                    'text-content': 'Tasks'
+                }).build(),
 
                 // container for list of tasks
                 new Element({
@@ -857,7 +857,7 @@ export class Build {
         }).build();
     }
 
-    static taskItem() {
+    static taskItem(task) {
         return new Element({
             'tagname': 'div',
             'class': 'item task',
@@ -891,7 +891,7 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'h3',
-                                    'text-content': 'Task 1'
+                                    'text-content': `${task.name}`,
                                 }).build(),
                                 new Element({
                                     'tagname': 'div',
@@ -900,7 +900,7 @@ export class Build {
                                         new Element({
                                             'tagname': 'div',
                                             'class': 'date',
-                                            'text-content': '6/12/2023'
+                                            'text-content': `${task.dueDate}`,
                                         }).build(),
                                         new Element({
                                             'tagname': 'div',
@@ -934,7 +934,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'p',
                                     'class': 'notes-content',
-                                    'text-content': 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Recusandae quisquam doloribus possimus autem consequuntur placeat iure obcaecati, ipsa delectus magni quasi numquam sequi quaerat totam nesciunt assumenda quos excepturi magnam?'
+                                    'text-content': `${task.notes}`,
                                 }).build()
                             ]
                         }).build()

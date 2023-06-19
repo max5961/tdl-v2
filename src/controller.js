@@ -57,15 +57,6 @@ export class Move {
         const nestedContainer = document.querySelector('ul.nested-container');
         nestedContainer.appendChild(node);
     }
-
-    // inserts all projects into the nested container
-    static reloadProjects() {
-        const projects = collection.projects;
-        for (const project of projects) {
-            const node = Build.projectItem(project);
-            Move.insertNestedContent(node);
-        }
-    }
 }
 
 export class AddNew {
@@ -121,9 +112,18 @@ export class AddNew {
         }
     }
 
-    static validateProjectInput(e) {
-        const createButton = document.querySelector('.new-project-modal button[type=submit]');
-        const names = collection.getProjectNames();
+    static validateInput(e) {
+        const createButton = document.querySelector('.add-new-modal button[type=submit]');
+
+        let names;
+        if (e.target.getAttribute('id') === 'project-name') {
+            names = collection.getProjectNames();
+        }
+        else if (e.target.getAttribute('id') === 'task-name') {
+            const project = collection.getProject(userSettings.currentProject);
+            names = project.getTaskNames();
+        }
+        
         let current = e.target.value.trimEnd();
     
         if (e.target.value.length > 0) {
@@ -145,7 +145,7 @@ export class AddNew {
     static submitProject(e) {
         const name = document.querySelector('input#project-name').value.trimEnd();
         const desc = document.querySelector('textarea#project-description').value;
-        const modal = document.querySelector('.new-project-modal');
+        const modal = document.querySelector('.add-new-modal');
 
         // validate that the form requirements are met before pushing the project
         if (name.length > 0) {
@@ -158,6 +158,7 @@ export class AddNew {
         }
 
         // append the project to the list of projects if user is viewing the projects tab
+        // instead of reloading all the projects at once, only append the latest added project, so that if a tab is expanded, it stays expanded
         const addedProject = collection.projects[collection.projects.length -1];
         if (userSettings.currentTab === 'projects') {
             if (!document.querySelector('.display.edit-mode')) {
@@ -170,7 +171,7 @@ export class AddNew {
         if (userSettings.currentTab === 'projects') {
             if (document.querySelector('.display.edit-mode')) {
 
-                // this methods exits queueMode as well as removes the nested content and reloads it
+                // this methods exits queueMode as well as removing the nested content and reloading it
                 Edit.exitQueueMode();
             }
         }
@@ -180,12 +181,37 @@ export class AddNew {
         projectsCount.textContent = `${collection.projects.length}`;
     }
 
-    static validateTaskInput(e) {
-        
-    }
-
     static submitTask(e) {
+        const name = document.querySelector('input#task-name').value.trimEnd();
+        const notes = document.querySelector('textarea#project-description').value;
+        const modal = document.querySelector('.add-new-modal');
+        const project = collection.getProject(userSettings.currentProject);
 
+        if (name.length > 0) {
+            if (document.querySelector('input#task-name.valid')) {
+                project.addTask(name, notes);
+                modal.remove();
+            } else {
+                window.alert('That task name has already been chosen!')
+            }
+        }
+
+        
+        if (!document.querySelector('.display.edit-mode')) {
+            const addedTask = project.tasks[project.tasks.length -1];
+            const node = Build.taskItem(addedTask);
+            Move.insertNestedContent(node);
+        }
+
+        if (document.querySelector('.display.edit-mode')) {
+            Load.reloadProjectTasks();
+            document.querySelector('.display.edit-mode').classList.remove('edit-mode');
+        }
+
+        // update the tasks count in the sidebar
+        const tasksCount = document.querySelector('.count.tasks-count');
+        tasksCount.textContent = `${collection.getAllTasks().length}`;
+        
     }
 
 }
@@ -292,12 +318,31 @@ export class Navigation {
 export class Load {
     static projectsPage() {
         userSettings.currentTab = 'projects';
+        userSettings.currentProject = null;
+
         Move.removeMainContent();
         Move.insertMainContent(Build.projectsView());
+        Load.reloadProjects();
+    }
+
+    // inserts all projects into the nested container
+    static reloadProjects() {
         Move.removeNestedContent();
-        for (const project of collection.projects) {
-            const projectNode = Build.projectItem(project);
-            Move.insertNestedContent(projectNode);
+
+        const projects = collection.projects;
+        for (const project of projects) {
+            const node = Build.projectItem(project);
+            Move.insertNestedContent(node);
+        }
+    }
+
+    static reloadProjectTasks() {
+        Move.removeNestedContent();
+        
+        const project = collection.getProject(userSettings.currentProject);
+        for (const task of project.tasks) {
+            const node = Build.taskItem(task);
+            Move.insertNestedContent(node);
         }
     }
 }
@@ -347,7 +392,7 @@ export class Edit {
 
         // reload the items depending on which tab is being viewed
         if (userSettings.currentTab === 'projects') {
-            Move.reloadProjects();
+            Load.reloadProjects();
         }
     }
 
@@ -383,8 +428,6 @@ export class Edit {
             dropDown.classList.remove('visible');
         }
     }
-
-
 }
 
 export class Project {
@@ -396,9 +439,13 @@ export class Project {
 
         const projectID = node.getAttribute('item-id');
         const project = collection.getProject(projectID);
+
+        // this is necessary for task input validation and where to put newly created tasks
+        userSettings.currentProject = projectID;
         
         Move.removeMainContent();
         const projectPage = Build.singleProjectView(project);
         Move.insertMainContent(projectPage);
+        Load.reloadProjectTasks();
     }
 }

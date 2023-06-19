@@ -67,6 +67,17 @@ export class Collection {
     getProjectIDs() {
         return this.projects.map(project => project._id);
     }
+
+    getAllTasks() {
+        const tasks = [];
+        for (const project of collection.projects) {
+            for (const task of project.tasks) {
+                tasks.push(task)
+            }
+        }
+
+        return tasks;
+    }
 }
 
 export class Project {
