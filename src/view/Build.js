@@ -5,6 +5,7 @@ import { Navigation } from '../controller.js';
 import { Edit } from '../controller.js';
 import { Project } from '../controller.js';
 import { Load } from '../controller.js';
+import { EditTask } from '../controller.js';
 
 export class Build {
     static navigationMaximized() {
@@ -910,6 +911,8 @@ export class Build {
                                         new Element({
                                             'tagname': 'button',
                                             'class': 'edit-task',
+                                            'item-id':`${task._id}`,
+                                            'event-listeners':{'click':Load.editTaskPage},
                                             'children': [
                                                 new Element({
                                                     'tagname': 'img',
@@ -968,7 +971,7 @@ export class Build {
         }).build();
     }
 
-    static editTaskView() {
+    static editTaskPage(task) {
         return new Element({
             'tagname': 'div',
             'class': 'display edit-task',
@@ -979,6 +982,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'class':'back-button',
+                            'event-listeners':{'click':Load.previousPage},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -986,7 +990,7 @@ export class Build {
                                 }).build(),
                                 new Element({
                                     'tagname':'span',
-                                    'text-content':'BACK TO PROJECT 1',
+                                    'text-content':'BACK',
                                 }).build(),
                             ]
                         }).build(),
@@ -997,17 +1001,20 @@ export class Build {
                                 new Element({
                                     'tagname': 'button',
                                     'class':'delete-task',
-                                    'text-content': 'DELETE TASK'
+                                    'text-content': 'DELETE TASK',
+                                    'event-listeners': {'click':EditTask.removeTask},
                                 }).build(),
                                 new Element({
                                     'tagname':'button',
                                     'class':'undo-changes',
-                                    'text-content':'UNDO CHANGES'
+                                    'text-content':'UNDO CHANGES',
+                                    'event-listeners':{'click':EditTask.undoChanges},
                                 }).build(),
                                 new Element({
                                     'tagname':'button',
                                     'class':'save-changes',
-                                    'text-content':'SAVE'
+                                    'text-content':'SAVE',
+                                    'event-listeners':{'click':EditTask.saveChanges},
                                 }).build(),
                             ]
                         }).build(),
@@ -1030,6 +1037,7 @@ export class Build {
                                     'tagname':'input',
                                     'type':'text',
                                     'class':'edit-input edit-task-name',
+                                    'value':`${task.name}`,
                                 }).build(),
                             ]
                         }).build(),
@@ -1045,6 +1053,7 @@ export class Build {
                                 new Element({
                                     'tagname':'textarea',
                                     'class':'edit-input edit-task-notes',
+                                    'value':`${task.notes}`,
                                 }).build(),
                             ]
                         }).build(),
@@ -1149,6 +1158,7 @@ export class Build {
                                         new Element({
                                             'tagname':'input',
                                             'type':'date',
+                                            'value':`${task.dueDate}`,
                                         }).build(),
                                         new Element({
                                             'tagname':'img',

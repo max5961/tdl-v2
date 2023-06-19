@@ -1,5 +1,7 @@
 import { collection } from './index.js';
+import { Storage } from './model.js';
 import { Build } from './view/Build.js';
+
 
 export function preventDefault(e) {
     e.preventDefault();
@@ -23,7 +25,8 @@ const userSettings = {
     currentProject: null,
     currentTask: null,
     currentTab: null,
-    previousTabs: [],
+    singleProject: false,
+    previousPage: null,
 
     queueMode: false,
     itemQueue: [],
@@ -177,8 +180,7 @@ export class AddNew {
         }
 
         // update the projects count in the sidebar
-        const projectsCount = document.querySelector('.count.projects-count');
-        projectsCount.textContent = `${collection.projects.length}`;
+        Navigation.updateSidebarCount();
     }
 
     static submitTask(e) {
@@ -196,24 +198,22 @@ export class AddNew {
             }
         }
 
-        
-        if (!document.querySelector('.display.edit-mode')) {
-            const addedTask = project.tasks[project.tasks.length -1];
-            const node = Build.taskItem(addedTask);
-            Move.insertNestedContent(node);
+        if (userSettings.singleProject === true) {
+            if (!document.querySelector('.display.edit-mode')) {
+                const addedTask = project.tasks[project.tasks.length -1];
+                const node = Build.taskItem(addedTask);
+                Move.insertNestedContent(node);
+            }
         }
-
+        
         if (document.querySelector('.display.edit-mode')) {
-            Load.reloadProjectTasks();
-            document.querySelector('.display.edit-mode').classList.remove('edit-mode');
+            Edit.exitQueueMode();
         }
 
         // update the tasks count in the sidebar
-        const tasksCount = document.querySelector('.count.tasks-count');
-        tasksCount.textContent = `${collection.getAllTasks().length}`;
+        Navigation.updateSidebarCount();
         
     }
-
 }
 
 export class Navigation {
@@ -289,9 +289,11 @@ export class Navigation {
     static clickTab(e) {
         Navigation.resetChosenTab(e);
         
-        // this will prevent a bug that would occur if the user is in edit mode and clicks a tab, thus exiting edit-mode
+        // resetting userSettings properties to prevent bugs that would occur if the user is in edit mode and clicks a tab, thus exiting edit-mode but keeping the selected items in the itemQueue
+        // resetting userSettings.currentTask to be safe, even though this value should be updated on every button that does something to a task
         userSettings.itemQueue = [];
         userSettings.queueMode = false;
+        userSettings.currentTask = null;
 
         const targetedClass = Navigation.getClassName(e.target);
         if (targetedClass === 'scheduled-today' && userSettings.currentTab !== 'scheduled-today') {
@@ -309,23 +311,66 @@ export class Navigation {
             Move.removeMainContent();
             Move.insertMainContent(Build.tasksView());
 
-        } else if (targetedClass === 'projects' && userSettings.currentTab !== 'projects') {
-            Load.projectsPage();
+        } else if (targetedClass === 'projects') {
+            if (userSettings.singleProject === true) {
+                Load.projectsPage();
+            }
+            if (userSettings.currentTab !== 'projects') {
+                Load.projectsPage();
+            }
         }
+    }
+
+    static updateSidebarCount() {
+        const projectsCount = `${collection.projects.length}`;
+        const tasksCount = `${collection.getAllTasks().length}`;
+        // const scheduled
+        // const today
+
+        const projectsNode = document.querySelector('.count.projects-count');
+        const tasksNode = document.querySelector('.count.tasks-count');
+        // const scheduledNode = document.querySelector('.count.scheduled-count');
+        // const todayNode = document.querySelector('.count.scheduled-today-count');
+
+        projectsNode.textContent = projectsCount;
+        tasksNode.textContent = tasksCount;
     }
 }
 
 export class Load {
+    static previousPage() {
+        if (userSettings.singleProject === true) {
+            Load.singleProject();
+            return;
+        } else if (userSettings.currentTab === 'projects') {
+            Load.projectsPage();
+            return;
+        } 
+    }
+
     static projectsPage() {
         userSettings.currentTab = 'projects';
         userSettings.currentProject = null;
+        userSettings.singleProject = false;
 
         Move.removeMainContent();
         Move.insertMainContent(Build.projectsView());
         Load.reloadProjects();
     }
 
+    // should be singleProjectPage()
+    static singleProject() {
+        userSettings.currentTask = null;
+
+        const project = collection.getProject(userSettings.currentProject);
+        Move.removeMainContent();
+        const singleProjectPage = Build.singleProjectView(project);
+        Move.insertMainContent(singleProjectPage);
+        Load.reloadProjectTasks();
+    }
+
     // inserts all projects into the nested container
+    // should be reloadProjectItems()
     static reloadProjects() {
         Move.removeNestedContent();
 
@@ -336,6 +381,7 @@ export class Load {
         }
     }
 
+    // reloadProjectTaskItems()
     static reloadProjectTasks() {
         Move.removeNestedContent();
         
@@ -345,8 +391,32 @@ export class Load {
             Move.insertNestedContent(node);
         }
     }
+
+    static editTaskPage(e) {
+        let node = e.target;
+        while (!node.getAttribute('item-id')) {
+            node = node.parentNode;
+        }
+        const taskID = node.getAttribute('item-id');
+        const task = collection.getTask(taskID);
+
+        // this is necessary for submitting the final edit form;
+        userSettings.currentTask = taskID;
+
+        const editTaskPage = Build.editTaskPage(task);
+        Move.removeMainContent();
+        Move.insertMainContent(editTaskPage);
+        
+        const radios = document.querySelectorAll('input[type="radio"]');
+        for (const radio of radios) {
+            if (radio.getAttribute('value') === task.priority) {
+                radio.checked = true;
+            }
+        }
+    }
 }
 
+// class name should be Queue
 export class Edit {
     static enterQueueMode() {
         userSettings.queueMode = true;
@@ -385,15 +455,20 @@ export class Edit {
         document.querySelector('.display').classList.remove('edit-mode');
 
         // remove queue message from header
-        document.querySelector('.delete-queue-message').remove();
+        if (document.querySelector('.delete-queue-message')) {
+            document.querySelector('.delete-queue-message').remove();
+        }
 
         // remove the items from the nestedContainer
         Move.removeNestedContent();
 
         // reload the items depending on which tab is being viewed
-        if (userSettings.currentTab === 'projects') {
+        if (userSettings.singleProject === true) {
+            Load.reloadProjectTasks();
+        } else if (userSettings.currentTab === 'projects') {
             Load.reloadProjects();
         }
+
     }
 
 
@@ -432,6 +507,11 @@ export class Edit {
 
 export class Project {
     static exploreProject(e) {
+        userSettings.singleProject = true;
+        userSettings.currentTask = null;
+        userSettings.queueMode = false;
+        userSettings.itemQueue = [];
+        
         let node = e.target;
         while (!node.getAttribute('item-id')) {
             node = node.parentNode;
@@ -443,9 +523,54 @@ export class Project {
         // this is necessary for task input validation and where to put newly created tasks
         userSettings.currentProject = projectID;
         
-        Move.removeMainContent();
-        const projectPage = Build.singleProjectView(project);
-        Move.insertMainContent(projectPage);
-        Load.reloadProjectTasks();
+        Load.singleProject();
+    }
+}
+
+export class EditTask {
+    static undoChanges() {
+        const task = collection.getTask(userSettings.currentTask);
+
+        const name = document.querySelector('input.edit-task-name');
+        const notes = document.querySelector('textarea.edit-task-notes');
+        const dueDate = document.querySelector('input[type="date"]');
+        const radios = document.querySelectorAll('input[type="radio"]');
+
+        name.value = task.name;
+        notes.value = task.notes;
+        dueDate.value = task.dueDate;
+        
+        for (const radio of radios) {
+            if (radio.getAttribute('value') === task.priority) {
+                radio.checked = true;
+            }
+        }
+    }
+
+    static saveChanges() {
+        const task = collection.getTask(userSettings.currentTask);
+
+        const name = document.querySelector('input.edit-task-name');
+        const notes = document.querySelector('textarea.edit-task-notes');
+        const dueDate = document.querySelector('input[type="date"]');
+        const radios = document.querySelectorAll('input[type="radio"]');
+
+        task.name = name.value.trimEnd();
+        task.notes = notes.value;
+        task.dueDate = dueDate.value;
+        
+        for (const radio of radios) {
+            if (radio.checked) {
+                task.priority = radio.getAttribute('value');
+            }
+        }
+
+        Storage.updateLocalStorage(collection);
+        Load.previousPage();
+    }
+
+    static removeTask() {
+        collection.removeTask(userSettings.currentTask);
+        Load.previousPage();
     }
 }
