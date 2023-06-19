@@ -126,9 +126,50 @@ export class Load {
         
         const project = collection.getProject(userSettings.currentProject);
         for (const task of project.tasks) {
-            const node = Build.taskItem(task);
+            // const node = Build.taskItem(task);
+            const node = Load.createTaskElement(task);
             Move.insertNestedContent(node);
         }
+    }
+
+    static createTaskElement(task) {
+        // not sold on this function yet.  It returned 3 elements when I ran it one time.  Needs more testing.
+        function findPriorityNode(node) {
+            const childNodes = [];
+            for (let i = 0; i < node.childNodes.length; i++) {
+                if (node.childNodes[i].nodeType === Node.ELEMENT_NODE) {
+                    childNodes.push(node.childNodes[i]);
+                }
+            }
+
+            for (let i = 0; i < childNodes.length; i++) {
+                if (childNodes[i].classList.value === 'priority-circle-img') {
+                    return childNodes[i];
+                } else {
+                    const targetNode = findPriorityNode(childNodes[i]);
+                    if (targetNode) {
+                        return targetNode;
+                    }
+                }
+            }
+        }
+
+        // need to edit the html class names on this. Priority circle doesn't make sense anymore
+        // Should also consider removing the parent div element of the img;
+        const taskElement = Build.taskItem(task);
+        const priorityNode = findPriorityNode(taskElement);
+        if (task.priority === 'unset') {
+            priorityNode.src = '../src/view/icons/transparent-placeholder.png';
+        } else if (task.priority === 'low') {
+            priorityNode.src = '../src/view/icons/low-priority.svg';
+        } else if (task.priority === 'medium') {
+            priorityNode.src = '../src/view/icons/medium-priority.svg';
+        } else if (task.priority === 'high') {
+            priorityNode.src = '../src/view/icons/high-priority.svg';
+        }
+        
+        
+        return taskElement;
     }
 
     static editTaskPage(e) {
@@ -211,6 +252,12 @@ export class AddNew {
     static validateInput(e) {
         const createButton = document.querySelector('.add-new-modal button[type=submit]');
 
+        // capitalize the first letter
+        if (e.target.value.length === 1) {
+            e.target.value = e.target.value.toUpperCase();
+        }
+
+        // check to see if the modal is for a new task vs new project to see which names to gather to check for duplicates
         let names;
         if (e.target.getAttribute('id') === 'project-name') {
             names = collection.getProjectNames();
@@ -221,7 +268,6 @@ export class AddNew {
         }
         
         let current = e.target.value.trimEnd();
-    
         if (e.target.value.length > 0) {
             createButton.classList.add('not-empty');
     
@@ -556,12 +602,14 @@ export class EditTask {
             }
         }
 
+
         Storage.updateLocalStorage(collection);
         Load.previousPage();
     }
 
     static removeTask() {
         collection.removeTask(userSettings.currentTask);
+        Navigation.updateSidebarCount();
         Load.previousPage();
     }
 }

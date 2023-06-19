@@ -151,11 +151,9 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 0, 0);
-    border-radius: 50%;
-    color:white;
-    font-size: 1.1em;
-    font-weight: 900;
+}
+.item .priority-circle img {
+    padding: 3px;
 }
 
 /* project item */
@@ -420,12 +418,9 @@
     z-index: 1;
     background: transparent;
 }
-
-
 .edit-task input,
 .edit-task textarea,
 .edit-task .edit-priority-container {
     border: 1px solid black;
     border-radius: 10px;
 }
-

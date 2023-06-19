@@ -775,7 +775,7 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'h1',
-                                    'text-content': 'Projects'
+                                    'text-content': 'Project'
                                 }).build()
                             ]
                         }).build(),
@@ -905,7 +905,13 @@ export class Build {
                                         new Element({
                                             'tagname': 'div',
                                             'class': 'priority-circle',
-                                            'text-content': '!'
+                                            'children':[
+                                                new Element({
+                                                    'tagname':'img',
+                                                    'class':'priority-circle-img',
+                                                    'src':'../src/view/icons/transparent-placeholder.png',
+                                                }).build(),
+                                            ]
                                         }).build(),
                                         new Element({
                                             'tagname': 'button',
@@ -1052,7 +1058,7 @@ export class Build {
                                 new Element({
                                     'tagname':'textarea',
                                     'class':'edit-input edit-task-notes',
-                                    'value':`${task.notes}`,
+                                    'text-content':`${task.notes}`,
                                 }).build(),
                             ]
                         }).build(),

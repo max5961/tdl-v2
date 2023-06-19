@@ -66,4 +66,9 @@ textarea {
     --gray3: #929292;
 
     --light-gray1: #e9e9e9;
+
+    --priority-unset: #b4b4b4;
+    --priority-low: #10c000;
+    --priority-medium: #e5ff00;
+    --priority-high: #ff0000;
 }
