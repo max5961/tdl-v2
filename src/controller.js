@@ -784,10 +784,7 @@ export class EditTask {
 
 export class EditProject {
     static insertComponents() {
-        const header = document.querySelector('header.single-project-header');
-        document.querySelector('span.name').remove();
-        document.querySelector('button').remove();
-
-        
+        document.querySelector('span.name').replaceWith();
+        document.querySelector('button').replaceWith();        
     }
 }
