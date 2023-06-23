@@ -1,5 +1,5 @@
 import { Element } from './Element.js';
-import { preventDefault } from '../controller.js';
+import { LoadDefault, preventDefault } from '../controller.js';
 import { formatDateForUI } from '../controller.js';
 import { AddNew } from '../controller.js';
 import { Navigation } from '../controller.js';
@@ -642,6 +642,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
+                                            'class':'toggle-queue',
                                             'src':'../src/view/icons/delete.svg',
                                             'alt':'delete'
                                         }).build(),
@@ -774,8 +775,8 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'img',
+                                    'class':'toggle-queue',
                                     'src':'../src/view/icons/delete.svg',
-                                    'alt':'delete'
                                 }).build(),
                             ]
                         }).build(),
@@ -814,6 +815,7 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'img',
+                                    'class':'toggle-queue',
                                     'src':'../src/view/icons/delete.svg',
                                     'alt':'delete'
                                 }).build(),
@@ -1040,7 +1042,7 @@ export class Build {
         if (dueDate !== '') {
             dueDate = formatDateForUI(dueDate);
         }
-        
+
         return new Element({
             'tagname': 'div',
             'class': 'item task',
@@ -1075,6 +1077,7 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'h3',
+                                    'class':'target-node',
                                     'text-content': `${task.name}`,
                                 }).build(),
                                 new Element({
@@ -1127,7 +1130,13 @@ export class Build {
                                     'tagname': 'p',
                                     'class': 'notes-content',
                                     'text-content': `${task.notes}`,
+                                }).build(),
+                                new Element({
+                                    'tagname':'button',
+                                    'class':'mark-complete',
+                                    'text-content':'MARK COMPLETE',
                                 }).build()
+                                
                             ]
                         }).build()
                     ]
@@ -1237,11 +1246,14 @@ export class Build {
             'children':[
                 new Element({
                     'tagname':'p',
+                    'class':'item-queue-count',
                     'text-content':'1 selected',
                 }).build(),
                 new Element({
                     'tagname':'button',
-                    'text-content':'Delete',
+                    'class':'delete-queue-items',
+                    'text-content':'DELETE',
+                    'event-listeners':{'click':Queue.deleteQueueItems},
                 }).build(),
             ]
         }).build();

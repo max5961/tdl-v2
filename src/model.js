@@ -38,6 +38,10 @@ export class Collection {
         Storage.updateLocalStorage(collection);
     }
 
+    markCompleted(id) {
+        //
+    }
+
     getProjectNames() {
         return this.projects.map(project => project.name);
     }

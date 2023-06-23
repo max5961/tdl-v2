@@ -7,18 +7,8 @@ export function preventDefault(e) {
     e.preventDefault();
 }
 
-export function insertDefaultLoaded() {
-    const content = document.getElementById('content');
-        
-    content.appendChild(Build.navigationMaximized());
-    content.appendChild(Build.navigationMinimized());
-    content.appendChild(Build.rightSideFlexContainer());
-
-    const rightSideFlexContainer = document.querySelector('.right-side-flex-container');
-
-    rightSideFlexContainer.appendChild(Build.header());
-    rightSideFlexContainer.appendChild(Build.mainContentContainer());
-    rightSideFlexContainer.appendChild(Build.mobileNav());
+export function formatDateForUI(date) {
+    return format(parseISO(date), 'MM/dd/yyyy');
 }
 
 export class LoadDefault {
@@ -35,6 +25,7 @@ export class LoadDefault {
         rightSideFlexContainer.appendChild(Build.mainContentContainer());
         rightSideFlexContainer.appendChild(Build.mobileNav());
     }
+
     static loadLastPage() {
         if (userSettings.currentTask) {
             LoadDefault.editTaskPage();
@@ -91,10 +82,6 @@ export class LoadDefault {
             }
         }
     }
-}
-
-export function formatDateForUI(date) {
-    return format(parseISO(date), 'MM/dd/yyyy');
 }
 
 export const userSettings = {
@@ -286,7 +273,7 @@ export class Load {
         // need to edit the html class names on this. Priority circle doesn't make sense anymore
         // Should also consider removing the parent div element of the img;
         const taskElement = Build.taskItem(task);
-        const priorityNode = findPriorityNode(taskElement);
+        const priorityNode = findNode(taskElement, 'priority-circle-img');
         if (task.priority === 'unset') {
             priorityNode.src = '../src/view/icons/transparent-placeholder.png';
         } else if (task.priority === 'low') {
@@ -296,11 +283,19 @@ export class Load {
         } else if (task.priority === 'high') {
             priorityNode.src = '../src/view/icons/high-priority.svg';
         }
+
+        if (!userSettings.currentProject) {
+            const targetNode = findNode(taskElement, 'target-node');
+            const parentProject = collection.getProject(collection.getParentProjectID(task._id));
+            const parentReferenceNode = document.createElement('p');
+            parentReferenceNode.textContent =`Project: ${parentProject.name}`;
+            parentReferenceNode.classList.add('parent-project-reference');
+            targetNode.insertAdjacentElement('afterend', parentReferenceNode);
+        }
         
         return taskElement;
 
-        // not sold on this function yet.  It returned 3 elements when I ran it one time.  Needs more testing.
-        function findPriorityNode(node) {
+        function findNode(node, classValue) {
             const childNodes = [];
             for (let i = 0; i < node.childNodes.length; i++) {
                 if (node.childNodes[i].nodeType === Node.ELEMENT_NODE) {
@@ -309,10 +304,10 @@ export class Load {
             }
 
             for (let i = 0; i < childNodes.length; i++) {
-                if (childNodes[i].classList.value === 'priority-circle-img') {
+                if (childNodes[i].classList.value === classValue) {
                     return childNodes[i];
                 } else {
-                    const targetNode = findPriorityNode(childNodes[i]);
+                    const targetNode = findNode(childNodes[i], classValue);
                     if (targetNode) {
                         return targetNode;
                     }
@@ -631,6 +626,9 @@ export class Queue {
         
         // change the background-color
         document.querySelector('.display').classList.add('queue-mode');
+
+        // change the icon from a trash can to a cancel icon
+        document.querySelector('img.toggle-queue').src = '../src/view/icons/cancel.svg';
     }
 
     static exitQueueMode() {
@@ -659,8 +657,10 @@ export class Queue {
             node.classList.remove('delete-view');
         }
 
-    }
+        // change the icon back to the trash can
+        document.querySelector('img.toggle-queue').src = '../src/view/icons/delete.svg';
 
+    }
 
     static toggleQueueMode() {
         if (userSettings.queueMode === false) {
@@ -698,6 +698,20 @@ export class Queue {
         userSettings.queueMode = false;
         userSettings.itemQueue = [];
         Storage.updateUserSettings(userSettings);
+    }
+
+    static deleteQueueItems() {
+        for (const itemID of userSettings.itemQueue) {
+            if (itemID.length === 5) {
+                collection.removeProject(itemID);
+            } else if (itemID.length === 11) {
+                collection.removeTask(itemID);
+            }
+        }
+
+        Queue.exitQueueMode();
+        LoadDefault.loadLastPage();
+        Navigation.updateSidebarCount();
     }
 }
 
