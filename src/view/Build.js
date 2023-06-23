@@ -1,5 +1,6 @@
 import { Element } from './Element.js';
 import { preventDefault } from '../controller.js';
+import { formatDateForUI } from '../controller.js';
 import { AddNew } from '../controller.js';
 import { Navigation } from '../controller.js';
 import { Queue } from '../controller.js';
@@ -68,29 +69,29 @@ export class Build {
                                 }).build()
                             ]
                         }).build(),
-                        // scheduled
+                        // this-week
                         new Element({
                             'tagname':'li',
                             'children':[
                                 new Element({
                                     'tagname':'button',
-                                    'class':'scheduled',
+                                    'class':'this-week',
                                     'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/scheduled.png',
-                                            'class':'scheduled',
-                                            'alt':'scheduled',
+                                            'src':'../src/view/icons/this-week.png',
+                                            'class':'this-week',
+                                            'alt':'this-week',
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
                                             'class':'title',
-                                            'text-content':'Scheduled',
+                                            'text-content':'This Week',
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
-                                            'class':'count scheduled-count',
+                                            'class':'count this-week-count',
                                             'text-content':'0'
                                         }).build(),
                                     ]
@@ -211,20 +212,20 @@ export class Build {
                                 }).build(),
                             ]
                         }).build(),
-                        // scheduled
+                        // this-week
                         new Element({
                             'tagname':'li',
                             'children':[
                                 new Element({
                                     'tagname':'button',
-                                    'class':'scheduled',
+                                    'class':'this-week',
                                     'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'class':'scheduled',
-                                            'alt':'scheduled',
-                                            'src':'../src/view/icons/scheduled.png',
+                                            'class':'this-week',
+                                            'alt':'this-week',
+                                            'src':'../src/view/icons/this-week.png',
                                         }).build(),
                                     ]
                                 }).build(),
@@ -386,24 +387,24 @@ export class Build {
                                 }).build(),
                             ]
                         }).build(),
-                        // scheduled
+                        // this-week
                         new Element({
                             'tagname':'li',
                             'children':[
                                 new Element({
                                     'tagname':'button',
-                                    'class':'scheduled',
+                                    'class':'this-week',
                                     'event-listeners':{'click':Navigation.clickTab},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'class':'scheduled',
-                                            'alt':'scheduled',
-                                            'src':'../src/view/icons/scheduled.png',
+                                            'class':'this-week',
+                                            'alt':'this-week',
+                                            'src':'../src/view/icons/this-week.png',
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
-                                            'text-content':'Scheduled'
+                                            'text-content':'This Week',
                                         }).build(),
                                     ]
                                 }).build(),
@@ -599,7 +600,7 @@ export class Build {
         }).build();
     }
 
-    static projectsView() {
+    static projectsPage() {
         return new Element({
             'tagname':'div',
             'class':'display',
@@ -626,6 +627,7 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'button',
+                                    'event-listeners':{'click':AddNew.createNewProjectModal},
                                     'children':[
                                         new Element({
                                             'tagname':'img',
@@ -658,99 +660,7 @@ export class Build {
         }).build();
     }
 
-    static noProjectsMessage() {
-        return new Element({
-            'tagname':'p',
-            'class':'no-projects-message',
-            'text-content':'No projects added yet',
-        }).build();
-    }
-
-    static projectItem(project) {
-        return new Element({
-            'tagname': 'div',
-            'class': 'item project',
-            'item-id':`${project._id}`,
-            'children': [
-                new Element({
-                    'tagname': 'div',
-                    'class': 'adjust-height-container',
-                    'children': [
-                        new Element({
-                            'tagname': 'button',
-                            'class': 'adjust-height',
-                            'children': [
-                                new Element({
-                                    'tagname': 'img',
-                                    'class': 'adjust-height',
-                                    'src': '../src/view/icons/right-carrot.svg',
-                                    'event-listeners':{'click':Navigation.toggleExpandable},
-                                    'alt': ''
-                                }).build()
-                            ]
-                        }).build()
-                    ]
-                }).build(),
-                new Element({
-                    'tagname': 'button',
-                    'class': 'item-container',
-                    'item-id':`${project._id}`,
-                    'event-listeners':{'click':Load.singleProjectPage},
-                    'children': [
-                        new Element({
-                            'tagname': 'div',
-                            'class': 'top-content',
-                            'children': [
-                                new Element({
-                                    'tagname': 'h2',
-                                    'text-content': `${project.name}`
-                                }).build(),
-                                new Element({
-                                    'tagname':'p',
-                                    'class':'instructions',
-                                    'text-content':'click to view project and add tasks',
-                                }).build(),
-                            ]
-                        }).build(),
-                        new Element({
-                            'tagname': 'div',
-                            'class': 'bottom-content',
-                            'children': [
-                                new Element({
-                                    'tagname': 'h4',
-                                    'class': 'description',
-                                    'text-content': 'Description'
-                                }).build(),
-                                new Element({
-                                    'tagname': 'p',
-                                    'class': 'description-content',
-                                    'text-content': `${project.desc}`
-                                }).build(),
-                                new Element({
-                                    'tagname': 'div',
-                                    'class': 'tasks-count-container',
-                                    'children': [
-                                        new Element({
-                                            'tagname': 'h4',
-                                            'class': 'tasks',
-                                            'text-content': 'Tasks :'
-                                        }).build(),
-                                        new Element({
-                                            'tagname': 'p',
-                                            'class': 'tasks-count',
-                                            'text-content': `${project.tasks.length}`
-                                        }).build()
-                                    ]
-                                }).build()
-                            ]
-                        }).build()
-                    ]
-                }).build()
-            ]
-        }).build();
-    }
-
-    static singleProjectView(project) {
+    static singleProjectPage(project) {
         return new Element({
             'tagname': 'div',
             'class': 'display single-project',
@@ -769,14 +679,21 @@ export class Build {
                 }).build(),
                 new Element({
                     'tagname': 'header',
+                    'class':'single-project-header',
                     'children': [
                         new Element({
                             'tagname': 'button',
                             'children': [
                                 new Element({
-                                    'tagname': 'h1',
-                                    'text-content': 'Project'
-                                }).build()
+                                    'tagname': 'img',
+                                    'class':'icon',
+                                    'src': '../src/view/icons/project.png',
+                                }).build(),
+                                new Element({
+                                    'tagname':'p',
+                                    'class':'icon',
+                                    'text-content':'Projects',
+                                }).build(),
                             ]
                         }).build(),
                         new Element({
@@ -843,11 +760,27 @@ export class Build {
                     ]
                 }).build(),
                 new Element({
-                    'tagname': 'h2',
-                    'class': 'tasks',
-                    'text-content': 'Tasks'
+                    'tagname':'div',
+                    'class':'tasks-subheader-container',
+                    'children':[
+                        new Element({
+                            'tagname': 'h2',
+                            'class': 'tasks',
+                            'text-content': 'Tasks'
+                        }).build(),
+                        new Element({
+                            'tagname':'button',
+                            'event-listeners':{'click':Queue.toggleQueueMode},
+                            'children':[
+                                new Element({
+                                    'tagname':'img',
+                                    'src':'../src/view/icons/delete.svg',
+                                    'alt':'delete'
+                                }).build(),
+                            ]
+                        }).build(),
+                    ]
                 }).build(),
-
                 // container for list of tasks
                 new Element({
                     'tagname':'ul',
@@ -857,102 +790,7 @@ export class Build {
         }).build();
     }
 
-    static taskItem(task) {
-        return new Element({
-            'tagname': 'div',
-            'class': 'item task',
-            'children': [
-                new Element({
-                    'tagname': 'div',
-                    'class': 'adjust-height-container',
-                    'children': [
-                        new Element({
-                            'tagname': 'button',
-                            'class': 'adjust-height',
-                            'event-listeners':{'click':Navigation.toggleExpandable},
-                            'children': [
-                                new Element({
-                                    'tagname': 'img',
-                                    'class': 'adjust-height',
-                                    'src': '../src/view/icons/right-carrot.svg',
-                                    'alt': ''
-                                }).build()
-                            ]
-                        }).build()
-                    ]
-                }).build(),
-                new Element({
-                    'tagname': 'div',
-                    'class': 'item-container',
-                    'children': [
-                        new Element({
-                            'tagname': 'div',
-                            'class': 'top-content',
-                            'children': [
-                                new Element({
-                                    'tagname': 'h3',
-                                    'text-content': `${task.name}`,
-                                }).build(),
-                                new Element({
-                                    'tagname': 'div',
-                                    'class': 'right-container',
-                                    'children': [
-                                        new Element({
-                                            'tagname': 'div',
-                                            'class': 'date',
-                                            'text-content': `${task.dueDate}`,
-                                        }).build(),
-                                        new Element({
-                                            'tagname': 'div',
-                                            'class': 'priority-circle',
-                                            'children':[
-                                                new Element({
-                                                    'tagname':'img',
-                                                    'class':'priority-circle-img',
-                                                    'src':'../src/view/icons/transparent-placeholder.png',
-                                                }).build(),
-                                            ]
-                                        }).build(),
-                                        new Element({
-                                            'tagname': 'button',
-                                            'class': 'edit-task',
-                                            'item-id':`${task._id}`,
-                                            'event-listeners':{'click':Load.editTaskPage},
-                                            'children': [
-                                                new Element({
-                                                    'tagname': 'img',
-                                                    'src': '../src/view/icons/edit.svg',
-                                                    'alt': ''
-                                                }).build()
-                                            ]
-                                        }).build()
-                                    ]
-                                }).build()
-                            ]
-                        }).build(),
-                        new Element({
-                            'tagname': 'div',
-                            'class': 'bottom-content',
-                            'children': [
-                                new Element({
-                                    'tagname': 'h4',
-                                    'class': 'notes',
-                                    'text-content': 'Notes'
-                                }).build(),
-                                new Element({
-                                    'tagname': 'p',
-                                    'class': 'notes-content',
-                                    'text-content': `${task.notes}`,
-                                }).build()
-                            ]
-                        }).build()
-                    ]
-                }).build()
-            ]
-        }).build()
-    }
-
-    static tasksView() {
+    static tasksPage(title) {
         return new Element({
             'tagname': 'div',
             'class': 'display',
@@ -961,9 +799,26 @@ export class Build {
                     'tagname': 'header',
                     'children': [
                         new Element({
-                            'tagname': 'h1',
-                            'text-content': 'Scheduled Today'
-                        }).build()
+                            'tagname':'div',
+                            'class':'left-container',
+                            'children':[
+                                new Element({
+                                    'tagname': 'h1',
+                                    'text-content': `${title}`,
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname':'button',
+                            'event-listeners':{'click':Queue.toggleQueueMode},
+                            'children':[
+                                new Element({
+                                    'tagname':'img',
+                                    'src':'../src/view/icons/delete.svg',
+                                    'alt':'delete'
+                                }).build(),
+                            ]
+                        }).build(),
                     ]
                 }).build(),
 
@@ -987,7 +842,7 @@ export class Build {
                         new Element({
                             'tagname':'button',
                             'class':'back-button',
-                            'event-listeners':{'click':Load.previousPage},
+                            'event-listeners':{'click':EditTask.exitEditTask},
                             'children':[
                                 new Element({
                                     'tagname':'img',
@@ -1179,6 +1034,186 @@ export class Build {
         }).build();
     }
 
+    static taskItem(task) {
+        return new Element({
+            'tagname': 'div',
+            'class': 'item task',
+            'item-id':`${task._id}`,
+            'children': [
+                new Element({
+                    'tagname': 'div',
+                    'class': 'adjust-height-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'button',
+                            'class': 'adjust-height',
+                            'event-listeners':{'click':Navigation.toggleExpandable},
+                            'children': [
+                                new Element({
+                                    'tagname': 'img',
+                                    'class': 'adjust-height',
+                                    'src': '../src/view/icons/right-carrot.svg',
+                                    'alt': ''
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'div',
+                    'class': 'item-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'top-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h3',
+                                    'text-content': `${task.name}`,
+                                }).build(),
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'right-container',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'date',
+                                            'text-content': `${formatDateForUI(task.dueDate)}`,
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'div',
+                                            'class': 'priority-circle',
+                                            'children':[
+                                                new Element({
+                                                    'tagname':'img',
+                                                    'class':'priority-circle-img',
+                                                    'src':'../src/view/icons/transparent-placeholder.png',
+                                                }).build(),
+                                            ]
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'button',
+                                            'class': 'edit-task',
+                                            'item-id':`${task._id}`,
+                                            'event-listeners':{'click':Load.editTaskPage},
+                                            'children': [
+                                                new Element({
+                                                    'tagname': 'img',
+                                                    'src': '../src/view/icons/edit.svg',
+                                                    'alt': ''
+                                                }).build()
+                                            ]
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'bottom-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h4',
+                                    'class': 'notes',
+                                    'text-content': 'Notes'
+                                }).build(),
+                                new Element({
+                                    'tagname': 'p',
+                                    'class': 'notes-content',
+                                    'text-content': `${task.notes}`,
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build()
+    }
+
+    static projectItem(project) {
+        return new Element({
+            'tagname': 'div',
+            'class': 'item project',
+            'item-id':`${project._id}`,
+            'children': [
+                new Element({
+                    'tagname': 'div',
+                    'class': 'adjust-height-container',
+                    'children': [
+                        new Element({
+                            'tagname': 'button',
+                            'class': 'adjust-height',
+                            'children': [
+                                new Element({
+                                    'tagname': 'img',
+                                    'class': 'adjust-height',
+                                    'src': '../src/view/icons/right-carrot.svg',
+                                    'event-listeners':{'click':Navigation.toggleExpandable},
+                                    'alt': ''
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build(),
+                new Element({
+                    'tagname': 'button',
+                    'class': 'item-container',
+                    'item-id':`${project._id}`,
+                    'event-listeners':{'click':Load.singleProjectPage},
+                    'children': [
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'top-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h2',
+                                    'text-content': `${project.name}`
+                                }).build(),
+                                new Element({
+                                    'tagname':'p',
+                                    'class':'instructions',
+                                    'text-content':'click to view project and add tasks',
+                                }).build(),
+                            ]
+                        }).build(),
+                        new Element({
+                            'tagname': 'div',
+                            'class': 'bottom-content',
+                            'children': [
+                                new Element({
+                                    'tagname': 'h4',
+                                    'class': 'description',
+                                    'text-content': 'Description'
+                                }).build(),
+                                new Element({
+                                    'tagname': 'p',
+                                    'class': 'description-content',
+                                    'text-content': `${project.desc}`
+                                }).build(),
+                                new Element({
+                                    'tagname': 'div',
+                                    'class': 'tasks-count-container',
+                                    'children': [
+                                        new Element({
+                                            'tagname': 'h4',
+                                            'class': 'tasks',
+                                            'text-content': 'Tasks :'
+                                        }).build(),
+                                        new Element({
+                                            'tagname': 'p',
+                                            'class': 'tasks-count',
+                                            'text-content': `${project.tasks.length}`
+                                        }).build()
+                                    ]
+                                }).build()
+                            ]
+                        }).build()
+                    ]
+                }).build()
+            ]
+        }).build();
+    }
+
     static deleteCheckbox(id) {
         return new Element({
             'tagname':'input',
@@ -1206,4 +1241,11 @@ export class Build {
         }).build();
     }
 
+    static noProjectsMessage() {
+        return new Element({
+            'tagname':'p',
+            'class':'no-projects-message',
+            'text-content':'No projects added yet',
+        }).build();
+    }
 }

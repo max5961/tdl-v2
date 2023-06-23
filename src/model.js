@@ -1,4 +1,7 @@
 import { collection } from './index.js';
+import { format } from 'date-fns';
+import { differenceInDays } from 'date-fns';
+import { parseISO } from 'date-fns';
 
 export class Collection {
     constructor(){
@@ -77,6 +80,21 @@ export class Collection {
         }
 
         return tasks;
+    }
+
+    getScheduledThisWeekTasks() {
+        const today = format(new Date(), 'yyyy-MM-dd');
+
+        return this.getAllTasks().filter(task => task.dueDate !== '').filter(task => {
+            const difference = differenceInDays(parseISO(task.dueDate), parseISO(today));
+            return difference >= 0 && difference <= 7;
+        });
+    }
+
+    getScheduledTodayTasks() {
+        const today = format(new Date(), 'yyyy-MM-dd');
+
+        return this.getAllTasks().filter(task => task.dueDate === today);
     }
 }
 

@@ -136,7 +136,7 @@
 }
 .item .top-content .right-container {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     width: auto;
 }
 .item .bottom-content {
@@ -215,17 +215,27 @@
     top: 3px;
     left: 0;
 }
+.single-project header img.icon {
+    height: 90px;
+    width: 95px;
+}
+.single-project header p.icon {
+    position: absolute;
+    bottom: 36px;
+    font-weight: 900;
+    color:#006c9d;
+}
 .single-project header span.divider {
+    position: absolute;
     margin: 0 10px 0 10px;
     font-size: 1.6em;
-    position: absolute;
-    left: 93px;
+    left: 65px;
     bottom: -10px;
 }
 .single-project header span.name {
     position: absolute;
-    left: 145px;
-    bottom: 3px;
+    left: 112px;
+    bottom: 2px;
     color: black;
     font-weight: 900;
     font-size: 19px;
@@ -253,6 +263,16 @@
 .single-project .add-task-container button {
     border-radius: 10px;
     padding: 5px 10px 5px 0;
+}
+.single-project .tasks-subheader-container {
+    border-bottom: 1px solid lightgray;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
 }
 
 /* edit task */
