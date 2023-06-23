@@ -786,8 +786,8 @@ export class EditProject {
     static insertComponents() {
         const header = document.querySelector('header.single-project-header');
         document.querySelector('span.name').remove();
-        document.querySelector('button')
-        
+        document.querySelector('button').remove();
 
+        
     }
 }
