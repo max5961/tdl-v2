@@ -21,6 +21,65 @@ export function insertDefaultLoaded() {
     rightSideFlexContainer.appendChild(Build.mobileNav());
 }
 
+export class LoadDefault {
+    static loadLastPage() {
+        if (userSettings.currentTask) {
+            LoadDefault.editTaskPage();
+        } else if (userSettings.currentProject) {
+            LoadDefault.singleProjectPage();
+        } else if (userSettings.currentTab === 'scheduled-today') {
+            Load.scheduledTodayTasksPage();
+        } else if (userSettings.currentTab === 'this-week') {
+            Load.scheduledThisWeekTasksPage();
+        } else if (userSettings.currentTab === 'tasks') {
+            Load.allTasksPage();
+        } else if (userSettings.currentTab === 'projects') {
+            Load.projectsPage();
+        }
+    }
+
+    static editTaskPage() {
+        const task = collection.getTask(userSettings.currentTask);
+
+        const editTaskPage = Build.editTaskPage(task);
+        Move.changeMainContent(editTaskPage);
+        
+        const radios = document.querySelectorAll('input[type="radio"]');
+        for (const radio of radios) {
+            if (radio.getAttribute('value') === task.priority) {
+                radio.checked = true;
+            }
+        }
+    }
+
+    static singleProjectPage() {
+        const project = collection.getProject(userSettings.currentProject);
+        Move.changeMainContent(Build.singleProjectPage(project));
+        Load.reloadProjectTasks();
+
+        Queue.resetQueueValues();
+    }
+
+    static resetChosenTab() {
+        const nodeLists = [
+            document.querySelectorAll('button.scheduled-today'),
+            document.querySelectorAll('button.this-week'),
+            document.querySelectorAll('button.tasks'),
+            document.querySelectorAll('button.projects'),
+        ]
+
+        for (const nodeList of nodeLists) {
+            for (let i = 0; i < nodeList.length; i++) {
+                nodeList[i].classList.remove('chosen-tab');
+
+                if (Navigation.getClassName(nodeList[i]) === userSettings.currentTab) {
+                    nodeList[i].classList.add('chosen-tab');
+                }
+            }
+        }
+    }
+}
+
 export function formatDateForUI(date) {
     return format(parseISO(date), 'MM/dd/yyyy');
 }
@@ -68,6 +127,7 @@ export class Load {
         Queue.resetQueueValues();
         userSettings.currentProject = null;
         userSettings.currentTask = null;
+        Storage.updateUserSettings(userSettings);
 
         Move.changeMainContent(Build.projectsPage());
         Load.reloadProjects();
@@ -77,12 +137,13 @@ export class Load {
         Queue.resetQueueValues();
         userSettings.currentProject = null;
         userSettings.currentTask = null;
+        Storage.updateUserSettings(userSettings);
 
         let title;
         if (userSettings.currentTab === 'tasks') {
             title = 'All Tasks';
         } else if (userSettings.currentTab === 'this-week') {
-            title = 'Scheduled';
+            title = 'Scheduled This Week';
         } else if (userSettings.currentTab === 'scheduled-today') {
             title = 'Scheduled Today';
         } else {
@@ -97,7 +158,7 @@ export class Load {
         Load.reloadAllTasks();
     }
 
-    static scheduledTasksPage() {
+    static scheduledThisWeekTasksPage() {
         Load.generalTasksPage();
         Load.reloadScheduledTasks();
     }
@@ -127,6 +188,8 @@ export class Load {
                 radio.checked = true;
             }
         }
+
+        Storage.updateUserSettings(userSettings);
     }
 
     static singleProjectPage(e) {
@@ -151,6 +214,8 @@ export class Load {
         const project = collection.getProject(userSettings.currentProject);
         Move.changeMainContent(Build.singleProjectPage(project));
         Load.reloadProjectTasks();
+
+        Storage.updateUserSettings(userSettings);
     }
 
     static reloadProjects() {
@@ -458,13 +523,14 @@ export class Navigation {
             document.querySelectorAll('button.projects'),
         ]
 
-        const targetedClass = this.getClassName(e.target);
+        const targetedClass = Navigation.getClassName(e.target);
+        
 
         for (const nodeList of nodeLists) {
             for (let i = 0; i < nodeList.length; i++) {
                 nodeList[i].classList.remove('chosen-tab');
 
-                if (this.getClassName(nodeList[i]) === targetedClass) {
+                if (Navigation.getClassName(nodeList[i]) === targetedClass) {
                     nodeList[i].classList.add('chosen-tab');
                 }
             }
@@ -479,7 +545,7 @@ export class Navigation {
 
         } else if (targetedClass === 'this-week' && userSettings.currentTab !== 'this-week') {
             userSettings.currentTab = 'this-week';
-            Load.scheduledTasksPage();
+            Load.scheduledThisWeekTasksPage();
 
         } else if (targetedClass === 'tasks' && userSettings.currentTab !== 'tasks') {
             userSettings.currentTab = 'tasks';
@@ -496,6 +562,8 @@ export class Navigation {
         userSettings.currentTask = null;
         Queue.resetQueueValues();
         Navigation.resetChosenTab(e);
+
+        Storage.updateUserSettings(userSettings);
     }
 
     static updateSidebarCount() {
@@ -521,6 +589,7 @@ export class Queue {
     static enterQueueMode() {
         userSettings.queueMode = true;
         userSettings.itemQueue = [];
+        Storage.updateUserSettings(userSettings);
 
         // add checkboxes to each item in nested container
         const items = document.querySelectorAll('.item');
@@ -554,6 +623,7 @@ export class Queue {
     static exitQueueMode() {
         userSettings.itemQueue = [];
         userSettings.queueMode = false;
+        Storage.updateUserSettings(userSettings);
 
         // reset background-color
         document.querySelector('.display').classList.remove('queue-mode');
@@ -614,6 +684,7 @@ export class Queue {
     static resetQueueValues() {
         userSettings.queueMode = false;
         userSettings.itemQueue = [];
+        Storage.updateUserSettings(userSettings);
     }
 }
 
@@ -675,7 +746,7 @@ export class EditTask {
             Load.allTasksPage();
             return;
         } else if (userSettings.currentTab === 'this-week') {
-            Load.scheduledTasksPage();
+            Load.scheduledThisWeekTasksPage();
             return;
         } else if (userSettings.currentTab === 'scheduled-today') {
             Load.scheduledTodayTasksPage();

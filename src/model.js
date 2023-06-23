@@ -1,7 +1,5 @@
 import { collection } from './index.js';
-import { format } from 'date-fns';
-import { differenceInDays } from 'date-fns';
-import { parseISO } from 'date-fns';
+import { format, differenceInDays, parseISO } from 'date-fns';
 
 export class Collection {
     constructor(){
@@ -205,7 +203,7 @@ export class Storage {
     }
 
     static updateUserSettings(userSettings) {
-        localStorage.setItem('UserSettings', JSON.stringify(userSettings));
+        localStorage.setItem('userSettings', JSON.stringify(userSettings));
     }
 
     static retrieveUserSettings(userSettings) {
