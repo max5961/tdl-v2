@@ -1,7 +1,7 @@
 import { collection } from './index.js';
 import { Storage } from './model.js';
 import { Build } from './view/Build.js';
-import { add, format, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 export function preventDefault(e) {
     e.preventDefault();
@@ -22,6 +22,19 @@ export function insertDefaultLoaded() {
 }
 
 export class LoadDefault {
+    static insertDefaultLoaded() {
+        const content = document.getElementById('content');
+            
+        content.appendChild(Build.navigationMaximized());
+        content.appendChild(Build.navigationMinimized());
+        content.appendChild(Build.rightSideFlexContainer());
+    
+        const rightSideFlexContainer = document.querySelector('.right-side-flex-container');
+    
+        rightSideFlexContainer.appendChild(Build.header());
+        rightSideFlexContainer.appendChild(Build.mainContentContainer());
+        rightSideFlexContainer.appendChild(Build.mobileNav());
+    }
     static loadLastPage() {
         if (userSettings.currentTask) {
             LoadDefault.editTaskPage();

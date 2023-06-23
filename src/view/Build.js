@@ -1035,6 +1035,12 @@ export class Build {
     }
 
     static taskItem(task) {
+        let dueDate = task.dueDate;
+
+        if (dueDate !== '') {
+            dueDate = formatDateForUI(dueDate);
+        }
+        
         return new Element({
             'tagname': 'div',
             'class': 'item task',
@@ -1078,7 +1084,7 @@ export class Build {
                                         new Element({
                                             'tagname': 'div',
                                             'class': 'date',
-                                            'text-content': `${formatDateForUI(task.dueDate)}`,
+                                            'text-content': `${dueDate}`,
                                         }).build(),
                                         new Element({
                                             'tagname': 'div',
