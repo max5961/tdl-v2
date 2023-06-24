@@ -27,7 +27,7 @@ export class Build {
                                 new Element({
                                     'tagname':'img',
                                     'class':'minimize',
-                                    'src':'../src/view/icons/minimize2.svg',
+                                    'src':'../../tdl-v2/src/view/icons/minimize2.svg',
                                     'alt':'minimize-navigation',
                                 }).build(),
                             ]
