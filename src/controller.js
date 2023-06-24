@@ -772,6 +772,18 @@ export class EditTask {
         EditTask.exitEditTask();
     }
 
+    static markComplete(e) {
+        let node = e.target;
+        while (!node.getAttribute('item-id')) {
+            node = node.parentNode;
+        }
+
+        const taskID = node.getAttribute('item-id');
+        collection.removeTask(taskID);
+        Navigation.updateSidebarCount();
+        EditTask.exitEditTask();
+    }
+
     static exitEditTask(e) {
         if (userSettings.currentProject) {
             Load.singleProjectPage(e);

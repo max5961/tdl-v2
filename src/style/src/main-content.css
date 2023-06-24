@@ -180,6 +180,25 @@
 .item .priority-circle img {
     padding: 3px;
 }
+.item button.mark-complete {
+    background-color: #26a726;
+    font-weight: 900;
+    color: white;
+    border-radius: 10px;
+    width: fit-content;
+    padding: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    transition: all 120ms ease-in-out;
+}
+.item button.mark-complete:hover {
+    background-color: #47df47;
+    color: black;
+}
+.item button.mark-complete:active {
+    background-color: #5fff5f;
+    color: black;
+}
 
 /* project item */
 .item.project .item-container {
@@ -218,6 +237,9 @@
     display: flex;
     align-items: center;
     transition: background-color 120ms ease-in-out;
+}
+.single-project .back-button span {
+    pointer-events: none;
 }
 .single-project .back-button:hover {
     background-color: #dddddd;

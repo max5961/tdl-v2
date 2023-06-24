@@ -12,8 +12,7 @@ import maximize from '../view/icons/maximize.svg';
 import scheduledToday from '../view/icons/scheduled-today.png';
 import thisWeek from '../view/icons/this-week.png';
 import tasks from '../view/icons/tasks.png';
-import project from '../view/icons/project.png';
-import project2 from '../view/icons/project.png';
+import projectLogo from '../view/icons/project.png';
 import logo from '../view/icons/logo.png';
 import add from '../view/icons/add.png';
 import trashCan from '../view/icons/delete.svg';
@@ -156,7 +155,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':project,
+                                            'src': projectLogo,
                                             'class':'all-tasks',
                                             'alt':'all-tasks',
                                         }).build(),
@@ -281,7 +280,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-projects',
                                             'alt':'all-projects',
-                                            'src': project,
+                                            'src': projectLogo,
                                         }).build(),
                                     ]
                                 }).build(),
@@ -490,7 +489,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-projects',
                                             'alt':'all-projects',
-                                            'src': project,
+                                            'src': projectLogo,
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
@@ -711,7 +710,7 @@ export class Build {
                                     'tagname': 'img',
                                     'class':'icon',
                                     'alt':'project',
-                                    'src': project2,
+                                    'src': projectLogo,
                                 }).build(),
                                 new Element({
                                     'tagname':'p',
@@ -1156,8 +1155,10 @@ export class Build {
                                 }).build(),
                                 new Element({
                                     'tagname':'button',
+                                    'item-id':`${task._id}`,
                                     'class':'mark-complete',
                                     'text-content':'MARK COMPLETE',
+                                    'event-listeners':{'click':EditTask.markComplete}
                                 }).build()
                                 
                             ]
