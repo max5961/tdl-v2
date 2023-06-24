@@ -3,6 +3,13 @@ import { Storage } from './model.js';
 import { Build } from './view/Build.js';
 import { format, parseISO } from 'date-fns';
 
+import transparentPlaceholder from './view/icons/transparent-placeholder.png';
+import lowPriority from './view/icons/low-priority.svg';
+import mediumPriority from './view/icons/medium-priority.svg';
+import highPriority from './view/icons/high-priority.svg';
+import cancel from './view/icons/cancel.svg';
+import trashCan from './view/icons/delete.svg'
+
 export function preventDefault(e) {
     e.preventDefault();
 }
@@ -275,13 +282,13 @@ export class Load {
         const taskElement = Build.taskItem(task);
         const priorityNode = findNode(taskElement, 'priority-circle-img');
         if (task.priority === 'unset') {
-            priorityNode.src = '../src/view/icons/transparent-placeholder.png';
+            priorityNode.src = transparentPlaceholder;
         } else if (task.priority === 'low') {
-            priorityNode.src = '../src/view/icons/low-priority.svg';
+            priorityNode.src = lowPriority;
         } else if (task.priority === 'medium') {
-            priorityNode.src = '../src/view/icons/medium-priority.svg';
+            priorityNode.src = mediumPriority;
         } else if (task.priority === 'high') {
-            priorityNode.src = '../src/view/icons/high-priority.svg';
+            priorityNode.src = highPriority;
         }
 
         if (!userSettings.currentProject) {
@@ -628,7 +635,7 @@ export class Queue {
         document.querySelector('.display').classList.add('queue-mode');
 
         // change the icon from a trash can to a cancel icon
-        document.querySelector('img.toggle-queue').src = '../src/view/icons/cancel.svg';
+        document.querySelector('img.toggle-queue').src = cancel;
     }
 
     static exitQueueMode() {
@@ -658,7 +665,7 @@ export class Queue {
         }
 
         // change the icon back to the trash can
-        document.querySelector('img.toggle-queue').src = '../src/view/icons/delete.svg';
+        document.querySelector('img.toggle-queue').src = trashCan;
 
     }
 

@@ -2,7 +2,6 @@
   "name": "tdl-v2",
   "version": "1.0.0",
   "description": "",
-  "homepage": "https://github.com/max5961/tdl-v2",
   "private":"true",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

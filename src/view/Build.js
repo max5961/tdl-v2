@@ -1,11 +1,29 @@
 import { Element } from './Element.js';
-import { LoadDefault, preventDefault } from '../controller.js';
+import { preventDefault } from '../controller.js';
 import { formatDateForUI } from '../controller.js';
 import { AddNew } from '../controller.js';
 import { Navigation } from '../controller.js';
 import { Queue } from '../controller.js';
 import { Load } from '../controller.js';
 import { EditTask } from '../controller.js';
+
+import minimize from '../view/icons/minimize.svg';
+import maximize from '../view/icons/maximize.svg';
+import scheduledToday from '../view/icons/scheduled-today.png';
+import thisWeek from '../view/icons/this-week.png';
+import tasks from '../view/icons/tasks.png';
+import project from '../view/icons/project.png';
+import project2 from '../view/icons/project.png';
+import logo from '../view/icons/logo.png';
+import add from '../view/icons/add.png';
+import trashCan from '../view/icons/delete.svg';
+import subdirectory from '../view/icons/subdirectory.svg';
+import edit from '../view/icons/edit.svg';
+import leftCarrot from '../view/icons/left-carrot.svg';
+import rightCarrot from '../view/icons/right-carrot.svg';
+import calendar from '../view/icons/calendar.svg';
+import transparentPlaceholder from '../view/icons/transparent-placeholder.png';
+
 
 export class Build {
     static navigationMaximized() {
@@ -27,7 +45,7 @@ export class Build {
                                 new Element({
                                     'tagname':'img',
                                     'class':'minimize',
-                                    'src':'../../tdl-v2/src/view/icons/minimize2.svg',
+                                    'src': minimize,
                                     'alt':'minimize-navigation',
                                 }).build(),
                             ]
@@ -51,7 +69,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/scheduled-today.png',
+                                            'src': scheduledToday,
                                             'class':'scheduled-today',
                                             'alt':'scheduled-today',
                                         }).build(),
@@ -80,14 +98,14 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/this-week.png',
+                                            'src': thisWeek,
                                             'class':'this-week',
                                             'alt':'this-week',
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
                                             'class':'title',
-                                            'text-content':'This Week',
+                                            'text-content':'Next 7 Days',
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
@@ -109,7 +127,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/tasks.png',
+                                            'src':tasks,
                                             'class':'all-tasks',
                                             'alt':'all-tasks',
                                         }).build(),
@@ -138,7 +156,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/project.png',
+                                            'src':project,
                                             'class':'all-tasks',
                                             'alt':'all-tasks',
                                         }).build(),
@@ -180,7 +198,7 @@ export class Build {
                                 new Element({
                                     'tagname':'img',
                                     'class':'maximize',
-                                    'src':'../src/view/icons/maximize.svg',
+                                    'src': maximize,
                                     'alt':'maximize',
                                 }).build(),
                             ]
@@ -206,7 +224,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'scheduled-today',
                                             'alt':'scheduled-today',
-                                            'src':'../src/view/icons/scheduled-today.png',
+                                            'src': scheduledToday,
                                         }).build(),
                                     ]
                                 }).build(),
@@ -224,8 +242,8 @@ export class Build {
                                         new Element({
                                             'tagname':'img',
                                             'class':'this-week',
+                                            'src': thisWeek,
                                             'alt':'this-week',
-                                            'src':'../src/view/icons/this-week.png',
                                         }).build(),
                                     ]
                                 }).build(),
@@ -244,7 +262,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-tasks',
                                             'alt':'all-tasks',
-                                            'src':'../src/view/icons/tasks.png',
+                                            'src': tasks,
                                         }).build(),
                                     ]
                                 }).build(),
@@ -263,7 +281,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-projects',
                                             'alt':'all-projects',
-                                            'src':'../src/view/icons/project.png',
+                                            'src': project,
                                         }).build(),
                                     ]
                                 }).build(),
@@ -294,7 +312,7 @@ export class Build {
                     'children':[
                         new Element({
                             'tagname':'img',
-                            'src':'../src/view/icons/logo1.png',
+                            'src': logo,
                             'alt':'to-do-list',
                         }).build(),
                         new Element({
@@ -377,7 +395,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'scheduled-today',
                                             'alt':'scheduled-today',
-                                            'src':'../src/view/icons/scheduled-today.png',
+                                            'src': scheduledToday,
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
@@ -400,11 +418,11 @@ export class Build {
                                             'tagname':'img',
                                             'class':'this-week',
                                             'alt':'this-week',
-                                            'src':'../src/view/icons/this-week.png',
+                                            'src': thisWeek,
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
-                                            'text-content':'This Week',
+                                            'text-content':'Next 7 Days',
                                         }).build(),
                                     ]
                                 }).build(),
@@ -425,7 +443,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/add.png',
+                                            'src': add,
                                             'alt':'new-project',
                                         }).build(),
                                         new Element({
@@ -449,7 +467,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-tasks',
                                             'alt':'all-tasks',
-                                            'src':'../src/view/icons/tasks.png',
+                                            'src': tasks,
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
@@ -472,7 +490,7 @@ export class Build {
                                             'tagname':'img',
                                             'class':'all-projects',
                                             'alt':'all-projects',
-                                            'src':'../src/view/icons/project.png',
+                                            'src': project,
                                         }).build(),
                                         new Element({
                                             'tagname':'p',
@@ -631,7 +649,7 @@ export class Build {
                                     'children':[
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/add.svg',
+                                            'src': add,
                                             'alt':'add'
                                         }).build(),
                                     ]
@@ -643,7 +661,7 @@ export class Build {
                                         new Element({
                                             'tagname':'img',
                                             'class':'toggle-queue',
-                                            'src':'../src/view/icons/delete.svg',
+                                            'src': trashCan,
                                             'alt':'delete'
                                         }).build(),
                                     ]
@@ -668,12 +686,15 @@ export class Build {
             'children': [
                 new Element({
                     'tagname':'div',
-                    'class':'back-button-container',
+                    'class':'back-button',
+                    'event-listeners':{'click':Load.projectsPage},
                     'children':[
                         new Element({
-                            'tagname':'button',
-                            'class':'back-button',
-                            'event-listeners':{'click':Load.projectsPage},
+                            'tagname':'img',
+                            'src': leftCarrot,
+                        }).build(),
+                        new Element({
+                            'tagname':'span',
                             'text-content':'BACK TO PROJECTS',
                         }).build(),
                     ]
@@ -683,12 +704,14 @@ export class Build {
                     'class':'single-project-header',
                     'children': [
                         new Element({
-                            'tagname': 'button',
+                            'tagname': 'div',
+                            'class':'projects-logo',
                             'children': [
                                 new Element({
                                     'tagname': 'img',
                                     'class':'icon',
-                                    'src': '../src/view/icons/project.png',
+                                    'alt':'project',
+                                    'src': project2,
                                 }).build(),
                                 new Element({
                                     'tagname':'p',
@@ -703,7 +726,7 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'img',
-                                    'src':'../src/view/icons/subdirectory.svg',
+                                    'src': subdirectory,
                                 }).build(),
                             ]
                         }).build(),
@@ -717,8 +740,8 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'img',
-                                    'src': '../src/view/icons/edit.svg',
-                                    'alt': ''
+                                    'src': edit,
+                                    'alt': 'edit',
                                 }).build(),
                             ]
                         }).build(),
@@ -749,8 +772,8 @@ export class Build {
                             'children': [
                                 new Element({
                                     'tagname': 'img',
-                                    'src': '../src/view/icons/add.png',
-                                    'alt': ''
+                                    'src': add,
+                                    'alt': 'add-new-task'
                                 }).build(),
                                 new Element({
                                     'tagname':'span',
@@ -776,7 +799,7 @@ export class Build {
                                 new Element({
                                     'tagname':'img',
                                     'class':'toggle-queue',
-                                    'src':'../src/view/icons/delete.svg',
+                                    'src': trashCan,
                                 }).build(),
                             ]
                         }).build(),
@@ -816,7 +839,7 @@ export class Build {
                                 new Element({
                                     'tagname':'img',
                                     'class':'toggle-queue',
-                                    'src':'../src/view/icons/delete.svg',
+                                    'src': trashCan,
                                     'alt':'delete'
                                 }).build(),
                             ]
@@ -848,7 +871,7 @@ export class Build {
                             'children':[
                                 new Element({
                                     'tagname':'img',
-                                    'src':'../src/view/icons/left-carrot.svg'
+                                    'src': leftCarrot,
                                 }).build(),
                                 new Element({
                                     'tagname':'span',
@@ -1024,7 +1047,7 @@ export class Build {
                                         }).build(),
                                         new Element({
                                             'tagname':'img',
-                                            'src':'../src/view/icons/calendar.svg',
+                                            'src': calendar,
                                         }).build()
                                     ]
                                 }).build(),
@@ -1060,8 +1083,8 @@ export class Build {
                                 new Element({
                                     'tagname': 'img',
                                     'class': 'adjust-height',
-                                    'src': '../src/view/icons/right-carrot.svg',
-                                    'alt': ''
+                                    'src': rightCarrot,
+                                    'alt': 'toggle-expandable'
                                 }).build()
                             ]
                         }).build()
@@ -1096,7 +1119,7 @@ export class Build {
                                                 new Element({
                                                     'tagname':'img',
                                                     'class':'priority-circle-img',
-                                                    'src':'../src/view/icons/transparent-placeholder.png',
+                                                    'src': transparentPlaceholder,
                                                 }).build(),
                                             ]
                                         }).build(),
@@ -1108,8 +1131,8 @@ export class Build {
                                             'children': [
                                                 new Element({
                                                     'tagname': 'img',
-                                                    'src': '../src/view/icons/edit.svg',
-                                                    'alt': ''
+                                                    'src': edit,
+                                                    'alt': 'edit'
                                                 }).build()
                                             ]
                                         }).build()
@@ -1162,7 +1185,7 @@ export class Build {
                                 new Element({
                                     'tagname': 'img',
                                     'class': 'adjust-height',
-                                    'src': '../src/view/icons/right-carrot.svg',
+                                    'src': rightCarrot,
                                     'event-listeners':{'click':Navigation.toggleExpandable},
                                     'alt': ''
                                 }).build()
