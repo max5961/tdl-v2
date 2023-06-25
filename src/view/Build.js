@@ -6,6 +6,7 @@ import { Navigation } from '../controller.js';
 import { Queue } from '../controller.js';
 import { Load } from '../controller.js';
 import { EditTask } from '../controller.js';
+import { EditProject } from '../controller.js';
 
 import minimize from '../view/icons/minimize.svg';
 import maximize from '../view/icons/maximize.svg';
@@ -736,9 +737,12 @@ export class Build {
                         }).build(),
                         new Element({
                             'tagname': 'button',
+                            'class':'toggle-edit-project',
+                            'event-listeners':{'click':EditProject.toggleComponents},
                             'children': [
                                 new Element({
                                     'tagname': 'img',
+                                    'class':'edit-project',
                                     'src': edit,
                                     'alt': 'edit',
                                 }).build(),

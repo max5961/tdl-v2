@@ -277,8 +277,6 @@ export class Load {
     }
 
     static createTaskElement(task) {
-        // need to edit the html class names on this. Priority circle doesn't make sense anymore
-        // Should also consider removing the parent div element of the img;
         const taskElement = Build.taskItem(task);
         const priorityNode = findNode(taskElement, 'priority-circle-img');
         if (task.priority === 'unset') {
@@ -424,6 +422,7 @@ export class AddNew {
                 modal.remove();
             } else {
                 window.alert('That name is already chosen!');
+                return;
             }
         }
 
@@ -461,7 +460,8 @@ export class AddNew {
                 project.addTask(name, notes);
                 modal.remove();
             } else {
-                window.alert('That task name has already been chosen!')
+                window.alert('That task name has already been chosen!');
+                return;
             }
         }
 
@@ -522,7 +522,7 @@ export class Navigation {
     }
 
     static getClassName(node) {
-        // get the parent element in case click inside of child node
+        // get the parent element in case target is inside of child node
         while (node.nodeName !== 'BUTTON') {
             node = node.parentNode;
         }
@@ -802,8 +802,32 @@ export class EditTask {
 }
 
 export class EditProject {
-    static insertComponents() {
-        document.querySelector('span.name').replaceWith();
-        document.querySelector('button').replaceWith();        
+    static toggleComponents() {
+        const project = collection.getProject(userSettings.currentProject);
+
+        document.querySelector('button.toggle-edit-project').classList.toggle('true');
+        const toggleBoolean = document.querySelector('.toggle-edit-project.true')
+
+        if (toggleBoolean) {
+            const nameInput = document.createElement('input');
+            nameInput.setAttribute('type','text');
+            nameInput.classList.add('edit-project-name');
+            nameInput.value = `${project.name}`;
+            const descriptionTextArea = document.createElement('textarea');
+            descriptionTextArea.classList.add('edit-project-description');
+            descriptionTextArea.value = `${project.desc}`;
+            const cancelImage = document.createElement('img');
+            cancelImage.classList.add('cancel-edit-project');
+            cancelImage.setAttribute('item-id', `${project._id}`);
+            cancelImage.src = cancel;
+    
+            document.querySelector('header.single-project-header span.name').replaceWith(nameInput);
+            document.querySelector('.project-description-container p.description-content').replaceWith(descriptionTextArea);
+            document.querySelector('header.single-project-header img.edit-project').replaceWith(cancelImage);
+        }
+
+        else if (!toggleBoolean) {
+            
+        }  
     }
 }

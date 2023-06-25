@@ -286,7 +286,8 @@
     left: 65px;
     bottom: -10px;
 }
-.single-project header span.name {
+.single-project header span.name,
+.single-project header input[type="text"] {
     position: absolute;
     left: 112px;
     bottom: 2px;
@@ -327,6 +328,14 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
+}
+/* edit single project */
+.single-project header input[type="text"] {
+    border: 2px solid orange;
+    left: 119px;
+}
+.single-project textarea.edit-project-description {
+    border: 2px solid orange;
 }
 
 /* edit task */
