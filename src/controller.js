@@ -802,7 +802,7 @@ export class EditTask {
 }
 
 export class EditProject {
-    static toggleComponents() {
+    static toggleComponents(e) {
         const project = collection.getProject(userSettings.currentProject);
 
         document.querySelector('button.toggle-edit-project').classList.toggle('true');
@@ -813,21 +813,42 @@ export class EditProject {
             nameInput.setAttribute('type','text');
             nameInput.classList.add('edit-project-name');
             nameInput.value = `${project.name}`;
+
             const descriptionTextArea = document.createElement('textarea');
             descriptionTextArea.classList.add('edit-project-description');
             descriptionTextArea.value = `${project.desc}`;
+
             const cancelImage = document.createElement('img');
             cancelImage.classList.add('cancel-edit-project');
             cancelImage.setAttribute('item-id', `${project._id}`);
             cancelImage.src = cancel;
+
+            const saveChanges = document.createElement('button');
+            saveChanges.classList.add('save-project-changes');
+            saveChanges.setAttribute('item-id', `${project._id}`);
+            saveChanges.textContent = 'SAVE CHANGES';
+            saveChanges.onclick = EditProject.saveChanges;
     
             document.querySelector('header.single-project-header span.name').replaceWith(nameInput);
             document.querySelector('.project-description-container p.description-content').replaceWith(descriptionTextArea);
             document.querySelector('header.single-project-header img.edit-project').replaceWith(cancelImage);
+            document.querySelector('.toggle-edit-project').insertAdjacentElement('beforebegin', saveChanges);
         }
 
         else if (!toggleBoolean) {
-            
+            Load.singleProjectPage(e);
         }  
+    }
+
+    static saveChanges(e) {
+        const nameInput = document.querySelector('input.edit-project-name');
+        const descriptionInput = document.querySelector('textarea.edit-project-description');
+
+        const project = collection.getProject(userSettings.currentProject);
+        project.name = nameInput.value;
+        project.desc = descriptionInput.value;
+        Storage.updateLocalStorage(collection);
+
+        Load.singleProjectPage(e);
     }
 }
