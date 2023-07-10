@@ -180,4 +180,10 @@
     .display .projects-container {
         justify-content: center;
     }
+
+    .display .delete-queue-message {
+        height: 0;
+        width: 0;
+        overflow: hidden;
+    }
 }
