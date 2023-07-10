@@ -9,6 +9,8 @@
         width: 100%;
     }
 }
+
+/* for header logo */
 @media screen and (max-width: 790px) {
     header .logo h2 {
         font-size: .8rem;
@@ -25,6 +27,57 @@
     }
 }
 
+@media screen and (max-width: 750px) {
+    body #content > * {
+        font-size: 0.85em;
+    }
+    /* task display */
+    .item.task .item-container {
+        padding-top: 19px;
+    }
+    .item.task .top-content {
+        gap: 30px;
+        flex-direction: column;
+        align-items: flex-start;
+        justify-content: flex-start;
+        height: auto;
+    }
+    .item.task .top-content .right-container {
+        justify-content: flex-end;
+        flex-direction: row-reverse;
+        gap: 25px;
+        width: 100%;
+    }
+    .item.task button.edit-task {
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+    /* edit task page */
+    .edit-task header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+    }
+        .edit-task header .buttons-container {
+            display: flex;
+            flex-direction:column-reverse;
+            justify-content: space-between;
+            gap: 10px;
+        }
+        .edit-task button.back-button {
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+    .edit-task .edit-priority-container ul {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
+}
+
+/* for header logo */
 @media screen and (max-width: 680px) {
     header .logo h2 {
         font-size: .7rem;
@@ -37,24 +90,7 @@
     header .new-project-button-header h3{
         white-space: nowrap;
     }
-    .edit-task .edit-priority-container ul {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-    }
-    .edit-task .bottom-content-container {
-        display: flex;
-        flex-direction: row;
-    }
-    .edit-task input[type="date"] {
-        height: 100%;
-    }
-    .edit-task .edit-date-container img {
-        position: absolute;
-        top: 80px;
-        right: 20px;
-        padding: 0;
-    }
+    
 }
 
 @media screen and (max-width: 600px) {
@@ -132,13 +168,13 @@
         overflow: auto;
     }
 
-    .new-project-modal form {
+    .add-new-modal form {
         padding-left: 10px;
         padding-right: 10px;
         width: 90vw;
     }
-    .new-project-modal button.cancel,
-    .new-project-modal button[type=submit] {
+    .add-new-modal button.cancel,
+    .add-new-modal button[type=submit] {
         width: 115px;
     }
     .display .projects-container {
